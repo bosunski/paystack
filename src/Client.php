@@ -4,7 +4,11 @@ namespace Xeviant\Paystack;
 
 
 use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\Plugin\HistoryPlugin;
+use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
+use Http\Discovery\UriFactoryDiscovery;
 use Xeviant\Paystack\HttpClient\Builder;
 use Xeviant\Paystack\HttpClient\Plugin\HeaderDefaultsPlugin;
 use Xeviant\Paystack\HttpClient\Plugin\History;
@@ -30,6 +34,9 @@ class Client
 		$this->responseHistory = new History();
 		$this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
 
+		$builder->addPlugin(new HistoryPlugin($this->responseHistory));
+		$builder->addPlugin(new RedirectPlugin());
+		$builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
 		$builder->addPlugin(new HeaderDefaultsPlugin([]));
 
 		$this->apiVersion = $apiVersion ?: 'v1';
