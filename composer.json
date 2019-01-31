@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": "^7.1.3",
         "psr/http-message": "^1.0",
         "psr/cache": "^1.0",
         "php-http/httplug": "^2.0",
@@ -19,10 +20,14 @@
         "php-http/cache-plugin": "^1.6@dev"
     },
     "autoload": {
-        "psr-4": { "Xeviant\\Paystack\\": "src/" }
+        "psr-4": {
+            "Xeviant\\Paystack\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Xeviant\\Paystack\\Tests\\": "test/"}
+        "psr-4": {
+            "Xeviant\\Paystack\\Tests\\": "test/"
+        }
     },
     "prefer-stable": true,
     "require-dev": {

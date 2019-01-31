@@ -8,12 +8,11 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="php-github-api Test Suite">
-            <directory>./test/Github/</directory>
+        <testsuite name="Paystack API Test Suite">
+            <directory>./test/</directory>
         </testsuite>
     </testsuites>
 
@@ -25,7 +24,7 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">./lib/Github/</directory>
+            <directory suffix=".php">./src/</directory>
         </whitelist>
     </filter>
 </phpunit>
