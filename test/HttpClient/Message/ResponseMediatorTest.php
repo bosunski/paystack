@@ -21,6 +21,7 @@ namespace Xeviant\Paystack\Test\HttpClient;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
 use PHPUnit\Framework\TestCase;
+use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 
 class ResponseMediatorTest extends TestCase
 {
@@ -30,7 +31,7 @@ class ResponseMediatorTest extends TestCase
 		$response = new Response(
 			200,
 			['Content-Type' => 'application/json'],
-			stream_for(\GuzzleHttp\json_encode($body))
+			stream_for(json_encode($body))
 		);
 
 		$this->assertEquals($body, ResponseMediator::getContent($response));
