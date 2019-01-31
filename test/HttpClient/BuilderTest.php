@@ -41,4 +41,28 @@ final class BuilderTest extends TestCase
 
 		$client->addHeaders($headers);
 	}
+
+	/**
+	 * @test
+	 */
+	public function appendingHeaderShouldAddAndRemovePlugin()
+	{
+		$expectedHeaders = [
+			'Accept' => 'application/json',
+		];
+
+		$client = $this->getMockBuilder(Builder::class)
+		               ->setMethods(['removePlugin', 'addPlugin'])
+		               ->getMock();
+
+		$client->expects($this->once())
+		       ->method('removePlugin')
+		       ->with(HeaderAppendPlugin::class);
+
+		$client->expects($this->once())
+		       ->method('addPlugin')
+		       ->with(new HeaderAppendPlugin($expectedHeaders));
+
+		$client->addHeaderValue('Accept', 'application/json');
+	}
 }

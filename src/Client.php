@@ -17,6 +17,11 @@ class Client
 	 */
 	private $httpClientBuilder;
 
+	/**
+	 * @var string
+	 */
+	private $apiVersion;
+
 	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null)
 	{
 		$this->responseHistory = new History();
@@ -24,5 +29,18 @@ class Client
 
 		$this->apiVersion = $apiVersion ?: 'v1';
 		$builder->addHeaderValue('Accept', sprintf('application/json'));
+	}
+
+	public function getHttpClient()
+	{
+		return $this->getHttpClientBuilder()->getHttpClient();
+	}
+
+	/**
+	 * @return Builder
+	 */
+	protected function getHttpClientBuilder()
+	{
+		return $this->httpClientBuilder;
 	}
 }

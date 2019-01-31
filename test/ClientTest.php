@@ -13,6 +13,6 @@ final class ClientTest extends TestCase
 	{
 		$client = new Client();
 
-		$this->assertInstanceOf(HttpClient::class, $client);
+		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
 	}
 }
