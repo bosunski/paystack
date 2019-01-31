@@ -36,4 +36,50 @@ class ResponseMediatorTest extends TestCase
 
 		$this->assertEquals($body, ResponseMediator::getContent($response));
 	}
+
+	public function testGetContentNotJSON()
+	{
+		$body = 'foobar';
+		$response = new Response(
+			200,
+			[],
+			stream_for($body)
+		);
+
+		$this->assertEquals($body, ResponseMediator::getContent($response));
+	}
+
+	public function testGetContentInvalidJSON()
+	{
+		$body = 'foobar';
+		$response = new Response(
+			200,
+			['Content-Type' => 'application/json'],
+			stream_for($body)
+		);
+
+		$this->assertEquals($body, ResponseMediator::getContent($response));
+	}
+
+	public function testGetHeader()
+	{
+		$header = 'application/json';
+		$response = new Response(
+			200,
+			['Content-Type' => $header]
+		);
+
+		$this->assertEquals($header, ResponseMediator::getHeader($response, 'content-type'));
+	}
+
+	public function testGetApiLimit()
+	{
+		$header = 5000;
+		$response = new Response(
+			429,
+			['X-RateLimit-Remaining' => $header]
+		);
+
+		$this->assertEquals($header, ResponseMediator::getApiLimit($response));
+	}
 }

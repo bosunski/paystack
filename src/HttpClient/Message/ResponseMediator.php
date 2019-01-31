@@ -19,6 +19,7 @@ namespace Xeviant\Paystack\HttpClient\Message;
 
 
 use Psr\Http\Message\ResponseInterface;
+use Xeviant\Paystack\Exception\ApiLimitExceededException;
 
 class ResponseMediator
 {
@@ -39,5 +40,28 @@ class ResponseMediator
 		}
 
 		return $body;
+	}
+
+	/**
+	 * @param ResponseInterface $response
+	 * @param                   $name
+	 *
+	 * @return mixed
+	 */
+	public static function getHeader(ResponseInterface $response, $name)
+	{
+		$headers = $response->getHeader($name);
+
+		return array_shift($headers);
+	}
+
+	public static function getApiLimit(ResponseInterface $response)
+	{
+		$remainingCalls = self::getHeader($response, 'X-RateLimit-Remaining');
+		if (null !== $remainingCalls && 1 > $remainingCalls) {
+			throw new ApiLimitExceededException($remainingCalls);
+		}
+
+		return $remainingCalls;
 	}
 }
