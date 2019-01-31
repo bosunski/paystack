@@ -15,4 +15,16 @@ final class ClientTest extends TestCase
 
 		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
 	}
+
+	/**
+	 * @test
+	 */
+	public function shouldPassHttpClientInterfaceToConstructor()
+	{
+		$httpClientMock = $this->getMockBuilder(HttpClient::class)->getMock();
+
+		$client = Client::createWithHttpClient($httpClientMock);
+
+		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
+	}
 }

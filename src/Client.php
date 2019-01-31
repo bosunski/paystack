@@ -3,6 +3,8 @@
 namespace Xeviant\Paystack;
 
 
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\HttpClient;
 use Xeviant\Paystack\HttpClient\Builder;
 use Xeviant\Paystack\HttpClient\Plugin\History;
 
@@ -31,7 +33,22 @@ class Client
 		$builder->addHeaderValue('Accept', sprintf('application/json'));
 	}
 
-	public function getHttpClient()
+	/**
+	 * @param HttpClient $httpClient
+	 *
+	 * @return Client
+	 */
+	public static function createWithHttpClient(HttpClient $httpClient): Client
+	{
+		$builder = new Builder($httpClient);
+
+		return new self($builder);
+	}
+
+	/**
+	 * @return \Http\Client\Common\HttpMethodsClient
+	 */
+	public function getHttpClient(): HttpMethodsClient
 	{
 		return $this->getHttpClientBuilder()->getHttpClient();
 	}
