@@ -6,6 +6,7 @@ namespace Xeviant\Paystack;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
 use Xeviant\Paystack\HttpClient\Builder;
+use Xeviant\Paystack\HttpClient\Plugin\HeaderDefaultsPlugin;
 use Xeviant\Paystack\HttpClient\Plugin\History;
 
 class Client
@@ -28,6 +29,8 @@ class Client
 	{
 		$this->responseHistory = new History();
 		$this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
+
+		$builder->addPlugin(new HeaderDefaultsPlugin([]));
 
 		$this->apiVersion = $apiVersion ?: 'v1';
 		$builder->addHeaderValue('Accept', sprintf('application/json'));
