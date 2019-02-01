@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Xeviant\Paystack\Exception\ApiLimitExceededException;
+use Xeviant\Paystack\Exception\ErrorException;
 use Xeviant\Paystack\Exception\ExceptionInterface;
 use Xeviant\Paystack\HttpClient\Plugin\PaystackExceptionThrower;
 
@@ -93,7 +94,38 @@ final class PaystackExceptionThrowerTest extends TestCase
 				),
 				'exception' => new ApiLimitExceededException(5000)
 			],
-
+			'400 Bad Request' => [
+				'response' => new Response(
+					400,
+					[
+						'Content-Type' => 'application/json',
+					],
+					json_encode(['message' => 'Bad Request'])
+				),
+				'exception' => new ErrorException('Bad Request', 400),
+			],
+			'422 Unprocessable Entity' => [
+				'response' => new Response(
+					422,
+					[
+						'Content-Type' => 'application/json',
+					],
+					json_encode(
+						[
+							'message' => 'Bad Request',
+							'errors' => [
+								[
+									'code' => 'missing',
+									'field' => 'field',
+									'value' => 'value',
+									'resource' => 'resource',
+								],
+							],
+						]
+					)
+				),
+				'exception' => new ErrorException('Validation Failed: The field value does not exist, for resource "resource"', 422),
+			]
 		];
 	}
 }
