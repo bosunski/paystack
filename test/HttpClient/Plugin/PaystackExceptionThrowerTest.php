@@ -4,6 +4,7 @@ namespace Xeviant\Paystack\Test\HttpClient\Plugin;
 
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Response;
+use Http\Promise\Promise;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,16 +36,20 @@ final class PaystackExceptionThrowerTest extends TestCase
 	 * @dataProvider responseProvider
 	 * @throws \ReflectionException
 	 */
-	public function testHandlerRequest(ResponseInterface $response, ExceptionInterface $exception = null)
+	public function testHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
 	{
 		$request = $this->getMockForAbstractClass(RequestInterface::class);
 
-		$promise = $this->getMockBuilder(FulfilledPromise::class)->disableOriginalConstructor()->getMock();
+		$promise = $this
+			->getMockBuilder(Promise::class)
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
 		$promise->expects(self::once())
 			->method('then')
 			->willReturnCallback(function ($callback) use ($response) {
 				return $callback($response);
-			});
+		});
 
 		$plugin = new PaystackExceptionThrower();
 
@@ -80,7 +85,7 @@ final class PaystackExceptionThrowerTest extends TestCase
 					429,
 					[
 						'Content-Type' => 'application/json',
-						'X-RateLimit-Remaining' => 0,
+						'X-RateLimit-Remaining' => 100,
 						'X-RateLimit-Limit' => 5000,
 					],
 					''

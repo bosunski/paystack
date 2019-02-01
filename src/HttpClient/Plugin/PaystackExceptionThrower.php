@@ -24,6 +24,8 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Xeviant\Paystack\Exception\ApiLimitExceededException;
 use Xeviant\Paystack\Exception\ErrorException;
+use Xeviant\Paystack\Exception\RuntimeException;
+use Xeviant\Paystack\Exception\ValidationFailedException;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 
 class PaystackExceptionThrower implements Plugin
@@ -44,7 +46,7 @@ class PaystackExceptionThrower implements Plugin
 	{
 		return $next($request)->then(function (ResponseInterface $response) use ($request) {
 			if ($response->getStatusCode() < 400 || $response->getStatusCode() > 600) {
-				return $response;
+				return $this->convertResponseToPromise($response, $request);
 			}
 
 			$remaining = ResponseMediator::getHeader($response, 'X-RateLimit-Remaining');
@@ -95,6 +97,28 @@ class PaystackExceptionThrower implements Plugin
 					throw new ValidationFailedException('Validation Failed: ' . implode(', ', $errors), 422);
 				}
 			}
+
+			if (502 == $response->getStatusCode() && isset($content['errors']) && is_array($content['errors'])) {
+				$errors = [];
+				foreach ($content['errors'] as $error) {
+					if (isset($error['message'])) {
+						$errors[] = $error['message'];
+					}
+				}
+
+				throw new RuntimeException(implode(', ', $errors), 502);
+			}
+
+			throw new RuntimeException(isset($content['message']) ? $content['message'] : $content, $response->getStatusCode());
 		});
+	}
+
+	protected function convertResponseToPromise(ResponseInterface $response, $request)
+	{
+		$promise = new \GuzzleHttp\Promise\Promise(function () use (&$promise, $response) {
+			$promise->resolve($response);
+		});
+
+		return new \Http\Adapter\Guzzle6\Promise($promise, $request);
 	}
 }
