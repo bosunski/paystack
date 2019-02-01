@@ -21,6 +21,7 @@ namespace Xeviant\Paystack\Test\HttpClient;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
 use PHPUnit\Framework\TestCase;
+use Xeviant\Paystack\Exception\ApiLimitExceededException;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 
 class ResponseMediatorTest extends TestCase
@@ -81,5 +82,16 @@ class ResponseMediatorTest extends TestCase
 		);
 
 		$this->assertEquals($header, ResponseMediator::getApiLimit($response));
+	}
+
+	public function testExceptionIsThrownWhenApiLimitIsExceeded()
+	{
+		$this->expectException(ApiLimitExceededException::class);
+		$header = 0;
+		$response = new Response(
+			429,
+			['X-RateLimit-Remaining' => $header]
+		);
+		ResponseMediator::getApiLimit($response);
 	}
 }

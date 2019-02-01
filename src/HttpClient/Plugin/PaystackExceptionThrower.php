@@ -22,6 +22,9 @@ use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Xeviant\Paystack\Exception\ApiLimitExceededException;
+use Xeviant\Paystack\Exception\ErrorException;
+use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 
 class PaystackExceptionThrower implements Plugin
 {
@@ -44,8 +47,54 @@ class PaystackExceptionThrower implements Plugin
 				return $response;
 			}
 
-			return null;
-//			$remaining = ResponseMe
+			$remaining = ResponseMediator::getHeader($response, 'X-RateLimit-Remaining');
+			if (null != $remaining && 1 > $remaining && 'rate_limit' !== substr($request->getRequestTarget(), 1, 10)) {
+				$limit = ResponseMediator::getHeader($response, 'X-RateLimit-Limit');
+				$reset = ResponseMediator::getHeader($response, 'X-RateLimit-Reset');
+
+				throw new ApiLimitExceededException($limit, $reset);
+			}
+
+
+			$content = ResponseMediator::getContent($response);
+
+			if (is_array($content) && isset($content['message'])) {
+				if (400 == $response->getStatusCode()) {
+					throw new ErrorException($content['message'], 400);
+				} elseif (422 == $response->getStatusCode() && isset($content['errors'])) {
+					$errors = [];
+
+					foreach ($content['errors'] as $error) {
+						switch ($error['code']) {
+							case 'missing':
+								$errors[] = sprintf('The %s %s does not exist, for resource "%s"', $error['field'], $error['value'], $error['resource']);
+								break;
+
+							case 'missing_field':
+								$errors[] = sprintf('Field "%s" is missing, for resource "%s"', $error['field'], $error['resource']);
+								break;
+
+							case 'invalid':
+								if (isset($error['message'])) {
+									$errors[] = sprintf('Field "%s" is invalid, for resource "%s": "%s"', $error['field'], $error['resource'], $error['message']);
+								} else {
+									$errors[] = sprintf('Field "%s" is invalid, for resource "%s"', $error['field'], $error['resource']);
+								}
+								break;
+
+							case 'already_exists':
+								$errors[] = sprintf('Field "%s" already exists, for resource "%s"', $error['field'], $error['resource']);
+								break;
+
+							default:
+								$errors[] = $error['message'];
+								break;
+						}
+					}
+
+					throw new ValidationFailedException('Validation Failed: ' . implode(', ', $errors), 422);
+				}
+			}
 		});
 	}
 }
