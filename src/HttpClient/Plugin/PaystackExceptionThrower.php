@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\HttpClient\Plugin;
 
 
+use GuzzleHttp\Promise\Promise as GuzzlePromise;
 use Http\Adapter\Guzzle6\Promise as AdaptedPromise;
 use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
@@ -116,7 +117,7 @@ class PaystackExceptionThrower implements Plugin
 
 	protected function convertResponseToPromise(ResponseInterface $response, $request)
 	{
-		$promise = new \GuzzleHttp\Promise\Promise(function () use (&$promise, $response) {
+		$promise = new GuzzlePromise(function () use (&$promise, $response) {
 			$promise->resolve($response);
 		});
 
