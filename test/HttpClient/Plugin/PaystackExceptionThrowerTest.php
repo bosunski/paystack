@@ -8,6 +8,7 @@ use Http\Promise\Promise;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Xeviant\Paystack\Exception\ApiLimitExceededException;
 use Xeviant\Paystack\Exception\ExceptionInterface;
 use Xeviant\Paystack\HttpClient\Plugin\PaystackExceptionThrower;
 
@@ -56,7 +57,7 @@ final class PaystackExceptionThrowerTest extends TestCase
 		if ($exception) {
 			$this->expectException(get_class($exception));
 			$this->expectExceptionCode($exception->getCode());
-			$this->expectExceptionCode($exception->getMessage());
+			$this->expectExceptionMessage($exception->getMessage());
 		}
 
 		$plugin->handleRequest(
@@ -85,13 +86,14 @@ final class PaystackExceptionThrowerTest extends TestCase
 					429,
 					[
 						'Content-Type' => 'application/json',
-						'X-RateLimit-Remaining' => 100,
+						'X-RateLimit-Remaining' => 0,
 						'X-RateLimit-Limit' => 5000,
 					],
 					''
 				),
-				'exception' => null
+				'exception' => new ApiLimitExceededException(5000)
 			],
+
 		];
 	}
 }
