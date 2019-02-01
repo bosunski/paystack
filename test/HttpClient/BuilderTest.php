@@ -1,6 +1,6 @@
 <?php
 
-namespace Xeviant\Paystack\Test\HttpClient;
+namespace Xeviant\Paystack\Tests\HttpClient;
 
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use PHPUnit\Framework\TestCase;

@@ -4,11 +4,16 @@ namespace Xeviant\Paystack;
 
 
 use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
+use Xeviant\Paystack\Api\Customer;
+use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Exception\BadMethodCallException;
+use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
 use Xeviant\Paystack\HttpClient\Plugin\HeaderDefaultsPlugin;
 use Xeviant\Paystack\HttpClient\Plugin\History;
@@ -56,9 +61,9 @@ class Client
 	}
 
 	/**
-	 * @return \Http\Client\Common\HttpMethodsClient
+	 * @return \Http\Client\Common\HttpMethodsClientInterface
 	 */
-	public function getHttpClient(): HttpMethodsClient
+	public function getHttpClient(): HttpMethodsClientInterface
 	{
 		return $this->getHttpClientBuilder()->getHttpClient();
 	}
@@ -66,8 +71,38 @@ class Client
 	/**
 	 * @return Builder
 	 */
-	protected function getHttpClientBuilder()
+	protected function getHttpClientBuilder(): Builder
 	{
 		return $this->httpClientBuilder;
 	}
+
+	/**
+	 * Gets the API Instance
+	 *
+	 * @param $name
+	 *
+	 * @return ApiInterface
+	 */
+	public function api($name): ApiInterface
+	{
+		switch ($name) {
+			case 'customer':
+				$api = new Customer($this);
+				break;
+			default:
+				throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
+		}
+
+		return $api;
+	}
+
+	public function __call($name, $arguments): ApiInterface
+	{
+		try {
+			return $this->api($name);
+		} catch (InvalidArgumentException $e) {
+			throw new BadMethodCallException(sprintf('Undefined method called: "%s', $name));
+		}
+	}
+
 }

@@ -2,7 +2,6 @@
 
 namespace Xeviant\Paystack\Test\HttpClient\Plugin;
 
-use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Response;
 use Http\Promise\Promise;
 use PHPUnit\Framework\TestCase;
