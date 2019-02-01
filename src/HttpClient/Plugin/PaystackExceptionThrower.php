@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\HttpClient\Plugin;
 
 
+use Http\Adapter\Guzzle6\Promise as AdaptedPromise;
 use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
@@ -119,6 +120,6 @@ class PaystackExceptionThrower implements Plugin
 			$promise->resolve($response);
 		});
 
-		return new \Http\Adapter\Guzzle6\Promise($promise, $request);
+		return new AdaptedPromise($promise, $request);
 	}
 }
