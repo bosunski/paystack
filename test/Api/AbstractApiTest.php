@@ -37,7 +37,7 @@ class AbstractApiTest extends ApiTestCase
 		$httpClient->expects($this->any())
 			->method('get')
 			->with('/path?param1=param1value', ['header1' => 'header1value'])
-			->will($this->returnValue($this->getPSR7Response($expectedArray)));
+			->willReturn($this->getPSR7Response($expectedArray));
 
 		$client = $this->getMockBuilder(Client::class)
 			->setMethods(['getHttpClient'])
@@ -59,7 +59,27 @@ class AbstractApiTest extends ApiTestCase
 	 */
 	public function shouldPassPOSTRequestToClient()
 	{
+		$expectedResult = ['value'];
 
+		$httpClient = $this->getHttpMethodsMock(['post']);
+		$httpClient->expects($this->once())
+			->method('post')
+			->with('/path', ['option1' => 'option1value'], json_encode(['param1' => 'param1value']))
+			->willReturn($this->getPSR7Response($expectedResult));
+
+		$client = $this->getMockBuilder(Client::class)
+			->setMethods(['getHttpClient'])
+			->getMock();
+
+		$client->expects($this->any())
+			->method('getHttpClient')
+			->willReturn($httpClient);
+
+		$api = $this->getAbstractApiObject($client);
+		$actual = $this->getMethod($api, 'post')
+			->invokeArgs($api, ['/path', ['param1' => 'param1value'], ['option1' => 'option1value']]);
+
+		$this->assertEquals($expectedResult, $actual);
 	}
 
 
