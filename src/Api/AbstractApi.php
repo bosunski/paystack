@@ -87,6 +87,17 @@ abstract class AbstractApi implements ApiInterface
 		return ResponseMediator::getContent($response);
 	}
 
+	protected function delete(string $path, array $parameters = [], array $requestHeader = [])
+	{
+		$response = $this->client->getHttpClient()->delete(
+			$path,
+			$requestHeader,
+			$this->createJsonBody($parameters)
+		);
+
+		return ResponseMediator::getContent($response);
+	}
+
 	protected function post($path, array $parameters = [], array $requestHeaders = [])
 	{
 		return $this->postRaw(

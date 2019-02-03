@@ -139,7 +139,33 @@ class AbstractApiTest extends ApiTestCase
 		$this->assertEquals($expectedValue, $actual);
 	}
 
+	/**
+	 * @test
+	 * @throws \ReflectionException
+	 */
+	public function shouldPassDELETERequest()
+	{
+		$expectedValue = ['value'];
 
+		$httpClient = $this->getHttpMethodsMock(['delete']);
+		$httpClient->expects(self::once())
+			->method('delete')
+			->with('/path', ['option1' => 'option1value'], json_encode(['param1' => 'param1value']))
+			->willReturn($this->getPSR7Response($expectedValue));
+
+		$client = $this->getMockBuilder(Client::class)
+			->setMethods(['getHttpClient'])
+			->getMock();
+		$client->expects(self::any())
+			->method('getHttpClient')
+			->willReturn($httpClient);
+
+		$api = $this->getAbstractApiObject($client);
+		$actual = $this->getMethod($api, 'delete')
+			->invokeArgs($api, ['/path', ['param1' => 'param1value'], ['option1' => 'option1value']]);
+
+		$this->assertEquals($expectedValue, $actual);
+	}
 
 
 	public function getHttpMethodsMock(array $methods = [])
