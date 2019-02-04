@@ -41,7 +41,7 @@ class RequiredParameterTest extends TestCase
 	public function testShouldSetAndGetRequiredParameters(): void
 	{
 		$requiredParameters = collect(['name', 'email']);
-		$this->required->setParameters($requiredParameters);
+		$this->required->setRequiredParameters($requiredParameters);
 
 		$this->assertEquals($requiredParameters, $this->required->getRequiredParameters());
 	}
@@ -53,7 +53,7 @@ class RequiredParameterTest extends TestCase
 	public function testShouldThrowExceptionWhenRequiredParameterIsMissing()
 	{
 		$values = ['name' => 'Bosun'];
-		$this->required->setParameters(collect(['email']));
+		$this->required->setRequiredParameters(collect(['email']));
 		$this->required->checkParameters($values);
 	}
 
@@ -63,7 +63,7 @@ class RequiredParameterTest extends TestCase
 	public function testShouldNotThrowExceptionWhenRequiredParameterIsPresent(): void
 	{
 		$values = ['name' => 'Bosun'];
-		$this->required->setParameters(collect(['name']));
+		$this->required->setRequiredParameters(collect(['name']));
 		$this->assertTrue($this->required->checkParameters($values));
 	}
 }

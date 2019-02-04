@@ -20,22 +20,56 @@ namespace Xeviant\Paystack\Api;
 
 class Customer extends AbstractApi
 {
+	const BASE_PATH = '/customer';
+
 	public function show($email)
 	{
-		return $this->get('/customer/' . $email);
+		return $this->get(self::BASE_PATH . DIRECTORY_SEPARATOR . $email);
 	}
 
 	public function list()
 	{
-		return $this->get('/customer');
+		return $this->get(self::BASE_PATH);
 	}
 
-	public function create(array $params)
+	public function create(array $parameters)
 	{
-		$this->required->setParameters(['email']);
+		$this->required->setRequiredParameters(['email']);
 
-		if ($this->required->checkParameters($params)) {
-			return $this->post('/customer', $params);
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH, $parameters);
 		}
+	}
+
+	public function whitelist(array $parameters)
+	{
+		$this->required->setRequiredParameters(['customer']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
+		}
+	}
+
+	public function blacklist(array $parameters)
+	{
+		$this->required->setRequiredParameters(['customer']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
+		}
+	}
+
+	public function deactivateAuthorization(array $parameters)
+	{
+		$this->required->setRequiredParameters(['authorization_code']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'deactivate_authorization', $parameters);
+		}
+	}
+
+	public function update($customerId, array $parameters)
+	{
+		return $this->put(self::BASE_PATH . DIRECTORY_SEPARATOR. $customerId, $parameters);
 	}
 }

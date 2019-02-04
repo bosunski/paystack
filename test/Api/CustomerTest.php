@@ -62,14 +62,84 @@ class CustomerTest extends ApiTestCase
 	public function shouldCreateCustomer(): void
 	{
 		$expectedResult = ['data' => ['email' => 'email@example.com']];
+		$input = $expectedResult['data'];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 			->method('post')
-			->with('/customer')
+			->with('/customer', $input)
 			->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->create($expectedResult['data']));
+		$this->assertEquals($expectedResult, $api->create($input));
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldUpdateCustomer(): void
+	{
+		$input = ['first_name' => 'Example Name'];
+		$expectedResult = ['data' => ['first_name' => 'Example Name']];
+		$customerId = 'email@example.com';
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('put')
+			->with("/customer/$customerId", $input)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->update($customerId, $input));
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldWhiteListCustomer()
+	{
+		$input = ['customer' => 'CUS_xbxb', 'risk_action' => 'allow'];
+		$expectedResult = ['data' => ['first_name' => 'Example Name']];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('post')
+			->with('/customer/set_risk_action', $input)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->whitelist($input));
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldBlackListCustomer()
+	{
+		$input = ['customer' => 'CUS_xbxb', 'risk_action' => 'deny'];
+		$expectedResult = ['data' => ['first_name' => 'Example Name']];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('post')
+			->with('/customer/set_risk_action', $input)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->blacklist($input));
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldDeactivateAuthorization()
+	{
+		$input = ["authorization_code" => "AUTH_au6hc0de"];
+		$expectedResult = ['status' => true, 'message' => 'Authorization has been disabled'];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('post')
+			->with('/customer/deactivate_authorization', $input)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->deactivateAuthorization($input));
 	}
 
 	/**
