@@ -10,7 +10,7 @@
  * @version         2.0
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
- * @copyright   (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link            https://github.com/bosunski/paystack
  *
  */
