@@ -95,6 +95,12 @@ class Client
 		return $api;
 	}
 
+	/**
+	 * @param $name
+	 * @param $arguments
+	 *
+	 * @return ApiInterface
+	 */
 	public function __call($name, $arguments): ApiInterface
 	{
 		try {
