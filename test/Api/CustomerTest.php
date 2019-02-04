@@ -18,7 +18,6 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-use phpDocumentor\Reflection\Types\Self_;
 use Xeviant\Paystack\Api\Customer;
 
 class CustomerTest extends ApiTestCase
