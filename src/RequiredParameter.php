@@ -43,7 +43,6 @@ class RequiredParameter
 		$values = collect($values);
 
 		$this->getRequiredParameters()->each(function($requiredParam) use ($values) {
-			var_dump($values->get($requiredParam));
 			if (!$values->has($requiredParam) || !$values->get($requiredParam))
 				throw new MissingArgumentException($requiredParam);
 		});
