@@ -18,7 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-use Xeviant\Paystack\Api\Customer;
+use Xeviant\Paystack\Api\Customers;
 
 class CustomerTest extends ApiTestCase
 {
@@ -36,7 +36,7 @@ class CustomerTest extends ApiTestCase
 			->with('/customer/email@example.com')
 			->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->show('email@example.com'));
+		$this->assertEquals($expectedResult, $api->fetch('email@example.com'));
 	}
 
 	/**
@@ -148,7 +148,7 @@ class CustomerTest extends ApiTestCase
 	{
 		$api = $this->getApiMock();
 
-		$this->assertInstanceOf(Customer::class, $api);
+		$this->assertInstanceOf(Customers::class, $api);
 	}
 
 	/**
@@ -156,6 +156,6 @@ class CustomerTest extends ApiTestCase
 	 */
 	protected function getApiClass(): string
 	{
-		return Customer::class;
+		return Customers::class;
 	}
 }

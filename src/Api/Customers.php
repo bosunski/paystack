@@ -18,11 +18,11 @@
 namespace Xeviant\Paystack\Api;
 
 
-class Customer extends AbstractApi
+class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
 
-	public function show($email)
+	public function fetch($email)
 	{
 		return $this->get(self::BASE_PATH . DIRECTORY_SEPARATOR . $email);
 	}

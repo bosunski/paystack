@@ -2,7 +2,7 @@
 
 use Http\Client\HttpClient;
 use PHPUnit\Framework\TestCase;
-use Xeviant\Paystack\Api\Customer;
+use Xeviant\Paystack\Api\Customers;
 use Xeviant\Paystack\Client;
 
 final class ClientTest extends TestCase
@@ -78,7 +78,7 @@ final class ClientTest extends TestCase
 	public function getApiServiceProvider(): array
 	{
 		return [
-			['customer', Customer::class]
+			['customer', Customers::class]
 		];
 	}
 }

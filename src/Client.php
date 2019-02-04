@@ -9,7 +9,7 @@ use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
-use Xeviant\Paystack\Api\Customer;
+use Xeviant\Paystack\Api\Customers;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
@@ -86,7 +86,7 @@ class Client
 	{
 		switch ($name) {
 			case 'customer':
-				$api = new Customer($this);
+				$api = new Customers($this);
 				break;
 			default:
 				throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
