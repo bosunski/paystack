@@ -38,6 +38,30 @@ class TransactionsTest extends ApiTestCase
 
 		$this->assertEquals($expectedResult, $api->verify($reference));
 	}
+
+	/**
+	 * @test
+	 */
+	public function shouldChargeReturningCustomer()
+	{
+		$input = [
+				'amount' => 500000,
+				'email' => 'customer@email.com',
+				"reference" => '0bxco8lyc2aa0fq',
+				'authorization_code' => 'AUTH_72btv547',
+		];
+
+		$expectedResult = ['data' => ['amount' => 5000]];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('post')
+			->with('/transaction/charge_authorization', $input)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->charge($input));
+	}
+
 	/**
 	 * @test
 	 */
