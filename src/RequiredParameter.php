@@ -28,7 +28,7 @@ class RequiredParameter
 	 */
 	private $parameters;
 
-	public function setParameters(Collection $parameters): void
+	public function setParameters($parameters): void
 	{
 		$this->parameters = $parameters instanceof Collection ? $parameters : collect($parameters);
 	}

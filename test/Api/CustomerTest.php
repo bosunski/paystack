@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use phpDocumentor\Reflection\Types\Self_;
 use Xeviant\Paystack\Api\Customer;
 
 class CustomerTest extends ApiTestCase
@@ -53,6 +54,22 @@ class CustomerTest extends ApiTestCase
 			->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->list());
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldCreateCustomer(): void
+	{
+		$expectedResult = ['data' => ['email' => 'email@example.com']];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('post')
+			->with('/customer')
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->create($expectedResult['data']));
 	}
 
 	/**

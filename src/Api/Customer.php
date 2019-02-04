@@ -29,4 +29,13 @@ class Customer extends AbstractApi
 	{
 		return $this->get('/customer');
 	}
+
+	public function create(array $params)
+	{
+		$this->required->setParameters(['email']);
+
+		if ($this->required->checkParameters($params)) {
+			return $this->post('/customer', $params);
+		}
+	}
 }
