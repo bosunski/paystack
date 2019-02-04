@@ -45,7 +45,7 @@ class TransactionsTest extends ApiTestCase
 	public function shouldChargeReturningCustomer()
 	{
 		$input = [
-				'amount' => 500000,
+				'amount' => 20000,
 				'email' => 'customer@email.com',
 				"reference" => '0bxco8lyc2aa0fq',
 				'authorization_code' => 'AUTH_72btv547',
@@ -61,6 +61,31 @@ class TransactionsTest extends ApiTestCase
 
 		$this->assertEquals($expectedResult, $api->charge($input));
 	}
+
+
+	/**
+	 * @test
+	 */
+	public function shouldInitializeTransaction()
+	{
+		$input = [
+			"reference" => "7PVGX8MEk85tgeEpVDtD",
+			"amount"=> 500000,
+			"email"=> "customer@email.com"
+		];
+
+		$expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+		    ->method('post')
+		    ->with('/transaction/initialize', $input)
+		    ->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->initialize($input));
+	}
+
+
 
 	/**
 	 * @test

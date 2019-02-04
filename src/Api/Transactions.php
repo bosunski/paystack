@@ -41,4 +41,13 @@ class Transactions extends AbstractApi
 			return $this->post(self::BASE_PATH . '/charge_authorization', $parameters);
 		}
 	}
+
+	public function initialize(array $parameters)
+	{
+		$this->required->setRequiredParameters(['email', 'amount']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . '/initialize', $parameters);
+		}
+	}
 }
