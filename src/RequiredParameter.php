@@ -48,7 +48,15 @@ class RequiredParameter
 		});
 
 		return true;
+
 	}
 
+	public function checkParameter($value): bool
+	{
+		if (empty($valu) || $value === "" || null === $value) {
+			throw new MissingArgumentException($value);
+		}
 
+		return true;
+	}
 }

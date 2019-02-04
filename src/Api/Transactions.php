@@ -20,4 +20,16 @@ namespace Xeviant\Paystack\Api;
 
 class Transactions extends AbstractApi
 {
+	const BASE_PATH = '/transaction';
+
+	public function verify(string $reference)
+	{
+		$this->required->setRequiredParameters(['reference']);
+
+		if ($this->required->checkParameters(['reference' => $reference])) {
+			return $this->get(self::BASE_PATH . '/verify/' . $reference);
+		}
+
+		return true;
+	}
 }

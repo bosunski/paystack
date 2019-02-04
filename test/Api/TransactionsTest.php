@@ -25,7 +25,23 @@ class TransactionsTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldGetCustomerApiObject()
+	public function shouldVerifyTransactions()
+	{
+		$reference = 'DG4uishudoq90LD';
+		$expectedResult = ['data' => ['amount' => 50000]];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('get')
+			->with('/transaction/verify/' . $reference)
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->verify($reference));
+	}
+	/**
+	 * @test
+	 */
+	public function shouldGetTransactionsApiObject()
 	{
 		$api = $this->getApiMock();
 
