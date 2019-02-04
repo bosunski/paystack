@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @package         Paystack
- * @version         2.0
+ * @version         1.0
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
