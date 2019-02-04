@@ -18,11 +18,33 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Http\Client\HttpClient;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
+use Xeviant\Paystack\Client;
 
 abstract class ApiTestCase extends TestCase
 {
+	/**
+	 * @return string
+	 */
+	abstract protected function getApiClass(): string;
+
+	protected function getApiMock()
+	{
+		$httpClient = $this->getMockBuilder(HttpClient::class)
+			->setMethods(['sendRequest'])
+			->getMock();
+		$httpClient->expects(self::any())
+			->method('sendRequest');
+
+		$client = Client::createWithHttpClient($httpClient);
+
+		return $this->getMockBuilder($this->getApiClass())
+			->setMethods(['get', 'post', 'postRaw', 'patch', 'put', 'delete', 'head'])
+			->setConstructorArgs([$client])
+			->getMock();
+	}
 	/**
 	 * @param $object
 	 * @param $methodName

@@ -205,7 +205,7 @@ class AbstractApiTest extends ApiTestCase
 			->getMock();
 	}
 
-	protected function getApiClass()
+	protected function getApiClass(): string
 	{
 		return AbstractApi::class;
 	}

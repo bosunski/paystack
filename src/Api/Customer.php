@@ -20,4 +20,8 @@ namespace Xeviant\Paystack\Api;
 
 class Customer extends AbstractApi
 {
+	public function show($email)
+	{
+		return $this->get('/customer/' . $email);
+	}
 }
