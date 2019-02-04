@@ -24,4 +24,9 @@ class Customer extends AbstractApi
 	{
 		return $this->get('/customer/' . $email);
 	}
+
+	public function list()
+	{
+		return $this->get('/customer');
+	}
 }

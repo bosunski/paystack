@@ -39,6 +39,35 @@ class CustomerTest extends ApiTestCase
 		$this->assertEquals($expectedResult, $api->show('email@example.com'));
 	}
 
+	/**
+	 * @test
+	 */
+	public function shouldGetCustomers(): void
+	{
+		$expectedResult = ['data' => [['email' => 'email@example.com']]];
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+			->method('get')
+			->with('/customer')
+			->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->list());
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldGetCustomerApiObject(): void
+	{
+		$api = $this->getApiMock();
+
+		$this->assertInstanceOf(Customer::class, $api);
+	}
+
+	/**
+	 * @return string
+	 */
 	protected function getApiClass(): string
 	{
 		return Customer::class;
