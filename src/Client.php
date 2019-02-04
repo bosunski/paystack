@@ -3,7 +3,6 @@
 namespace Xeviant\Paystack;
 
 
-use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
