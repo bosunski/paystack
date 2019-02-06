@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -18,36 +18,55 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-class PaymentPagesTest extends ApiTestCase
+class PagesTest extends ApiTestCase
 {
+	const PATH = '/page';
+
 	/**
 	 * @test
 	 */
-	public function shouldGetPlan(): void
+	public function shouldGetPaymentPage(): void
 	{
 		$expectedResult = ['data' => ['integration' => 900713]];
-		$plan = 'PLN_x123';
+		$id = 'xb2der';
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with('/plan/' . $plan)
+		    ->with(self::PATH .'/' . $id)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($plan));
+		$this->assertEquals($expectedResult, $api->fetch($id));
 	}
 
 	/**
 	 * @test
 	 */
-	public function shouldGetPlans(): void
+	public function shouldCheckSlugAvailability(): void
+	{
+		$expectedResult = ['data' => ['message' => 'Slug is available']];
+		$slug = 'xb2der';
+
+		$api = $this->getApiMock();
+		$api->expects(self::once())
+		    ->method('get')
+		    ->with(self::PATH .'/check_slug_availability' . $slug)
+		    ->willReturn($expectedResult);
+
+		$this->assertEquals($expectedResult, $api->checkSlugAvailability($slug));
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldGetPaymentPages(): void
 	{
 		$expectedResult = ['data' => [['integration' => 900713]]];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with('/plan')
+		    ->with(self::PATH)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->list());
@@ -56,19 +75,19 @@ class PaymentPagesTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldCreatePlan(): void
+	public function shouldCreatePage(): void
 	{
 		$expectedResult = ['data' => ['integration' => 90713]];
 		$input = [
 			'name' => 'Name',
 			'amount' => 5000,
-			'interval' => 'hourly',
+			'description' => 'Description',
 		];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('post')
-		    ->with('/plan', $input)
+		    ->with(self::PATH, $input)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->create($input));
@@ -77,19 +96,19 @@ class PaymentPagesTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldUpdatePlan(): void
+	public function shouldUpdatePage(): void
 	{
 		$input = ['name' => 'Example Name 2'];
 		$expectedResult = ['data' => ['name' => 'Example Name 2']];
-		$planId = 'PLN_x123';
+		$pageId = '3x_x123';
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('put')
-		    ->with("/plan/$planId", $input)
+		    ->with(self::PATH . "/$pageId", $input)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->update($planId, $input));
+		$this->assertEquals($expectedResult, $api->update($pageId, $input));
 	}
 
 	/**
@@ -99,7 +118,7 @@ class PaymentPagesTest extends ApiTestCase
 	{
 		$api = $this->getApiMock();
 
-		self::assertInstanceOf(Plans::class, $api);
+		self::assertInstanceOf(Pages::class, $api);
 	}
 
 
@@ -108,6 +127,6 @@ class PaymentPagesTest extends ApiTestCase
 	 */
 	protected function getApiClass(): string
 	{
-		return Plans::class;
+		return Pages::class;
 	}
 }
