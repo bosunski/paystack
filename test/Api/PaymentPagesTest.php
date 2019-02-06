@@ -18,7 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-class PlansTest extends ApiTestCase
+class PaymentPagesTest extends ApiTestCase
 {
 	/**
 	 * @test
