@@ -18,9 +18,9 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-class PagesTest extends ApiTestCase
+class RefundTest extends ApiTestCase
 {
-	const PATH = '/page';
+	const PATH = '/refund';
 
 	/**
 	 * @test
@@ -28,38 +28,21 @@ class PagesTest extends ApiTestCase
 	public function shouldGetPaymentPage(): void
 	{
 		$expectedResult = ['data' => ['integration' => 900713]];
-		$id = 'xb2der';
+		$reference = 'RF_X1234';
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with(self::PATH .'/' . $id)
+		    ->with(self::PATH .'/' . $reference)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($id));
+		$this->assertEquals($expectedResult, $api->fetch($reference));
 	}
 
 	/**
 	 * @test
 	 */
-	public function shouldCheckSlugAvailability(): void
-	{
-		$expectedResult = ['data' => ['message' => 'Slug is available']];
-		$slug = 'xb2der';
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with(self::PATH .'/check_slug_availability' . $slug)
-		    ->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->checkSlugAvailability($slug));
-	}
-
-	/**
-	 * @test
-	 */
-	public function shouldGetPaymentPages(): void
+	public function shouldGetRefunds(): void
 	{
 		$expectedResult = ['data' => [['integration' => 900713]]];
 
@@ -75,13 +58,12 @@ class PagesTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldCreatePage(): void
+	public function shouldCreateRefund(): void
 	{
 		$expectedResult = ['data' => ['integration' => 90713]];
 		$input = [
-			'name' => 'Name',
+			'transaction' => '345623423h23535',
 			'amount' => 5000,
-			'description' => 'Description',
 		];
 
 		$api = $this->getApiMock();
@@ -93,23 +75,6 @@ class PagesTest extends ApiTestCase
 		$this->assertEquals($expectedResult, $api->create($input));
 	}
 
-	/**
-	 * @test
-	 */
-	public function shouldUpdatePage(): void
-	{
-		$input = ['name' => 'Example Name 2'];
-		$expectedResult = ['data' => ['name' => 'Example Name 2']];
-		$pageId = '3x_x123';
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('put')
-		    ->with(self::PATH . "/$pageId", $input)
-		    ->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->update($pageId, $input));
-	}
 
 	/**
 	 * @test
@@ -118,7 +83,7 @@ class PagesTest extends ApiTestCase
 	{
 		$api = $this->getApiMock();
 
-		self::assertInstanceOf(Pages::class, $api);
+		self::assertInstanceOf(Refund::class, $api);
 	}
 
 
@@ -127,6 +92,6 @@ class PagesTest extends ApiTestCase
 	 */
 	protected function getApiClass(): string
 	{
-		return Pages::class;
+		return Refund::class;
 	}
 }
