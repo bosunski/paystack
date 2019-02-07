@@ -18,36 +18,38 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
-class PlansTest extends ApiTestCase
+class TransferRecipientsTest extends ApiTestCase
 {
+	const PATH = '/transferrecipient';
+
 	/**
 	 * @test
 	 */
-	public function shouldGetPlan(): void
+	public function shouldDeleteTransferRecipient(): void
 	{
-		$expectedResult = ['data' => ['integration' => 900713]];
-		$plan = 'PLN_x123';
+		$expectedResult = ['message' => 'Transfer recipient set as inactive'];
+		$recipientId = 'RCP_x123';
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/plan/' . $plan)
+		    ->method('delete')
+		    ->with(self::PATH .'/' . $recipientId)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($plan));
+		$this->assertEquals($expectedResult, $api->delete($recipientId));
 	}
 
 	/**
 	 * @test
 	 */
-	public function shouldGetPlans(): void
+	public function shouldGetTransferRecipients(): void
 	{
 		$expectedResult = ['data' => [['integration' => 900713]]];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with('/plan')
+		    ->with(self::PATH)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->list());
@@ -56,19 +58,18 @@ class PlansTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldCreatePlan(): void
+	public function shouldCreateTransferRecipient(): void
 	{
-		$expectedResult = ['data' => ['integration' => 90713]];
+		$expectedResult = ['data' => ['name' => 'Name', 'type' => 'nuban']];
 		$input = [
 			'name' => 'Name',
-			'amount' => 5000,
-			'interval' => 'hourly',
+			'type' => 'nuban',
 		];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('post')
-		    ->with('/plan', $input)
+		    ->with(self::PATH, $input)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->create($input));
@@ -77,19 +78,19 @@ class PlansTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldUpdatePlan(): void
+	public function shouldUpdatePage(): void
 	{
 		$input = ['name' => 'Example Name 2'];
 		$expectedResult = ['data' => ['name' => 'Example Name 2']];
-		$planId = 'PLN_x123';
+		$recipientId = 'RCP_x123';
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('put')
-		    ->with("/plan/$planId", $input)
+		    ->with(self::PATH . "/$recipientId", $input)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->update($planId, $input));
+		$this->assertEquals($expectedResult, $api->update($recipientId, $input));
 	}
 
 	/**
@@ -99,7 +100,7 @@ class PlansTest extends ApiTestCase
 	{
 		$api = $this->getApiMock();
 
-		self::assertInstanceOf(Plans::class, $api);
+		self::assertInstanceOf(TransferRecipientsTest::class, $api);
 	}
 
 
@@ -108,6 +109,6 @@ class PlansTest extends ApiTestCase
 	 */
 	protected function getApiClass(): string
 	{
-		return Plans::class;
+		return TransferRecipientsTest::class;
 	}
 }
