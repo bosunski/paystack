@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\BulkCharges;
+
 class BulkChargesTest extends ApiTestCase
 {
 	const PATH = '/bulkcharge';
@@ -51,10 +53,10 @@ class BulkChargesTest extends ApiTestCase
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with(self::PATH .'/pause/' . $bulkChargeId)
+		    ->with(self::PATH . '/pause/' . $bulkChargeId)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($bulkChargeId));
+		$this->assertEquals($expectedResult, $api->pause($bulkChargeId));
 	}
 
 	/**
@@ -71,7 +73,7 @@ class BulkChargesTest extends ApiTestCase
 		    ->with(self::PATH .'/resume/' . $bulkChargeId)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($bulkChargeId));
+		$this->assertEquals($expectedResult, $api->resume($bulkChargeId));
 	}
 
 	/**
@@ -88,7 +90,7 @@ class BulkChargesTest extends ApiTestCase
 		    ->with(self::PATH .'/' . $bulkChargeId . '/charges')
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($bulkChargeId));
+		$this->assertEquals($expectedResult, $api->charges($bulkChargeId));
 	}
 
 	/**
@@ -127,7 +129,7 @@ class BulkChargesTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldGetTransactionsApiObject()
+	public function shouldGetBulkChargesApiObject()
 	{
 		$api = $this->getApiMock();
 

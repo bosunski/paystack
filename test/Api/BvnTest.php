@@ -33,7 +33,7 @@ class BvnTest extends ApiTestCase
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with(self::PATH .'/resolve_bvn' . $bvn)
+		    ->with(self::PATH .'/resolve_bvn/' . $bvn)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->resolve($bvn));
@@ -100,7 +100,7 @@ class BvnTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldGetTransactionsApiObject()
+	public function shouldGetBvnApiObject()
 	{
 		$api = $this->getApiMock();
 

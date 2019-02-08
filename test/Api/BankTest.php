@@ -18,9 +18,11 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Bank;
+
 class BankTest extends ApiTestCase
 {
-	const PATH = '/page';
+	const PATH = '/bank';
 
 	/**
 	 * @test
@@ -42,7 +44,7 @@ class BankTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldGetTransactionsApiObject()
+	public function shouldGetBankApiObject()
 	{
 		$api = $this->getApiMock();
 

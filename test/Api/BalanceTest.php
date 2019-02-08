@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Balance;
+
 class BalanceTest extends ApiTestCase
 {
 	const PATH = '/balance';
@@ -41,7 +43,7 @@ class BalanceTest extends ApiTestCase
 	/**
 	 * @test
 	 */
-	public function shouldGetTransactionsApiObject()
+	public function shouldGetBalanceApiObject()
 	{
 		$api = $this->getApiMock();
 

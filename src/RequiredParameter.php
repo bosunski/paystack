@@ -53,7 +53,7 @@ class RequiredParameter
 
 	public function checkParameter($value): bool
 	{
-		if (empty($valu) || $value === "" || null === $value) {
+		if (empty($value) || $value === "" || null === $value) {
 			throw new MissingArgumentException($value);
 		}
 
