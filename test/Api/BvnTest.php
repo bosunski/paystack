@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Bvn;
+
 class BvnTest extends ApiTestCase
 {
 	const PATH = '/bank';

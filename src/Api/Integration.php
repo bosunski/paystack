@@ -15,10 +15,9 @@
  *
  */
 
-namespace Xeviant\Paystack\Tests\Api;
+namespace Xeviant\Paystack\Api;
 
 
-use Xeviant\Paystack\Api\AbstractApi;
 
 class Integration extends AbstractApi
 {

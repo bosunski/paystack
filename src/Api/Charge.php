@@ -15,10 +15,8 @@
  *
  */
 
-namespace Xeviant\Paystack\Tests\Api;
+namespace Xeviant\Paystack\Api;
 
-
-use Xeviant\Paystack\Api\AbstractApi;
 
 class Charge extends AbstractApi
 {

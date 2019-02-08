@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Charge;
+
 class ChargeTest extends ApiTestCase
 {
 	const PATH = '/charge';

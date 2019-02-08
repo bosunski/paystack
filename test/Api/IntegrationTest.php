@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Integration;
+
 class IntegrationTest extends ApiTestCase
 {
 	const PATH = '/integration';
