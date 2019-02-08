@@ -22,5 +22,18 @@ class Invoices extends AbstractApi
 {
 	const BASE_PATH = '/paymentrequest';
 
-	
+	public function fetch(string $invoiceId)
+	{
+		if ($this->required->checkParameter($invoiceId)) {
+			return $this->get(self::BASE_PATH . '/' . rawurlencode($invoiceId));
+		}
+	}
+
+	public function totals(string $invoiceId)
+	{
+		if ($this->required->checkParameter($invoiceId)) {
+			return $this->get(self::BASE_PATH . '/' . rawurlencode($invoiceId));
+		}
+	}
+
 }
