@@ -69,6 +69,12 @@ class Charge extends AbstractApi
 		}
 	}
 
+	/**
+	 * @param string $reference
+	 *
+	 * @return array|string
+	 * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+	 */
 	public function checkPendingCharge(string $reference)
 	{
 		if ($this->required->checkParameter($reference)) {
