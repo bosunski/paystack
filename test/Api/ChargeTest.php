@@ -22,22 +22,22 @@ class ChargeTest extends ApiTestCase
 {
 	const PATH = '/charge';
 
-	/**
-	 * @test
-	 */
-	public function shouldGetPaymentPage(): void
-	{
-		$expectedResult = ['data' => ['integration' => 900713]];
-		$id = 'xb2der';
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with(self::PATH .'/' . $id)
-		    ->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->fetch($id));
-	}
+//	/**
+//	 * @test
+//	 */
+//	public function shouldGetPaymentPage(): void
+//	{
+//		$expectedResult = ['data' => ['integration' => 900713]];
+//		$id = 'xb2der';
+//
+//		$api = $this->getApiMock();
+//		$api->expects(self::once())
+//		    ->method('get')
+//		    ->with(self::PATH .'/' . $id)
+//		    ->willReturn($expectedResult);
+//
+//		$this->assertEquals($expectedResult, $api->fetch($id));
+//	}
 
 
 	/**
