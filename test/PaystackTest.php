@@ -20,7 +20,6 @@
 namespace Xeviant\Paystack\Test;
 
 use PHPUnit\Framework\TestCase;
-use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\Exception\RuntimeException;
 use Xeviant\Paystack\Paystack;
