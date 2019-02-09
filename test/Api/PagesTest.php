@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Pages;
+
 class PagesTest extends ApiTestCase
 {
 	const PATH = '/page';
@@ -50,7 +52,7 @@ class PagesTest extends ApiTestCase
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
-		    ->with(self::PATH .'/check_slug_availability' . $slug)
+		    ->with(self::PATH .'/check_slug_availability/' . $slug)
 		    ->willReturn($expectedResult);
 
 		$this->assertEquals($expectedResult, $api->checkSlugAvailability($slug));

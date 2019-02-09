@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Refund;
+
 class RefundTest extends ApiTestCase
 {
 	const PATH = '/refund';
