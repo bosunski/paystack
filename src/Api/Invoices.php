@@ -29,11 +29,16 @@ class Invoices extends AbstractApi
 		}
 	}
 
-	public function totals(string $invoiceId)
+	public function verify(string $invoiceId)
 	{
 		if ($this->required->checkParameter($invoiceId)) {
-			return $this->get(self::BASE_PATH . '/' . rawurlencode($invoiceId));
+			return $this->get(self::BASE_PATH . '/verify/' . rawurlencode($invoiceId));
 		}
+	}
+
+	public function totals()
+	{
+		return $this->get(self::BASE_PATH . '/totals');
 	}
 
 }
