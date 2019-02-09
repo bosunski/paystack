@@ -18,26 +18,11 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Transfers;
+
 class TransfersTest extends ApiTestCase
 {
 	const PATH = '/transfer';
-
-	/**
-	 * @test
-	 */
-	public function shouldDeleteTransferRecipient(): void
-	{
-		$expectedResult = ['message' => 'Transfer recipient set as inactive'];
-		$recipientId = 'RCP_x123';
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('delete')
-		    ->with(self::PATH .'/' . $recipientId)
-		    ->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->delete($recipientId));
-	}
 
 	/**
 	 * @test
@@ -110,10 +95,10 @@ class TransfersTest extends ApiTestCase
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('post')
-		    ->with(self::PATH, $input)
+		    ->with(self::PATH . '/bulk', $input)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->initiate($input));
+		$this->assertEquals($expectedResult, $api->bulk($input));
 	}
 
 	/**
