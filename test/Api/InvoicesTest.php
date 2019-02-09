@@ -178,6 +178,7 @@ class InvoicesTest extends ApiTestCase
 			'customer' => 'CUS_x123',
 			'due_date' => '2017-05-08',
 			'line_items' => [],
+			'amount' => 5000,
 			'description' => 'An Invoice',
 		];
 
