@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Settlements;
+
 class SettlementsTest extends ApiTestCase
 {
 
