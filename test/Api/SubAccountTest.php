@@ -10,13 +10,15 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
 
 namespace Xeviant\Paystack\Tests\Api;
 
+
+use Xeviant\Paystack\Api\SubAccount;
 
 class SubAccountTest extends ApiTestCase
 {
@@ -61,6 +63,9 @@ class SubAccountTest extends ApiTestCase
 		$expectedResult = ['data' => ['integration' => 90713]];
 		$input = [
 			'business_name' => 'Name',
+			'settlement_bank' => 'Bank',
+			'account_number' => '011123232',
+			'percentage_charge' => 10
 		];
 
 		$api = $this->getApiMock();
