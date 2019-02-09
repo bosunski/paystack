@@ -154,14 +154,13 @@ class TransactionsTest extends ApiTestCase
 	public function shouldExportTransactions(): void
 	{
 		$expectedResult = ['data' => ['path' => 'https://example.com/file.csv']];
-		$input = [];
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/transaction/export')
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->export($input));
+		$this->assertEquals($expectedResult, $api->export());
 	}
 
 	/**

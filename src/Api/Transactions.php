@@ -50,4 +50,48 @@ class Transactions extends AbstractApi
 			return $this->post(self::BASE_PATH . '/initialize', $parameters);
 		}
 	}
+
+	public function reauthorize(array $parameters)
+	{
+		$this->required->setRequiredParameters(['authorization_code', 'amount', 'email']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . '/request_reauthorization', $parameters);
+		}
+	}
+
+	public function checkAuthorization(array $parameters)
+	{
+		$this->required->setRequiredParameters(['authorization_code', 'amount', 'email']);
+
+		if ($this->required->checkParameters($parameters)) {
+			return $this->post(self::BASE_PATH . '/check_authorization', $parameters);
+		}
+	}
+
+	public function fetch(string $transactionId)
+	{
+		$this->required->setRequiredParameters(['id']);
+		if ($this->required->checkParameters(['id' => $transactionId])) {
+			return $this->get(self::BASE_PATH . '/' . $transactionId);
+		}
+	}
+
+	public function timeline(string $transactionId)
+	{
+		$this->required->setRequiredParameters(['id']);
+		if ($this->required->checkParameters(['id' => $transactionId])) {
+			return $this->get(self::BASE_PATH . '/timeline/' . $transactionId);
+		}
+	}
+
+	public function totals()
+	{
+		return $this->get(self::BASE_PATH . '/totals');
+	}
+
+	public function export()
+	{
+		return $this->get(self::BASE_PATH . '/export');
+	}
 }

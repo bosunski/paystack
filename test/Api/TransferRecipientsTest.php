@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\TransferRecipients;
+
 class TransferRecipientsTest extends ApiTestCase
 {
 	const PATH = '/transferrecipient';
@@ -36,7 +38,7 @@ class TransferRecipientsTest extends ApiTestCase
 		    ->with(self::PATH .'/' . $recipientId)
 		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->delete($recipientId));
+		$this->assertEquals($expectedResult, $api->deleteTransferRecipient($recipientId));
 	}
 
 	/**
@@ -100,7 +102,7 @@ class TransferRecipientsTest extends ApiTestCase
 	{
 		$api = $this->getApiMock();
 
-		self::assertInstanceOf(TransferRecipientsTest::class, $api);
+		self::assertInstanceOf(TransferRecipients::class, $api);
 	}
 
 
@@ -109,6 +111,6 @@ class TransferRecipientsTest extends ApiTestCase
 	 */
 	protected function getApiClass(): string
 	{
-		return TransferRecipientsTest::class;
+		return TransferRecipients::class;
 	}
 }
