@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Xeviant\Paystack\Api\Subscriptions;
+
 class SubscriptionsTest extends ApiTestCase
 {
 	const PATH = '/subscription';
