@@ -109,7 +109,7 @@ final class ClientTest extends TestCase
 			['plans', Plans::class],
 			['refund', Refund::class],
 			['settlements', Settlements::class],
-			['subaccount', SubAccount::class],
+			['subAccount', SubAccount::class],
 			['subscriptions', Subscriptions::class],
 			['transactions', Transactions::class],
 			['transferRecipients', TransferRecipients::class],

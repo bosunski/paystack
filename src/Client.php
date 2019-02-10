@@ -144,7 +144,7 @@ class Client
 			case 'settlements':
 				$api = new Settlements($this);
 				break;
-			case 'subaccount':
+			case 'subAccount':
 				$api = new SubAccount($this);
 				break;
 			case 'subscriptions':
