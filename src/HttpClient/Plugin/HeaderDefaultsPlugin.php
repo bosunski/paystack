@@ -35,7 +35,7 @@ class HeaderDefaultsPlugin implements Plugin
 	 */
 	private $config;
 
-	public function __construct(array $headers, Config $config)
+	public function __construct(array $headers, Config $config = null)
 	{
 		$this->headers = $headers;
 		$this->config = $config;
