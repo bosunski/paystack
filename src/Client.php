@@ -92,7 +92,7 @@ class Client
 	public function api($name): ApiInterface
 	{
 		switch ($name) {
-			case 'customer':
+			case 'customers':
 				$api = new Customers($this);
 				break;
 			default:

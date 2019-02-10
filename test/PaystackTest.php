@@ -93,7 +93,7 @@ class PaystackTest extends TestCase
 
 	public function test_it_can_create_request()
 	{
-		$this->assertNotNull($this->paystack->customer());
+		$this->assertNotNull($this->paystack->customers());
 	}
 
 	public function test_if_exception_is_thrown_when_the_request_is_invalid()

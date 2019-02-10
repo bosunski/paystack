@@ -78,7 +78,7 @@ final class ClientTest extends TestCase
 	public function getApiServiceProvider(): array
 	{
 		return [
-			['customer', Customers::class]
+			['customers', Customers::class]
 		];
 	}
 }
