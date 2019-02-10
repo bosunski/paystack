@@ -18,10 +18,6 @@
  */
 namespace Xeviant\Paystack;
 
-use BadMethodCallException;
-use ReflectionClass;
-use Xeviant\Paystack\Config;
-
 class Paystack
 {
 	/**
