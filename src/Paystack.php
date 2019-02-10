@@ -48,7 +48,7 @@ class Paystack
 	public function __construct($publicKey = null, $secretKey = null, $apiVersion = null)
 	{
 		$this->config = new Config(self::VERSION, $publicKey, $secretKey, $apiVersion);
-		$this->client = new Client();
+		$this->client = new Client(null, null, $this->config);
 	}
 
 	/**
@@ -158,41 +158,5 @@ class Paystack
 	public function __call(string $method, array $arguments)
 	{
 		return $this->client->api($method);
-	}
-
-	/**
-	 * Determines if the request is an Iterator request
-	 *
-	 * @param $method
-	 *
-	 * @return bool
-	 */
-	protected function isIteratorRequest(string $method)
-	{
-		return substr($method, -8) === "Iterator";
-	}
-
-	/**
-	 * Returns API Class Instance of the give method
-	 *
-	 * @param $method
-	 *
-	 * @return mixed
-	 * @throws \ReflectionException
-	 */
-	protected function getApiInstance(string $method)
-	{
-		$class = $this->getAppNamespace().ucwords($method);
-
-		if (class_exists($class) && !(new ReflectionClass($class))->isAbstract()) {
-			return new $class($this->config);
-		}
-
-		throw new BadMethodCallException("Undefined method [$method] called.");
-	}
-
-	protected function getAppNamespace(): string
-	{
-		return '\\Unicodeveloper\\Paystack\\Api\\';
 	}
 }

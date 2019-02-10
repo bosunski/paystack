@@ -11,6 +11,7 @@ use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
 use Xeviant\Paystack\Api\Customers;
 use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
@@ -32,16 +33,24 @@ class Client
 	 * @var string
 	 */
 	private $apiVersion;
+	/**
+	 * @var Config
+	 */
+	private $config;
 
-	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null)
+	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
 	{
+		$this->config = $config;
+
 		$this->responseHistory = new History();
 		$this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
 
 		$builder->addPlugin(new HistoryPlugin($this->responseHistory));
 		$builder->addPlugin(new RedirectPlugin());
 		$builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
-		$builder->addPlugin(new HeaderDefaultsPlugin([]));
+		$builder->addPlugin(new HeaderDefaultsPlugin([
+			'Authorization' => "Bearer " . null === $this->config ? $this->config->getSecretKey() : '',
+		]));
 
 		$this->apiVersion = $apiVersion ?: 'v1';
 		$builder->addHeaderValue('Accept', sprintf('application/json'));

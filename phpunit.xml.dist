@@ -29,9 +29,7 @@
     </filter>
 
     <php>
-        <!--<env name="PAYSTACK_PUBLIC_KEY" value="pk_1234_abcdef"/>-->
-        <env name="PAYSTACK_PUBLIC_KEY" value="pk_test_36dc4b43cff51a514fd4614052df39cfb3e534bc"/>
-        <!--<env name="PAYSTACK_SECRET_KEY" value="sk_1234_abcdef"/>-->
-        <env name="PAYSTACK_SECRET_KEY" value="sk_test_def568ce5a86bf98b1c2f199e90e4b990bbed2fa"/>
+        <env name="PAYSTACK_PUBLIC_KEY" value="pk_1234_abcdef"/>
+        <env name="PAYSTACK_SECRET_KEY" value="sk_1234_abcdef"/>
     </php>
 </phpunit>
