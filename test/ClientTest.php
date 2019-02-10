@@ -96,24 +96,24 @@ final class ClientTest extends TestCase
 	public function getApiServiceProvider(): array
 	{
 		return [
-			['balance', Balance::class],
-			['bank', Bank::class],
-			['bulkCharges', BulkCharges::class],
 			['bvn', Bvn::class],
-			['charge', Charge::class],
-			['charge', Charge::class],
-			['customers', Customers::class],
-			['integration', Integration::class],
-			['invoices', Invoices::class],
+			['bank', Bank::class],
 			['pages', Pages::class],
 			['plans', Plans::class],
+			['charge', Charge::class],
+			['charge', Charge::class],
 			['refund', Refund::class],
-			['settlements', Settlements::class],
-			['subAccount', SubAccount::class],
-			['subscriptions', Subscriptions::class],
-			['transactions', Transactions::class],
-			['transferRecipients', TransferRecipients::class],
+			['balance', Balance::class],
+			['invoices', Invoices::class],
 			['transfers', Transfers::class],
+			['customers', Customers::class],
+			['subAccount', SubAccount::class],
+			['settlements', Settlements::class],
+			['bulkCharges', BulkCharges::class],
+			['integration', Integration::class],
+			['transactions', Transactions::class],
+			['subscriptions', Subscriptions::class],
+			['transferRecipients', TransferRecipients::class],
 		];
 	}
 }
