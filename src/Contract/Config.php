@@ -2,8 +2,6 @@
 
 namespace Xeviant\Paystack\Contract;
 
-
-
 interface Config
 {
 	/**
