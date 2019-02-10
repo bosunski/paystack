@@ -48,9 +48,7 @@ class Client
 		$builder->addPlugin(new HistoryPlugin($this->responseHistory));
 		$builder->addPlugin(new RedirectPlugin());
 		$builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
-		$builder->addPlugin(new HeaderDefaultsPlugin([
-			'Authorization' => "Bearer " . null === $this->config ? $this->config->getSecretKey() : '',
-		]));
+		$builder->addPlugin(new HeaderDefaultsPlugin([], $config));
 
 		$this->apiVersion = $apiVersion ?: 'v1';
 		$builder->addHeaderValue('Accept', sprintf('application/json'));
