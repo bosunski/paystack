@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  *
  * This file is part of the Xeviant Paystack package.
@@ -16,6 +15,7 @@
  * @link            https://github.com/bosunski/paystack
  *
  */
+
 namespace Xeviant\Paystack;
 
 class Paystack
