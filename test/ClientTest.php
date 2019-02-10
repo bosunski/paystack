@@ -1,8 +1,26 @@
 <?php
 
+namespace Xeviant\Paystack\Tests;
+
 use Http\Client\HttpClient;
 use PHPUnit\Framework\TestCase;
+use Xeviant\Paystack\Api\Balance;
+use Xeviant\Paystack\Api\Bank;
+use Xeviant\Paystack\Api\BulkCharges;
+use Xeviant\Paystack\Api\Bvn;
+use Xeviant\Paystack\Api\Charge;
 use Xeviant\Paystack\Api\Customers;
+use Xeviant\Paystack\Api\Integration;
+use Xeviant\Paystack\Api\Invoices;
+use Xeviant\Paystack\Api\Pages;
+use Xeviant\Paystack\Api\Plans;
+use Xeviant\Paystack\Api\Refund;
+use Xeviant\Paystack\Api\Settlements;
+use Xeviant\Paystack\Api\SubAccount;
+use Xeviant\Paystack\Api\Subscriptions;
+use Xeviant\Paystack\Api\Transactions;
+use Xeviant\Paystack\Api\TransferRecipients;
+use Xeviant\Paystack\Api\Transfers;
 use Xeviant\Paystack\Client;
 
 final class ClientTest extends TestCase
@@ -78,7 +96,24 @@ final class ClientTest extends TestCase
 	public function getApiServiceProvider(): array
 	{
 		return [
-			['customers', Customers::class]
+			['balance', Balance::class],
+			['bank', Bank::class],
+			['bulkCharges', BulkCharges::class],
+			['bvn', Bvn::class],
+			['charge', Charge::class],
+			['charge', Charge::class],
+			['customers', Customers::class],
+			['integration', Integration::class],
+			['invoices', Invoices::class],
+			['pages', Pages::class],
+			['plans', Plans::class],
+			['refund', Refund::class],
+			['settlements', Settlements::class],
+			['subaccount', SubAccount::class],
+			['subscriptions', Subscriptions::class],
+			['transactions', Transactions::class],
+			['transferRecipients', TransferRecipients::class],
+			['transfers', Transfers::class],
 		];
 	}
 }

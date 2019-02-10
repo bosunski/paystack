@@ -9,7 +9,23 @@ use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
+use Xeviant\Paystack\Api\Balance;
+use Xeviant\Paystack\Api\Bank;
+use Xeviant\Paystack\Api\BulkCharges;
+use Xeviant\Paystack\Api\Bvn;
+use Xeviant\Paystack\Api\Charge;
 use Xeviant\Paystack\Api\Customers;
+use Xeviant\Paystack\Api\Integration;
+use Xeviant\Paystack\Api\Invoices;
+use Xeviant\Paystack\Api\Pages;
+use Xeviant\Paystack\Api\Plans;
+use Xeviant\Paystack\Api\Refund;
+use Xeviant\Paystack\Api\Settlements;
+use Xeviant\Paystack\Api\SubAccount;
+use Xeviant\Paystack\Api\Subscriptions;
+use Xeviant\Paystack\Api\Transactions;
+use Xeviant\Paystack\Api\TransferRecipients;
+use Xeviant\Paystack\Api\Transfers;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Exception\BadMethodCallException;
@@ -92,8 +108,56 @@ class Client
 	public function api($name): ApiInterface
 	{
 		switch ($name) {
+			case 'balance':
+				$api = new Balance($this);
+				break;
+			case 'bank':
+				$api = new Bank($this);
+				break;
+			case 'bulkCharges':
+				$api = new BulkCharges($this);
+				break;
+			case 'bvn':
+				$api = new Bvn($this);
+				break;
+			case 'charge':
+				$api = new Charge($this);
+				break;
 			case 'customers':
 				$api = new Customers($this);
+				break;
+			case 'integration':
+				$api = new Integration($this);
+				break;
+			case 'invoices':
+				$api = new Invoices($this);
+				break;
+			case 'pages':
+				$api = new Pages($this);
+				break;
+			case 'plans':
+				$api = new Plans($this);
+				break;
+			case 'refund':
+				$api = new Refund($this);
+				break;
+			case 'settlements':
+				$api = new Settlements($this);
+				break;
+			case 'subaccount':
+				$api = new SubAccount($this);
+				break;
+			case 'subscriptions':
+				$api = new Subscriptions($this);
+				break;
+			case 'transactions':
+				$api = new Transactions($this);
+				break;
+			case 'transferRecipients':
+				$api = new TransferRecipients($this);
+				break;
+			case 'transfers':
+				$api = new Transfers($this);
 				break;
 			default:
 				throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
