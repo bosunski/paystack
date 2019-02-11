@@ -26,6 +26,7 @@ class MissingArgumentException extends ErrorException
 			$required = [$required];
 		}
 
-		parent::__construct(sprintf('One or more of required ("%s") parameters is missing!', implode('", "', $required)), $code, $previous);
+		$word = count($required) > 1 ? 'parameters' : 'parameter';
+		parent::__construct(sprintf("Required $word ('%s') is missing!", implode('", "', $required)), $code, $previous);
 	}
 }

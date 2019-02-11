@@ -32,7 +32,7 @@ class ResponseMediator
 		$body = $response->getBody()->__toString();
 
 		if (strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
-			$content = json_decode($body, true);
+			$content = json_decode($body, false);
 
 			if (JSON_ERROR_NONE === json_last_error()) {
 				return $content;

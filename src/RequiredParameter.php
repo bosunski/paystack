@@ -28,16 +28,33 @@ class RequiredParameter
 	 */
 	private $parameters;
 
+	/**
+	 * Sets the required parameters that values will be evaluated against
+	 *
+	 * @param $parameters
+	 */
 	public function setRequiredParameters($parameters): void
 	{
 		$this->parameters = $parameters instanceof Collection ? $parameters : collect($parameters);
 	}
 
+	/**
+	 * Get Required Parameters
+	 *
+	 * @return Collection
+	 */
 	public function getRequiredParameters(): Collection
 	{
 		return $this->parameters;
 	}
 
+	/**
+	 * Checks if required parameters are provided
+	 *
+	 * @param array $values
+	 *
+	 * @return bool
+	 */
 	public function checkParameters(array $values): bool
 	{
 		$values = collect($values);
@@ -51,6 +68,14 @@ class RequiredParameter
 
 	}
 
+	/**
+	 * Checks for the required parameters
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 * @throws MissingArgumentException
+	 */
 	public function checkParameter($value): bool
 	{
 		if (empty($value) || $value === "" || null === $value) {
