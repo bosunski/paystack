@@ -10,7 +10,7 @@
  * @version         2.0
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
- * @copyright   (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link            https://github.com/bosunski/paystack
  *
  */
@@ -32,7 +32,7 @@ class ResponseMediator
 		$body = $response->getBody()->__toString();
 
 		if (strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
-			$content = json_decode($body, false);
+			$content = json_decode($body, true);
 
 			if (JSON_ERROR_NONE === json_last_error()) {
 				return $content;
