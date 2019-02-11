@@ -19,9 +19,6 @@ matrix:
   include:
     - php: hhvm
       dist: trusty
-    - php: 7.2
-      name: Backward compatibillity check
-      env: DEPENDENCIES="roave/backward-compatibility-check" TEST_COMMAND="./vendor/bin/roave-backward-compatibility-check"
 
 before_install:
   - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
