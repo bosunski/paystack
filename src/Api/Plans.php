@@ -21,6 +21,7 @@ namespace Xeviant\Paystack\Api;
 class Plans extends AbstractApi
 {
 	const BASE_PATH = '/plan';
+	const SETTLEMENT_SCHEDULES = ['hourly', 'daily', 'weekly', 'monthly', 'biannually', 'annually'];
 
 	public function fetch($planId)
 	{
@@ -37,16 +38,23 @@ class Plans extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		// ToDO: Implement ENUM for Interval
 		$this->validator->setRequiredParameters(['name', 'amount', 'interval',]);
 
 		if ($this->validator->checkParameters($parameters)) {
+			if (isset($parameters['interval']) && $this->validator->contains(['interval' => (string) $parameters['interval']], self::SETTLEMENT_SCHEDULES)) {
+				return $this->post(self::BASE_PATH, $parameters);
+			}
+
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}
 
 	public function update(string $planId, array $parameters)
 	{
+		if (isset($parameters['interval']) && $this->validator->contains(['interval' => (string) $parameters['interval']], self::SETTLEMENT_SCHEDULES)) {
+			return $this->put(self::BASE_PATH . "/$planId", $parameters);
+		}
+
 		return $this->put(self::BASE_PATH . "/$planId", $parameters);
 	}
 }
