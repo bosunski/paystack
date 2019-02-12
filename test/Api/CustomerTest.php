@@ -95,7 +95,8 @@ class CustomerTest extends ApiTestCase
 	 */
 	public function shouldWhiteListCustomer()
 	{
-		$input = ['customer' => 'CUS_xbxb', 'risk_action' => 'allow'];
+		$customer = 'CUS_xbxb';
+		$input = ['customer' => $customer, 'risk_action' => 'allow'];
 		$expectedResult = ['data' => ['first_name' => 'Example Name']];
 
 		$api = $this->getApiMock();
@@ -104,7 +105,7 @@ class CustomerTest extends ApiTestCase
 			->with('/customer/set_risk_action', $input)
 			->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->whitelist($input));
+		$this->assertEquals($expectedResult, $api->whitelist($customer));
 	}
 
 	/**
@@ -112,16 +113,17 @@ class CustomerTest extends ApiTestCase
 	 */
 	public function shouldBlackListCustomer()
 	{
-		$input = ['customer' => 'CUS_xbxb', 'risk_action' => 'deny'];
+		$customer = 'CUS_xbxb';
+		$input = ['customer' => $customer, 'risk_action' => 'deny'];
 		$expectedResult = ['data' => ['first_name' => 'Example Name']];
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
-			->method('post')
-			->with('/customer/set_risk_action', $input)
-			->willReturn($expectedResult);
+		    ->method('post')
+		    ->with('/customer/set_risk_action', $input)
+		    ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->blacklist($input));
+		$this->assertEquals($expectedResult, $api->blacklist($customer));
 	}
 
 	/**

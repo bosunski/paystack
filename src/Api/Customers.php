@@ -22,6 +22,8 @@ class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
 
+	const RISK_ACTIONS = ['allow', 'deny'];
+
 	public function fetch($email)
 	{
 		return $this->get(self::BASE_PATH . DIRECTORY_SEPARATOR . $email);
@@ -41,20 +43,18 @@ class Customers extends AbstractApi
 		}
 	}
 
-	public function whitelist(array $parameters)
+	public function whitelist(string $customerId)
 	{
-		$this->validator->setRequiredParameters(['customer']);
-
-		if ($this->validator->checkParameters($parameters)) {
+		if ($this->validator->checkParameter($customerId)) {
+			$parameters = ['customer' => $customerId, 'risk_action' => 'allow'];
 			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
 		}
 	}
 
-	public function blacklist(array $parameters)
+	public function blacklist(string $customerId)
 	{
-		$this->validator->setRequiredParameters(['customer']);
-
-		if ($this->validator->checkParameters($parameters)) {
+		if ($this->validator->checkParameter($customerId)) {
+			$parameters = ['customer' => $customerId, 'risk_action' => 'deny'];
 			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
 		}
 	}
