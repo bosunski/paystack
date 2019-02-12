@@ -22,8 +22,6 @@ class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
 
-	const RISK_ACTIONS = ['allow', 'deny'];
-
 	public function fetch($email)
 	{
 		return $this->get(self::BASE_PATH . DIRECTORY_SEPARATOR . $email);
