@@ -21,7 +21,7 @@ namespace Xeviant\Paystack\Api;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
-use Xeviant\Paystack\RequiredParameter;
+use Xeviant\Paystack\Validator;
 
 abstract class AbstractApi implements ApiInterface
 {
@@ -41,14 +41,14 @@ abstract class AbstractApi implements ApiInterface
 	private $perPage;
 
 	/**
-	 * @var RequiredParameter
+	 * @var Validator
 	 */
 	protected $validator;
 
 	public function __construct(Client $client)
 	{
 		$this->client    = $client;
-		$this->validator = new RequiredParameter;
+		$this->validator = new Validator;
 	}
 
 	protected function get($path, array $parameters = [], array $requestHeaders = [])

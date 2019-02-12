@@ -19,18 +19,18 @@ namespace Xeviant\Paystack\Tests;
 
 
 use PHPUnit\Framework\TestCase;
-use Xeviant\Paystack\RequiredParameter;
+use Xeviant\Paystack\Validator;
 
 class RequiredParameterTest extends TestCase
 {
 	/**
-	 * @var RequiredParameter
+	 * @var Validator
 	 */
 	private $required;
 
 	public function setUp()
 	{
-		$this->required = new RequiredParameter;
+		$this->required = new Validator;
 	}
 
 	public function tearDown()

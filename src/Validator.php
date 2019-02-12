@@ -21,7 +21,7 @@ namespace Xeviant\Paystack;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Exception\MissingArgumentException;
 
-class RequiredParameter
+class Validator
 {
 	/**
 	 * @var Collection
