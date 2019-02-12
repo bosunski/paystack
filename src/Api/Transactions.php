@@ -22,6 +22,8 @@ class Transactions extends AbstractApi
 {
 	const BASE_PATH = '/transaction';
 
+	const CHARGES_BEARER = ['account', 'subaccount'];
+
 	public function verify(string $reference)
 	{
 		$this->validator->setRequiredParameters(['reference']);
@@ -42,11 +44,16 @@ class Transactions extends AbstractApi
 		}
 	}
 
+
 	public function initialize(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['email', 'amount']);
 
 		if ($this->validator->checkParameters($parameters)) {
+			if (isset($parameters['bearer']) && $this->validator->contains(['bearer' => $parameters['bearer']], self::CHARGES_BEARER)) {
+				return $this->post(self::BASE_PATH . '/initialize', $parameters);
+			}
+
 			return $this->post(self::BASE_PATH . '/initialize', $parameters);
 		}
 	}

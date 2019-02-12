@@ -20,6 +20,7 @@ namespace Xeviant\Paystack;
 
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Exception\MissingArgumentException;
+use Xeviant\Paystack\Exception\ValueNotAllowedException;
 
 class Validator
 {
@@ -80,6 +81,22 @@ class Validator
 	{
 		if (empty($value) || $value === "" || null === $value) {
 			throw new MissingArgumentException($value);
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param array $value
+	 * @param array  $options
+	 *
+	 * @return bool
+	 * @throws ValueNotAllowedException
+	 */
+	public function contains(array $value, array $options)
+	{
+		if (!in_array(array_values($value)[0], $options)) {
+			throw new ValueNotAllowedException($value, $options);
 		}
 
 		return true;
