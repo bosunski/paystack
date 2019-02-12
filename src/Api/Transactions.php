@@ -24,6 +24,8 @@ class Transactions extends AbstractApi
 
 	const CHARGES_BEARER = ['account', 'subaccount'];
 
+	const QUEUE = [true, false];
+
 	public function verify(string $reference)
 	{
 		$this->validator->setRequiredParameters(['reference']);
@@ -40,6 +42,10 @@ class Transactions extends AbstractApi
 		$this->validator->setRequiredParameters(['authorization_code', 'email', 'amount']);
 
 		if ($this->validator->checkParameters($parameters)) {
+			if (isset($parameters['bearer']) && $this->validator->contains(['queue' => $parameters['queue']], self::QUEUE)) {
+				return $this->post(self::BASE_PATH . '/initialize', $parameters);
+			}
+
 			return $this->post(self::BASE_PATH . '/charge_authorization', $parameters);
 		}
 	}
