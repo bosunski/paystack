@@ -93,7 +93,7 @@ class Validator
 	 * @return bool
 	 * @throws ValueNotAllowedException
 	 */
-	public function contains(array $value, array $options)
+	public function contains(array $value, array $options): bool
 	{
 		if (!in_array(array_values($value)[0], $options)) {
 			throw new ValueNotAllowedException($value, $options);
