@@ -69,7 +69,7 @@ class Transactions extends AbstractApi
 		}
 	}
 
-	public function fetch(string $transactionId)
+	public function fetch(int $transactionId)
 	{
 		$this->required->setRequiredParameters(['id']);
 		if ($this->required->checkParameters(['id' => $transactionId])) {
