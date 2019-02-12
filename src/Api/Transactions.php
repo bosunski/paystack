@@ -24,7 +24,7 @@ class Transactions extends AbstractApi
 
 	const CHARGES_BEARER = ['account', 'subaccount'];
 
-	const QUEUE = ['true', 'false'];
+	const BOOLEANS = ['true', 'false'];
 
 	public function verify(string $reference)
 	{
@@ -42,8 +42,8 @@ class Transactions extends AbstractApi
 		$this->validator->setRequiredParameters([]);
 
 		if ($this->validator->checkParameters($parameters)) {
-			if (isset($parameters['queue']) && $this->validator->contains(['queue' => (string) $parameters['queue']], self::QUEUE)) {
-				return $this->post(self::BASE_PATH . '/initialize', $parameters);
+			if (isset($parameters['queue']) && $this->validator->contains(['queue' => (string) $parameters['queue']], self::BOOLEANS)) {
+				return $this->post(self::BASE_PATH . '/charge_authorization', $parameters);
 			}
 
 			return $this->post(self::BASE_PATH . '/charge_authorization', $parameters);
@@ -103,8 +103,12 @@ class Transactions extends AbstractApi
 		return $this->get(self::BASE_PATH . '/totals');
 	}
 
-	public function export()
+	public function export(array $parameters = [])
 	{
-		return $this->get(self::BASE_PATH . '/export');
+		if (isset($parameters['settled']) && $this->validator->contains(['settled' => (string) $parameters['queue']], self::BOOLEANS)) {
+			return $this->get(self::BASE_PATH . '/export', $parameters);
+		}
+
+		return $this->get(self::BASE_PATH . '/export', $parameters);
 	}
 }
