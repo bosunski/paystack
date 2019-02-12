@@ -23,7 +23,7 @@ class ValueNotAllowedException extends ErrorException
 	public function __construct($value, $options, int $code = 0, $previous = null)
 	{
 		$key = array_keys($value)[0];
-		$message = sprintf("The parameter '%s' only support options of %s, you provided '%s' instead", $key, '[' .implode(', ', $options) . ']', array_values($value)[0]);
+		$message = sprintf("The parameter '%s' only support options of %s, you provided '%s' which is not part of the options.", $key, '[' .implode(', ', $options) . ']', array_values($value)[0]);
 		parent::__construct($message, $code, $previous);
 	}
 }

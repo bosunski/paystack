@@ -22,6 +22,8 @@ class SubAccount extends AbstractApi
 {
 	const BASE_PATH = '/subaccount';
 
+	const SETTLEMENT_SCHEDULES = ['auto', 'weekly', 'monthly', 'manual'];
+
 	public function fetch(string $accountId)
 	{
 		$this->validator->setRequiredParameters(['id_or_slug']);
@@ -40,6 +42,10 @@ class SubAccount extends AbstractApi
 		$this->validator->setRequiredParameters(['business_name', 'settlement_bank', 'account_number', 'percentage_charge']);
 
 		if ($this->validator->checkParameters($parameters)) {
+			if (isset($parameters['settlement_schedule']) && $this->validator->contains(['settlement_schedule' => (string) $parameters['settlement_schedule']], self::SETTLEMENT_SCHEDULES)) {
+				return $this->post(self::BASE_PATH, $parameters);
+			}
+
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

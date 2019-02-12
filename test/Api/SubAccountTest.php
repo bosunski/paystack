@@ -65,7 +65,7 @@ class SubAccountTest extends ApiTestCase
 			'business_name' => 'Name',
 			'settlement_bank' => 'Bank',
 			'account_number' => '011123232',
-			'percentage_charge' => 10
+			'percentage_charge' => 10,
 		];
 
 		$api = $this->getApiMock();
