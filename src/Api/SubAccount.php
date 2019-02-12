@@ -52,6 +52,10 @@ class SubAccount extends AbstractApi
 
 	public function update(string $accountId, array $parameters)
 	{
+		if (isset($parameters['settlement_schedule']) && $this->validator->contains(['settlement_schedule' => (string) $parameters['settlement_schedule']], self::SETTLEMENT_SCHEDULES)) {
+			return $this->put(self::BASE_PATH . "/$accountId", $parameters);
+		}
+
 		return $this->put(self::BASE_PATH . "/$accountId", $parameters);
 	}
 }

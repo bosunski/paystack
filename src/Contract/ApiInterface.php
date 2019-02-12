@@ -20,7 +20,7 @@ namespace Xeviant\Paystack\Contract;
 
 interface ApiInterface
 {
-	public function getPerPage();
+	public function getPerPage(): int;
 
-	public function setPerPage();
+	public function setPerPage(int $page): self;
 }

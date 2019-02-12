@@ -137,11 +137,23 @@ abstract class AbstractApi implements ApiInterface
 		return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
 	}
 
-	public function getPerPage()
+	/**
+	 * @return int
+	 */
+	public function getPerPage(): int
 	{
+		return $this->perPage;
 	}
 
-	public function setPerPage()
+	/**
+	 * @param int $page
+	 *
+	 * @return ApiInterface
+	 */
+	public function setPerPage(int $page): ApiInterface
 	{
+		$this->perPage = $page;
+
+		return $this;
 	}
 }
