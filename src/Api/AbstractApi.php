@@ -43,12 +43,12 @@ abstract class AbstractApi implements ApiInterface
 	/**
 	 * @var RequiredParameter
 	 */
-	protected $required;
+	protected $validator;
 
 	public function __construct(Client $client)
 	{
-		$this->client = $client;
-		$this->required = new RequiredParameter;
+		$this->client    = $client;
+		$this->validator = new RequiredParameter;
 	}
 
 	protected function get($path, array $parameters = [], array $requestHeaders = [])

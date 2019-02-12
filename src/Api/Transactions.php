@@ -24,9 +24,9 @@ class Transactions extends AbstractApi
 
 	public function verify(string $reference)
 	{
-		$this->required->setRequiredParameters(['reference']);
+		$this->validator->setRequiredParameters(['reference']);
 
-		if ($this->required->checkParameters(['reference' => $reference])) {
+		if ($this->validator->checkParameters([ 'reference' => $reference])) {
 			return $this->get(self::BASE_PATH . '/verify/' . $reference);
 		}
 
@@ -35,52 +35,52 @@ class Transactions extends AbstractApi
 
 	public function charge(array $parameters)
 	{
-		$this->required->setRequiredParameters(['authorization_code', 'email', 'amount']);
+		$this->validator->setRequiredParameters(['authorization_code', 'email', 'amount']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/charge_authorization', $parameters);
 		}
 	}
 
 	public function initialize(array $parameters)
 	{
-		$this->required->setRequiredParameters(['email', 'amount']);
+		$this->validator->setRequiredParameters(['email', 'amount']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/initialize', $parameters);
 		}
 	}
 
 	public function reauthorize(array $parameters)
 	{
-		$this->required->setRequiredParameters(['authorization_code', 'amount', 'email']);
+		$this->validator->setRequiredParameters(['authorization_code', 'amount', 'email']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/request_reauthorization', $parameters);
 		}
 	}
 
 	public function checkAuthorization(array $parameters)
 	{
-		$this->required->setRequiredParameters(['authorization_code', 'amount', 'email']);
+		$this->validator->setRequiredParameters(['authorization_code', 'amount', 'email']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/check_authorization', $parameters);
 		}
 	}
 
 	public function fetch(int $transactionId)
 	{
-		$this->required->setRequiredParameters(['id']);
-		if ($this->required->checkParameters(['id' => $transactionId])) {
+		$this->validator->setRequiredParameters(['id']);
+		if ($this->validator->checkParameters([ 'id' => $transactionId])) {
 			return $this->get(self::BASE_PATH . '/' . $transactionId);
 		}
 	}
 
 	public function timeline(string $transactionId)
 	{
-		$this->required->setRequiredParameters(['id']);
-		if ($this->required->checkParameters(['id' => $transactionId])) {
+		$this->validator->setRequiredParameters(['id']);
+		if ($this->validator->checkParameters([ 'id' => $transactionId])) {
 			return $this->get(self::BASE_PATH . '/timeline/' . $transactionId);
 		}
 	}

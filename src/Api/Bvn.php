@@ -24,30 +24,30 @@ class Bvn extends AbstractApi
 
 	public function resolve($bvn)
 	{
-		if ($this->required->checkParameter($bvn)) {
+		if ($this->validator->checkParameter($bvn)) {
 			return $this->get(self::BASE_PATH . "/resolve_bvn/$bvn");
 		}
 	}
 
 	public function resolveCardBin($bin)
 	{
-		if ($this->required->checkParameter($bin)) {
+		if ($this->validator->checkParameter($bin)) {
 			return $this->get("/decision/bin/$bin");
 		}
 	}
 
 	public function resolveAccountNumber($parameters)
 	{
-		$this->required->setRequiredParameters([]);
-		if ($this->required->checkParameters($parameters)) {
+		$this->validator->setRequiredParameters([]);
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->get(self::BASE_PATH . "/resolve?" . http_build_query($parameters));
 		}
 	}
 
 	public function resolvePhoneNumber($parameters)
 	{
-		$this->required->setRequiredParameters(['verification_type', 'phone', 'callback_url']);
-		if ($this->required->checkParameters($parameters)) {
+		$this->validator->setRequiredParameters(['verification_type', 'phone', 'callback_url']);
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post("/verifications", $parameters);
 		}
 	}

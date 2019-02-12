@@ -24,14 +24,14 @@ class Invoices extends AbstractApi
 
 	public function fetch(string $invoiceId)
 	{
-		if ($this->required->checkParameter($invoiceId)) {
+		if ($this->validator->checkParameter($invoiceId)) {
 			return $this->get(self::BASE_PATH . '/' . rawurlencode($invoiceId));
 		}
 	}
 
 	public function verify(string $invoiceId)
 	{
-		if ($this->required->checkParameter($invoiceId)) {
+		if ($this->validator->checkParameter($invoiceId)) {
 			return $this->get(self::BASE_PATH . '/verify/' . rawurlencode($invoiceId));
 		}
 	}
@@ -63,25 +63,25 @@ class Invoices extends AbstractApi
 
 	public function markAsPaid(string $invoiceId, array $parameters = [])
 	{
-		$this->required->setRequiredParameters(['amount_paid', 'paid_by', 'payment_date', 'payment_method']);
+		$this->validator->setRequiredParameters(['amount_paid', 'paid_by', 'payment_date', 'payment_method']);
 		// ToDo: Implement ENUM for payment_method
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . "/mark_as_paid/$invoiceId", $parameters);
 		}
 	}
 
 	public function update(string $invoiceId, array $parameters = [])
 	{
-		$this->required->setRequiredParameters([]);
-		if ($this->required->checkParameters($parameters)) {
+		$this->validator->setRequiredParameters([]);
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->put(self::BASE_PATH . "/$invoiceId", $parameters);
 		}
 	}
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['customer', 'amount', 'due_date']);
-		if ($this->required->checkParameters($parameters)) {
+		$this->validator->setRequiredParameters(['customer', 'amount', 'due_date']);
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

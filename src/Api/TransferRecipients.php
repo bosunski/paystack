@@ -24,8 +24,8 @@ class TransferRecipients extends AbstractApi
 
 	public function deleteTransferRecipient(string $recipientCode)
 	{
-		$this->required->setRequiredParameters(['recipient_code_or_id']);
-		if ($this->required->checkParameters(['recipient_code_or_id' => $recipientCode])) {
+		$this->validator->setRequiredParameters(['recipient_code_or_id']);
+		if ($this->validator->checkParameters([ 'recipient_code_or_id' => $recipientCode])) {
 			return $this->delete(self::BASE_PATH . '/' . $recipientCode);
 		}
 	}
@@ -37,9 +37,9 @@ class TransferRecipients extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['type', 'name']);
+		$this->validator->setRequiredParameters(['type', 'name']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

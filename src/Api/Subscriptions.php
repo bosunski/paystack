@@ -24,8 +24,8 @@ class Subscriptions extends AbstractApi
 
 	public function fetch(string $subscriptionId)
 	{
-		$this->required->setRequiredParameters(['id_or_subscription_code']);
-		if ($this->required->checkParameters(['id_or_subscription_code' => $subscriptionId])) {
+		$this->validator->setRequiredParameters(['id_or_subscription_code']);
+		if ($this->validator->checkParameters([ 'id_or_subscription_code' => $subscriptionId])) {
 			return $this->get(self::BASE_PATH . '/' . $subscriptionId);
 		}
 	}
@@ -37,27 +37,27 @@ class Subscriptions extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['customer', 'plan', 'authorization']);
+		$this->validator->setRequiredParameters(['customer', 'plan', 'authorization']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}
 
 	public function enable(array $parameters)
 	{
-		$this->required->setRequiredParameters(['code', 'token']);
+		$this->validator->setRequiredParameters(['code', 'token']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . "/enable", $parameters);
 		}
 	}
 
 	public function disable(array $parameters)
 	{
-		$this->required->setRequiredParameters(['code', 'token']);
+		$this->validator->setRequiredParameters(['code', 'token']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . "/disable", $parameters);
 		}
 	}

@@ -24,16 +24,16 @@ class Pages extends AbstractApi
 
 	public function fetch($pageId)
 	{
-		$this->required->setRequiredParameters(['page_id']);
-		if ($this->required->checkParameters(['page_id' => $pageId])) {
+		$this->validator->setRequiredParameters(['page_id']);
+		if ($this->validator->checkParameters([ 'page_id' => $pageId])) {
 			return $this->get(self::BASE_PATH . '/' . $pageId);
 		}
 	}
 
 	public function checkSlugAvailability($slug)
 	{
-		$this->required->setRequiredParameters(['slug']);
-		if ($this->required->checkParameters(['slug' => $slug])) {
+		$this->validator->setRequiredParameters(['slug']);
+		if ($this->validator->checkParameters([ 'slug' => $slug])) {
 			return $this->get(self::BASE_PATH . '/check_slug_availability/' . $slug);
 		}
 	}
@@ -45,9 +45,9 @@ class Pages extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['name']);
+		$this->validator->setRequiredParameters(['name']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

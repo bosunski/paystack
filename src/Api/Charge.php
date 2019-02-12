@@ -24,45 +24,45 @@ class Charge extends AbstractApi
 
 	public function charge(array $parameters)
 	{
-		$this->required->setRequiredParameters(['email', 'amount', 'card.number', 'card.cvv', 'card.expiry_month', 'card.expiry_year', 'bank.code', 'bank.account_number']);
+		$this->validator->setRequiredParameters(['email', 'amount', 'card.number', 'card.cvv', 'card.expiry_month', 'card.expiry_year', 'bank.code', 'bank.account_number']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}
 
 	public function submitPin(array $parameters)
 	{
-		$this->required->setRequiredParameters(['pin', 'reference']);
+		$this->validator->setRequiredParameters(['pin', 'reference']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/submit_pin', $parameters);
 		}
 	}
 
 	public function submitOtp(array $parameters)
 	{
-		$this->required->setRequiredParameters(['otp', 'reference']);
+		$this->validator->setRequiredParameters(['otp', 'reference']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/submit_otp', $parameters);
 		}
 	}
 
 	public function submitPhone(array $parameters)
 	{
-		$this->required->setRequiredParameters(['phone', 'reference']);
+		$this->validator->setRequiredParameters(['phone', 'reference']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/submit_phone', $parameters);
 		}
 	}
 
 	public function submitBirthday(array $parameters)
 	{
-		$this->required->setRequiredParameters(['birthday', 'reference']);
+		$this->validator->setRequiredParameters(['birthday', 'reference']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/submit_birthday', $parameters);
 		}
 	}
@@ -75,7 +75,7 @@ class Charge extends AbstractApi
 	 */
 	public function checkPendingCharge(string $reference)
 	{
-		if ($this->required->checkParameter($reference)) {
+		if ($this->validator->checkParameter($reference)) {
 			return $this->get(self::BASE_PATH . "/$reference");
 		}
 	}

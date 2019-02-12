@@ -34,36 +34,36 @@ class Customers extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['email']);
+		$this->validator->setRequiredParameters(['email']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}
 
 	public function whitelist(array $parameters)
 	{
-		$this->required->setRequiredParameters(['customer']);
+		$this->validator->setRequiredParameters(['customer']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
 		}
 	}
 
 	public function blacklist(array $parameters)
 	{
-		$this->required->setRequiredParameters(['customer']);
+		$this->validator->setRequiredParameters(['customer']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'set_risk_action', $parameters);
 		}
 	}
 
 	public function deactivateAuthorization(array $parameters)
 	{
-		$this->required->setRequiredParameters(['authorization_code']);
+		$this->validator->setRequiredParameters(['authorization_code']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . DIRECTORY_SEPARATOR . 'deactivate_authorization', $parameters);
 		}
 	}

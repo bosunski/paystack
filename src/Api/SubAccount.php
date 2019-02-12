@@ -24,8 +24,8 @@ class SubAccount extends AbstractApi
 
 	public function fetch(string $accountId)
 	{
-		$this->required->setRequiredParameters(['id_or_slug']);
-		if ($this->required->checkParameters(['id_or_slug' => $accountId])) {
+		$this->validator->setRequiredParameters(['id_or_slug']);
+		if ($this->validator->checkParameters([ 'id_or_slug' => $accountId])) {
 			return $this->get(self::BASE_PATH . '/' . $accountId);
 		}
 	}
@@ -37,9 +37,9 @@ class SubAccount extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['business_name', 'settlement_bank', 'account_number', 'percentage_charge']);
+		$this->validator->setRequiredParameters(['business_name', 'settlement_bank', 'account_number', 'percentage_charge']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

@@ -104,7 +104,7 @@ class TransactionsTest extends ApiTestCase
 	public function shouldGetTransaction(): void
 	{
 		$expectedResult = ['data' => ['email' => 'email@example.com']];
-		$id = "x123";
+		$id = 123;
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

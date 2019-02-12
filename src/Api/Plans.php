@@ -24,8 +24,8 @@ class Plans extends AbstractApi
 
 	public function fetch($planId)
 	{
-		$this->required->setRequiredParameters(['plan_id']);
-		if ($this->required->checkParameters(['plan_id' => $planId])) {
+		$this->validator->setRequiredParameters(['plan_id']);
+		if ($this->validator->checkParameters([ 'plan_id' => $planId])) {
 			return $this->get(self::BASE_PATH . '/' . $planId);
 		}
 	}
@@ -38,9 +38,9 @@ class Plans extends AbstractApi
 	public function create(array $parameters)
 	{
 		// ToDO: Implement ENUM for Interval
-		$this->required->setRequiredParameters(['name', 'amount', 'interval',]);
+		$this->validator->setRequiredParameters(['name', 'amount', 'interval',]);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

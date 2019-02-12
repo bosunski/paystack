@@ -49,9 +49,9 @@ class BulkCharges extends AbstractApi
 
 	public function initiate(array $parameters)
 	{
-		$this->required->setRequiredParameters([]);
+		$this->validator->setRequiredParameters([]);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

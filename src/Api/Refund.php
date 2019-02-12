@@ -24,8 +24,8 @@ class Refund extends AbstractApi
 
 	public function fetch($refundId)
 	{
-		$this->required->setRequiredParameters(['refund_id']);
-		if ($this->required->checkParameters(['refund_id' => $refundId])) {
+		$this->validator->setRequiredParameters(['refund_id']);
+		if ($this->validator->checkParameters([ 'refund_id' => $refundId])) {
 			return $this->get(self::BASE_PATH . '/' . $refundId);
 		}
 	}
@@ -37,9 +37,9 @@ class Refund extends AbstractApi
 
 	public function create(array $parameters)
 	{
-		$this->required->setRequiredParameters(['transaction']);
+		$this->validator->setRequiredParameters(['transaction']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}

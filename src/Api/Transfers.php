@@ -24,8 +24,8 @@ class Transfers extends AbstractApi
 
 	public function fetch(string $transferId)
 	{
-		$this->required->setRequiredParameters(['id_or_code']);
-		if ($this->required->checkParameters(['id_or_code' => $transferId])) {
+		$this->validator->setRequiredParameters(['id_or_code']);
+		if ($this->validator->checkParameters([ 'id_or_code' => $transferId])) {
 			return $this->get(self::BASE_PATH . '/' . $transferId);
 		}
 	}
@@ -37,63 +37,63 @@ class Transfers extends AbstractApi
 
 	public function initiate(array $parameters)
 	{
-		$this->required->setRequiredParameters(['source', 'amount', 'recipient']);
+		$this->validator->setRequiredParameters(['source', 'amount', 'recipient']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH, $parameters);
 		}
 	}
 
 	public function finalize(array $parameters)
 	{
-		$this->required->setRequiredParameters(['transfer_code', 'otp']);
+		$this->validator->setRequiredParameters(['transfer_code', 'otp']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
 		}
 	}
 
 	public function bulk(array $parameters)
 	{
-		$this->required->setRequiredParameters([]);
+		$this->validator->setRequiredParameters([]);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/bulk', $parameters);
 		}
 	}
 
 	public function resendOtp(array $parameters)
 	{
-		$this->required->setRequiredParameters(['transfer_code', 'reason']);
+		$this->validator->setRequiredParameters(['transfer_code', 'reason']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/resend_otp', $parameters);
 		}
 	}
 
 	public function disableOtp(array $parameters = [])
 	{
-		$this->required->setRequiredParameters([]);
+		$this->validator->setRequiredParameters([]);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/disable_otp', $parameters);
 		}
 	}
 
 	public function enableOtp(array $parameters = [])
 	{
-		$this->required->setRequiredParameters([]);
+		$this->validator->setRequiredParameters([]);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/enable_otp', $parameters);
 		}
 	}
 
 	public function disableOtpFinalize(array $parameters)
 	{
-		$this->required->setRequiredParameters(['otp']);
+		$this->validator->setRequiredParameters(['otp']);
 
-		if ($this->required->checkParameters($parameters)) {
+		if ($this->validator->checkParameters($parameters)) {
 			return $this->post(self::BASE_PATH . '/disable_otp_finalize', $parameters);
 		}
 	}
