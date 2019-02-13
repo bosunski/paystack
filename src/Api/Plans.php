@@ -67,6 +67,8 @@ class Plans extends AbstractApi
 	}
 
 	/**
+     * Updates a plan
+     *
 	 * @param string $planId
 	 * @param array  $parameters
 	 *
