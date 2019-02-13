@@ -21,8 +21,14 @@ namespace Xeviant\Paystack\Api;
 class Plans extends AbstractApi
 {
 	const BASE_PATH = '/plan';
+
 	const SETTLEMENT_SCHEDULES = ['hourly', 'daily', 'weekly', 'monthly', 'biannually', 'annually'];
 
+	/**
+	 * @param $planId
+	 *
+	 * @return array|string
+	 */
 	public function fetch($planId)
 	{
 		$this->validator->setRequiredParameters(['plan_id']);
@@ -31,11 +37,22 @@ class Plans extends AbstractApi
 		}
 	}
 
+	/**
+	 * @param array $parameters
+	 *
+	 * @return array|string
+	 */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+	/**
+	 * @param array $parameters
+	 *
+	 * @return array|string
+	 * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+	 */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['name', 'amount', 'interval',]);
@@ -49,6 +66,13 @@ class Plans extends AbstractApi
 		}
 	}
 
+	/**
+	 * @param string $planId
+	 * @param array  $parameters
+	 *
+	 * @return array|string
+	 * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+	 */
 	public function update(string $planId, array $parameters)
 	{
 		if (isset($parameters['interval']) && $this->validator->contains(['interval' => (string) $parameters['interval']], self::SETTLEMENT_SCHEDULES)) {
