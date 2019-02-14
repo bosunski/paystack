@@ -85,6 +85,9 @@ class TransactionsTest extends ApiTestCase
 		$this->assertEquals($expectedResult, $api->initialize($input));
 	}
 
+    /**
+     * @test
+     */
 	public function shouldListTransactions()
 	{
 		$expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];

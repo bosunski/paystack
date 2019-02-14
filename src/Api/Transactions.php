@@ -26,6 +26,12 @@ class Transactions extends AbstractApi
 
 	const BOOLEANS = ['true', 'false'];
 
+    /**
+     * Verifies a Transaction
+     *
+     * @param string $reference
+     * @return array|bool|string
+     */
 	public function verify(string $reference)
 	{
 		$this->validator->setRequiredParameters(['reference']);
@@ -37,6 +43,13 @@ class Transactions extends AbstractApi
 		return true;
 	}
 
+    /**
+     * Authorizes a Charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     */
 	public function charge(array $parameters)
 	{
 		$this->validator->setRequiredParameters([]);
@@ -51,6 +64,13 @@ class Transactions extends AbstractApi
 	}
 
 
+    /**
+     * Creates a new Transaction
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     */
 	public function initialize(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['email', 'amount']);
@@ -64,6 +84,12 @@ class Transactions extends AbstractApi
 		}
 	}
 
+    /**
+     * Requests a re-authorization
+     *
+     * @param array $parameters
+     * @return array|string
+     */
 	public function reauthorize(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['authorization_code', 'amount', 'email']);
@@ -73,6 +99,12 @@ class Transactions extends AbstractApi
 		}
 	}
 
+    /**
+     * Checks a authorization
+     *
+     * @param array $parameters
+     * @return array|string
+     */
 	public function checkAuthorization(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['authorization_code', 'amount', 'email']);
@@ -82,6 +114,12 @@ class Transactions extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves a Transaction
+     *
+     * @param int $transactionId
+     * @return array|string
+     */
 	public function fetch(int $transactionId)
 	{
 		$this->validator->setRequiredParameters(['id']);
@@ -90,6 +128,12 @@ class Transactions extends AbstractApi
 		}
 	}
 
+    /**
+     * Gets the timeline of a Transaction
+     *
+     * @param string $transactionId
+     * @return array|string
+     */
 	public function timeline(string $transactionId)
 	{
 		$this->validator->setRequiredParameters(['id']);
@@ -98,11 +142,23 @@ class Transactions extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves the totals of all transactions
+     *
+     * @return array|string
+     */
 	public function totals()
 	{
 		return $this->get(self::BASE_PATH . '/totals');
 	}
 
+    /**
+     * Exports transaction as CSV
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     */
 	public function export(array $parameters = [])
 	{
 		if (isset($parameters['settled']) && $this->validator->contains(['settled' => (string) $parameters['queue']], self::BOOLEANS)) {
