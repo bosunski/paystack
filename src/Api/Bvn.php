@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright    (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,6 +22,14 @@ class Bvn extends AbstractApi
 {
 	const BASE_PATH = '/bank';
 
+    /**
+     * Resolves a Bank Verification Number
+     *
+     * @param $bvn
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function resolve($bvn)
 	{
 		if ($this->validator->checkParameter($bvn)) {
@@ -29,6 +37,14 @@ class Bvn extends AbstractApi
 		}
 	}
 
+    /**
+     * Resolves a Card BIN
+     *
+     * @param $bin
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function resolveCardBin($bin)
 	{
 		if ($this->validator->checkParameter($bin)) {
@@ -36,6 +52,13 @@ class Bvn extends AbstractApi
 		}
 	}
 
+    /**
+     * Resolves an Account Number
+     *
+     * @param $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function resolveAccountNumber($parameters)
 	{
 		$this->validator->setRequiredParameters([]);
@@ -44,6 +67,13 @@ class Bvn extends AbstractApi
 		}
 	}
 
+    /**
+     * Resolves a Phone Number
+     *
+     * @param $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function resolvePhoneNumber($parameters)
 	{
 		$this->validator->setRequiredParameters(['verification_type', 'phone', 'callback_url']);
