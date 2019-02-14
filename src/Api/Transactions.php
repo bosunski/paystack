@@ -31,6 +31,7 @@ class Transactions extends AbstractApi
      *
      * @param string $reference
      * @return array|bool|string
+     * @throws \Http\Client\Exception
      */
 	public function verify(string $reference)
 	{
@@ -49,6 +50,7 @@ class Transactions extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     * @throws \Http\Client\Exception
      */
 	public function charge(array $parameters)
 	{
@@ -70,6 +72,7 @@ class Transactions extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     * @throws \Http\Client\Exception
      */
 	public function initialize(array $parameters)
 	{
@@ -89,6 +92,7 @@ class Transactions extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function reauthorize(array $parameters)
 	{
@@ -104,6 +108,7 @@ class Transactions extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function checkAuthorization(array $parameters)
 	{
@@ -119,6 +124,7 @@ class Transactions extends AbstractApi
      *
      * @param int $transactionId
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function fetch(int $transactionId)
 	{
@@ -133,6 +139,7 @@ class Transactions extends AbstractApi
      *
      * @param string $transactionId
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function timeline(string $transactionId)
 	{
@@ -146,6 +153,7 @@ class Transactions extends AbstractApi
      * Retrieves the totals of all transactions
      *
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function totals()
 	{
@@ -158,6 +166,7 @@ class Transactions extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     * @throws \Http\Client\Exception
      */
 	public function export(array $parameters = [])
 	{

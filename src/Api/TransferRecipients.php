@@ -22,6 +22,13 @@ class TransferRecipients extends AbstractApi
 {
 	const BASE_PATH = '/transferrecipient';
 
+    /**
+     * Deleted a Transfer Recipient
+     *
+     * @param string $recipientCode
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function deleteTransferRecipient(string $recipientCode)
 	{
 		$this->validator->setRequiredParameters(['recipient_code_or_id']);
@@ -30,11 +37,25 @@ class TransferRecipients extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves all Transfer recipients
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Creates a Transfer Recipient
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['type', 'name']);
@@ -44,6 +65,14 @@ class TransferRecipients extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates a Transfer Recipient
+     *
+     * @param string $recipientCode
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function update(string $recipientCode, array $parameters)
 	{
 		return $this->put(self::BASE_PATH . "/$recipientCode", $parameters);
