@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,31 +22,73 @@ class BulkCharges extends AbstractApi
 {
 	const BASE_PATH = '/bulkcharge';
 
+    /**
+     * Retrieves a Bulk Charge
+     *
+     * @param $bulkChargeId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch($bulkChargeId)
 	{
 		return $this->get(self::BASE_PATH . '/' . $bulkChargeId);
 	}
 
+    /**
+     * Pauses a Bulk charge
+     *
+     * @param $bulkChargeId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function pause($bulkChargeId)
 	{
 		return $this->get(self::BASE_PATH . '/pause/' . $bulkChargeId);
 	}
 
+    /**
+     * Resumes a Bulk charge
+     *
+     * @param $bulkChargeId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function resume($bulkChargeId)
 	{
 		return $this->get(self::BASE_PATH . '/resume/' . $bulkChargeId);
 	}
 
+    /**
+     * Retrieves the charges belonging to a bulk charge
+     *
+     * @param $bulkChargeId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function charges($bulkChargeId)
 	{
 		return $this->get(self::BASE_PATH . "/$bulkChargeId" . '/charges');
 	}
 
-	public function list()
+    /**
+     * Lists all bulk charges
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
+	public function list(array $parameters = [])
 	{
-		return $this->get(self::BASE_PATH );
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Initiates a fresh bulk charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function initiate(array $parameters)
 	{
 		$this->validator->setRequiredParameters([]);
