@@ -10,7 +10,7 @@
  * @version         2.0
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
- * @copyright   (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link            https://github.com/bosunski/paystack
  *
  */
@@ -42,11 +42,21 @@ class ApiLimitExceededException extends RuntimeException
 		parent::__construct(sprintf('You have reached Paystack API limit! Limit is: %d', $limit), $code, $previous);
 	}
 
+    /**
+     * Gets the API Limit
+     *
+     * @return int
+     */
 	public function getLimit()
 	{
 		return $this->limit;
 	}
 
+    /**
+     * Get Reset Time
+     *
+     * @return int
+     */
 	public function getResetTime()
 	{
 		return $this->reset;

@@ -20,6 +20,15 @@ namespace Xeviant\Paystack\Exception;
 
 class ValueNotAllowedException extends ErrorException
 {
+
+    /**
+     * ValueNotAllowedException constructor.
+     *
+     * @param $value
+     * @param $options
+     * @param int $code
+     * @param null $previous
+     */
 	public function __construct($value, $options, int $code = 0, $previous = null)
 	{
 		$key = array_keys($value)[0];

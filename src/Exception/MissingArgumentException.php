@@ -20,6 +20,14 @@ namespace Xeviant\Paystack\Exception;
 
 class MissingArgumentException extends ErrorException
 {
+
+    /**
+     * MissingArgumentException constructor.
+     *
+     * @param $required
+     * @param int $code
+     * @param null $previous
+     */
 	public function __construct($required, int $code = 0, $previous = null)
 	{
 		if (is_string($required)) {
