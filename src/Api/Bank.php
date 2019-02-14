@@ -22,6 +22,12 @@ class Bank extends AbstractApi
 {
 	const BASE_PATH = '/bank';
 
+    /**
+     * Retrieves List of Supported banks by Paystack
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list()
 	{
 		return $this->get(self::BASE_PATH);
