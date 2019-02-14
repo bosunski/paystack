@@ -64,6 +64,11 @@ class HeaderDefaultsPlugin implements Plugin
 		return $next($request);
 	}
 
+    /**
+     * Retrieves default headers
+     *
+     * @return array
+     */
 	protected function getDefaultHeaders(): array
 	{
 		$secretKey = null !== $this->config ? $this->config->getSecretKey() : '';

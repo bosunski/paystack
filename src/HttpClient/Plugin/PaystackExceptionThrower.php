@@ -115,6 +115,13 @@ class PaystackExceptionThrower implements Plugin
 		});
 	}
 
+    /**
+     * Adapts a Guzzle based Promise to PSR Promise
+     *
+     * @param ResponseInterface $response
+     * @param $request
+     * @return AdaptedPromise
+     */
 	protected function convertResponseToPromise(ResponseInterface $response, $request)
 	{
 		$promise = new GuzzlePromise(function () use (&$promise, $response) {
