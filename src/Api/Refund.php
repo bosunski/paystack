@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright    (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,6 +22,13 @@ class Refund extends AbstractApi
 {
 	const BASE_PATH = '/refund';
 
+    /**
+     * Retrieves a Refund
+     *
+     * @param $refundId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch($refundId)
 	{
 		$this->validator->setRequiredParameters(['refund_id']);
@@ -30,11 +37,25 @@ class Refund extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves all refunds
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Creates a refund
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['transaction']);

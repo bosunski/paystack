@@ -22,6 +22,13 @@ class Settlements extends AbstractApi
 {
 	const BASE_PATH = '/settlement';
 
+    /**
+     * Retrieves all Settlements
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);

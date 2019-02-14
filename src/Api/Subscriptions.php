@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,6 +22,13 @@ class Subscriptions extends AbstractApi
 {
 	const BASE_PATH = '/subscription';
 
+    /**
+     * Retrieves a Subscription
+     *
+     * @param string $subscriptionId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch(string $subscriptionId)
 	{
 		$this->validator->setRequiredParameters(['id_or_subscription_code']);
@@ -30,11 +37,25 @@ class Subscriptions extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves all Subscriptions
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Creates a Subscription
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['customer', 'plan', 'authorization']);
@@ -44,6 +65,13 @@ class Subscriptions extends AbstractApi
 		}
 	}
 
+    /**
+     * Enable a Subscription
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function enable(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['code', 'token']);
@@ -53,6 +81,13 @@ class Subscriptions extends AbstractApi
 		}
 	}
 
+    /**
+     * Disable a subscription
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function disable(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['code', 'token']);
@@ -62,6 +97,14 @@ class Subscriptions extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates a Subscription
+     *
+     * @param string $accountId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function update(string $accountId, array $parameters)
 	{
 		return $this->put(self::BASE_PATH . "/$accountId", $parameters);

@@ -29,6 +29,7 @@ class SubAccount extends AbstractApi
      *
      * @param string $accountId
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function fetch(string $accountId)
 	{
@@ -43,6 +44,7 @@ class SubAccount extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
+     * @throws \Http\Client\Exception
      */
 	public function list(array $parameters = [])
 	{
@@ -55,6 +57,7 @@ class SubAccount extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     * @throws \Http\Client\Exception
      */
 	public function create(array $parameters)
 	{
@@ -76,6 +79,7 @@ class SubAccount extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     * @throws \Http\Client\Exception
      */
 	public function update(string $accountId, array $parameters)
 	{
