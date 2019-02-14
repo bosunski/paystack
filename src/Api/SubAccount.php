@@ -24,19 +24,38 @@ class SubAccount extends AbstractApi
 
 	const SETTLEMENT_SCHEDULES = ['auto', 'weekly', 'monthly', 'manual'];
 
+    /**
+     * Retrieves an already existing SubAccount
+     *
+     * @param string $accountId
+     * @return array|string
+     */
 	public function fetch(string $accountId)
 	{
 		$this->validator->setRequiredParameters(['id_or_slug']);
-		if ($this->validator->checkParameters([ 'id_or_slug' => $accountId])) {
+		if ($this->validator->checkParameters(['id_or_slug' => $accountId])) {
 			return $this->get(self::BASE_PATH . '/' . $accountId);
 		}
 	}
 
+    /**
+     * Lists all created SubAccounts
+     *
+     * @param array $parameters
+     * @return array|string
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Creates a fresh SubAccount
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['business_name', 'settlement_bank', 'account_number', 'percentage_charge']);
@@ -50,6 +69,14 @@ class SubAccount extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates an already existing SubAccount
+     *
+     * @param string $accountId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
+     */
 	public function update(string $accountId, array $parameters)
 	{
 		if (isset($parameters['settlement_schedule']) && $this->validator->contains(['settlement_schedule' => (string) $parameters['settlement_schedule']], self::SETTLEMENT_SCHEDULES)) {
