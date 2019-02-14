@@ -26,31 +26,53 @@ use Xeviant\Paystack\Validator;
 abstract class AbstractApi implements ApiInterface
 {
 	/**
+     * The HTTP Client
+     *
 	 * @var Client
 	 */
 	private $client;
 
 	/**
+     * Specifies the current page
+     *
 	 * @var
 	 */
 	private $page;
 
 	/**
+     * Specifies Items per page in a List
+     *
 	 * @var
 	 */
 	private $perPage;
 
 	/**
+     * A simple Validator Object
+     *
 	 * @var Validator
 	 */
 	protected $validator;
 
+    /**
+     * AbstractApi constructor.
+     *
+     * @param Client $client
+     */
 	public function __construct(Client $client)
 	{
 		$this->client    = $client;
 		$this->validator = new Validator;
 	}
 
+    /**
+     * Performs a GET Request through the Client
+     *
+     * @param $path
+     * @param array $parameters
+     * @param array $requestHeaders
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function get($path, array $parameters = [], array $requestHeaders = [])
 	{
 		if (null !== $this->page && !isset($parameters['page'])) {
@@ -72,6 +94,15 @@ abstract class AbstractApi implements ApiInterface
 		return ResponseMediator::getContent($response);
 	}
 
+    /**
+     * Performs a PATCH Request through the Client
+     *
+     * @param string $path
+     * @param array $parameters
+     * @param array $requestHeaders
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function patch(string $path, array $parameters = [], array $requestHeaders = [])
 	{
 		$response = $this->client->getHttpClient()->patch(
@@ -83,6 +114,15 @@ abstract class AbstractApi implements ApiInterface
 		return ResponseMediator::getContent($response);
 	}
 
+    /**
+     * Performs a PUT Request through the Client
+     *
+     * @param string $path
+     * @param array $parameters
+     * @param array $requestHeaders
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function put(string $path, array $parameters = [], array $requestHeaders = [])
 	{
 		$response = $this->client->getHttpClient()->put(
@@ -94,6 +134,15 @@ abstract class AbstractApi implements ApiInterface
 		return ResponseMediator::getContent($response);
 	}
 
+    /**
+     * Performs a Delete Request through the Client
+     *
+     * @param string $path
+     * @param array $parameters
+     * @param array $requestHeader
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function delete(string $path, array $parameters = [], array $requestHeader = [])
 	{
 		$response = $this->client->getHttpClient()->delete(
@@ -105,6 +154,15 @@ abstract class AbstractApi implements ApiInterface
 		return ResponseMediator::getContent($response);
 	}
 
+    /**
+     * Performs a POST Request through the client
+     *
+     * @param $path
+     * @param array $parameters
+     * @param array $requestHeaders
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function post($path, array $parameters = [], array $requestHeaders = [])
 	{
 		return $this->postRaw(
@@ -114,6 +172,15 @@ abstract class AbstractApi implements ApiInterface
 		);
 	}
 
+    /**
+     * Performs a raw POST request through the client
+     *
+     * @param $path
+     * @param $body
+     * @param array $requestHeaders
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	protected function postRaw($path, $body, array $requestHeaders = [])
 	{
 		$response = $this->client->getHttpClient()->post(
@@ -138,6 +205,8 @@ abstract class AbstractApi implements ApiInterface
 	}
 
 	/**
+     * Returns the Items per page
+     *
 	 * @return int
 	 */
 	public function getPerPage(): int
@@ -146,6 +215,8 @@ abstract class AbstractApi implements ApiInterface
 	}
 
 	/**
+     * Sets the Items per page
+     *
 	 * @param int $page
 	 *
 	 * @return ApiInterface
