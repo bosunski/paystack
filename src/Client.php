@@ -54,6 +54,13 @@ class Client
 	 */
 	private $config;
 
+    /**
+     * Client constructor.
+     *
+     * @param Builder|null $httpClientBuilder
+     * @param null $apiVersion
+     * @param Config|null $config
+     */
 	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
 	{
 		$this->config = $config;
@@ -71,6 +78,8 @@ class Client
 	}
 
 	/**
+     * Creates The Paystack client with an HTTP Client
+     *
 	 * @param HttpClient $httpClient
 	 *
 	 * @return Client
@@ -83,6 +92,8 @@ class Client
 	}
 
 	/**
+     * Retrieves an HTTP Client Object
+     *
 	 * @return \Http\Client\Common\HttpMethodsClientInterface
 	 */
 	public function getHttpClient(): HttpMethodsClientInterface
@@ -91,6 +102,8 @@ class Client
 	}
 
 	/**
+     * Retrieves an HTTP Client builder object
+     *
 	 * @return Builder
 	 */
 	protected function getHttpClientBuilder(): Builder
