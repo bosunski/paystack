@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,6 +22,12 @@ class Balance extends AbstractApi
 {
 	const BASE_PATH = '/balance';
 
+    /**
+     * Retrieves Paystack Balance
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch()
 	{
 		return $this->get(self::BASE_PATH);
