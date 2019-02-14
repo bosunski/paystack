@@ -33,20 +33,37 @@ use Http\Message\StreamFactory;
 class Builder
 {
 	/**
+     * The HTTP Client object
+     *
 	 * @var HttpClient
 	 */
 	private $httpClient;
 
+    /**
+     * Flags for knowing If Client has been modified
+     *
+     * @var bool
+     */
 	private $httpClientModified = true;
+
 	/**
 	 * @var RequestFactory
 	 */
 	private $requestFactory;
+
 	/**
 	 * @var StreamFactory
 	 */
 	private $streamFactory;
+
+    /**
+     * @var array
+     */
 	private $headers = [];
+
+    /**
+     * @var array
+     */
 	private $plugins = [];
 
 	/**
@@ -74,6 +91,9 @@ class Builder
 		$this->streamFactory = $streamFactory ?: StreamFactoryDiscovery::find();
 	}
 
+    /**
+     * Removes all the headers
+     */
 	public function clearHeaders(): void
 	{
 		$this->headers = [];
@@ -82,12 +102,22 @@ class Builder
 		$this->addPlugin(new HeaderAppendPlugin($this->headers));
 	}
 
+    /**
+     * Adds a Plugin to the Plugin list
+     *
+     * @param Plugin $plugin
+     */
 	public function addPlugin(Plugin $plugin): void
 	{
 		$this->plugins[] = $plugin;
 		$this->httpClientModified = true;
 	}
 
+    /**
+     * Removes a Plugin from the List
+     *
+     * @param $fqcn
+     */
 	public function removePlugin($fqcn): void
 	{
 		foreach ($this->plugins as $key => $plugin) {
@@ -99,6 +129,8 @@ class Builder
 	}
 
 	/**
+     * Add the Value for a header
+     *
 	 * @param string $header
 	 * @param string $headerValue
 	 */
@@ -115,6 +147,8 @@ class Builder
 	}
 
 	/**
+     * Add Headers
+     *
 	 * @param array $headers
 	 */
 	public function addHeaders(array $headers)
@@ -126,6 +160,8 @@ class Builder
 	}
 
 	/**
+     * Retrieves HTTP Client Instance
+     *
 	 * @return HttpMethodsClient
 	 */
 	public function getHttpClient(): HttpMethodsClient
