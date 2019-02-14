@@ -22,6 +22,13 @@ class Charge extends AbstractApi
 {
 	const BASE_PATH = '/charge';
 
+    /**
+     * Creates a Charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function charge(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['email', 'amount', 'card.number', 'card.cvv', 'card.expiry_month', 'card.expiry_year', 'bank.code', 'bank.account_number']);
@@ -31,6 +38,13 @@ class Charge extends AbstractApi
 		}
 	}
 
+    /**
+     * Submits a PIN
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function submitPin(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['pin', 'reference']);
@@ -40,6 +54,13 @@ class Charge extends AbstractApi
 		}
 	}
 
+    /**
+     * Submits OTP for Charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function submitOtp(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['otp', 'reference']);
@@ -49,6 +70,13 @@ class Charge extends AbstractApi
 		}
 	}
 
+    /**
+     * Submits Phone for Charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function submitPhone(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['phone', 'reference']);
@@ -58,6 +86,13 @@ class Charge extends AbstractApi
 		}
 	}
 
+    /**
+     * Submits Birthday for charge
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function submitBirthday(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['birthday', 'reference']);
@@ -67,12 +102,15 @@ class Charge extends AbstractApi
 		}
 	}
 
-	/**
-	 * @param string $reference
-	 *
-	 * @return array|string
-	 * @throws \Xeviant\Paystack\Exception\MissingArgumentException
-	 */
+    /**
+     * Checks a Pending Charge
+     *
+     * @param string $reference
+     *
+     * @return array|string
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     * @throws \Http\Client\Exception
+     */
 	public function checkPendingCharge(string $reference)
 	{
 		if ($this->validator->checkParameter($reference)) {
