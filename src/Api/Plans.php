@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -25,7 +25,7 @@ class Plans extends AbstractApi
 	const SETTLEMENT_SCHEDULES = ['hourly', 'daily', 'weekly', 'monthly', 'biannually', 'annually'];
 
 	/**
-     * Fetch Customer
+     * Fetches a Plan
      *
 	 * @param $planId
 	 *
@@ -40,7 +40,7 @@ class Plans extends AbstractApi
 	}
 
 	/**
-     * List Customer
+     * List Plans
      *
 	 * @param array $parameters
 	 *
