@@ -24,6 +24,8 @@ use Xeviant\Paystack\Exception\ApiLimitExceededException;
 class ResponseMediator
 {
 	/**
+     * Retrieves the content of a response
+     *
 	 * @param ResponseInterface $response
 	 * @return array|string
 	 */
@@ -43,6 +45,8 @@ class ResponseMediator
 	}
 
 	/**
+     * Retrieves a header in a Response
+     *
 	 * @param ResponseInterface $response
 	 * @param                   $name
 	 *
@@ -55,6 +59,12 @@ class ResponseMediator
 		return array_shift($headers);
 	}
 
+    /**
+     * Retrieves the API limit of the API
+     *
+     * @param ResponseInterface $response
+     * @return mixed
+     */
 	public static function getApiLimit(ResponseInterface $response)
 	{
 		$remainingCalls = self::getHeader($response, 'X-RateLimit-Remaining');

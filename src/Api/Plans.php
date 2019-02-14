@@ -25,6 +25,8 @@ class Plans extends AbstractApi
 	const SETTLEMENT_SCHEDULES = ['hourly', 'daily', 'weekly', 'monthly', 'biannually', 'annually'];
 
 	/**
+     * Fetch Customer
+     *
 	 * @param $planId
 	 *
 	 * @return array|string
@@ -38,6 +40,8 @@ class Plans extends AbstractApi
 	}
 
 	/**
+     * List Customer
+     *
 	 * @param array $parameters
 	 *
 	 * @return array|string
@@ -48,6 +52,8 @@ class Plans extends AbstractApi
 	}
 
 	/**
+     * Create Customer
+     *
 	 * @param array $parameters
 	 *
 	 * @return array|string
