@@ -22,16 +22,36 @@ class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
 
+    /**
+     * Retrieves a Customer
+     *
+     * @param $email
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch($email)
 	{
 		return $this->get(self::BASE_PATH . DIRECTORY_SEPARATOR . $email);
 	}
 
+    /**
+     * Retrieves all Customers
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list()
 	{
 		return $this->get(self::BASE_PATH);
 	}
 
+    /**
+     * Creates a Customer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['email']);
@@ -41,6 +61,14 @@ class Customers extends AbstractApi
 		}
 	}
 
+    /**
+     * Whitelists a customer
+     *
+     * @param string $customerId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function whitelist(string $customerId)
 	{
 		if ($this->validator->checkParameter($customerId)) {
@@ -49,6 +77,14 @@ class Customers extends AbstractApi
 		}
 	}
 
+    /**
+     * Blacklists a Customer
+     *
+     * @param string $customerId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function blacklist(string $customerId)
 	{
 		if ($this->validator->checkParameter($customerId)) {
@@ -57,6 +93,13 @@ class Customers extends AbstractApi
 		}
 	}
 
+    /**
+     * Deactivates Authorization
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function deactivateAuthorization(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['authorization_code']);
@@ -66,6 +109,14 @@ class Customers extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates a Customer
+     *
+     * @param $customerId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function update($customerId, array $parameters)
 	{
 		return $this->put(self::BASE_PATH . DIRECTORY_SEPARATOR. $customerId, $parameters);
