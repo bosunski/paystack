@@ -78,11 +78,9 @@ abstract class AbstractApi implements ApiInterface
 		if (null !== $this->page && !isset($parameters['page'])) {
 			$parameters['page'] = $this->page;
 		}
+
 		if (null !== $this->perPage && !isset($parameters['per_page'])) {
 			$parameters['per_page'] = $this->perPage;
-		}
-		if (array_key_exists('ref', $parameters) && is_null($parameters['ref'])) {
-			unset($parameters['ref']);
 		}
 
 		if (count($parameters) > 0) {
