@@ -22,6 +22,13 @@ class Pages extends AbstractApi
 {
 	const BASE_PATH = '/page';
 
+    /**
+     * Retrieves a Payment Page
+     *
+     * @param $pageId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch($pageId)
 	{
 		$this->validator->setRequiredParameters(['page_id']);
@@ -30,6 +37,13 @@ class Pages extends AbstractApi
 		}
 	}
 
+    /**
+     * Checks if a page slug is available
+     *
+     * @param $slug
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function checkSlugAvailability($slug)
 	{
 		$this->validator->setRequiredParameters(['slug']);
@@ -38,11 +52,25 @@ class Pages extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves all Payment pages
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Creates a payment Page
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['name']);
@@ -52,6 +80,14 @@ class Pages extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates a payment page
+     *
+     * @param string $pageId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function update(string $pageId, array $parameters)
 	{
 		return $this->put(self::BASE_PATH . "/$pageId", $parameters);
