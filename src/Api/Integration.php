@@ -23,11 +23,24 @@ class Integration extends AbstractApi
 {
 	const BASE_PATH = '/integration';
 
+    /**
+     * Retrieves timeout for payment session
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetchPaymentSessionTimeout()
 	{
 		return $this->get(self::BASE_PATH . "/payment_session_timeout");
 	}
 
+    /**
+     * Updates Payment session timeout
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function updatePaymentSessionTimeout(array $parameters)
 	{
 		return $this->put(self::BASE_PATH . "/payment_session_timeout", $parameters);

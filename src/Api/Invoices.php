@@ -22,6 +22,14 @@ class Invoices extends AbstractApi
 {
 	const BASE_PATH = '/paymentrequest';
 
+    /**
+     * Retrieves an Invoice
+     *
+     * @param string $invoiceId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function fetch(string $invoiceId)
 	{
 		if ($this->validator->checkParameter($invoiceId)) {
@@ -29,6 +37,14 @@ class Invoices extends AbstractApi
 		}
 	}
 
+    /**
+     * Verifies an Invoice
+     *
+     * @param string $invoiceId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     */
 	public function verify(string $invoiceId)
 	{
 		if ($this->validator->checkParameter($invoiceId)) {
@@ -36,31 +52,75 @@ class Invoices extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves Invoice totals
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function totals()
 	{
 		return $this->get(self::BASE_PATH . '/totals');
 	}
 
+    /**
+     * Retrieves all Invoices
+     *
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list()
 	{
 		return $this->get(self::BASE_PATH);
 	}
 
+    /**
+     * Creates notification about an Invoice
+     *
+     * @param string $invoiceId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function notify(string $invoiceId, array $parameters = [])
 	{
 		return $this->post(self::BASE_PATH . "/notify/$invoiceId", $parameters);
 	}
 
+    /**
+     * Finalizes an Invoice
+     *
+     * @param string $invoiceId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function finalize(string $invoiceId, array $parameters = [])
 	{
 		return $this->post(self::BASE_PATH . "/finalize/$invoiceId", $parameters);
 	}
 
+    /**
+     * Archives an Invoice
+     *
+     * @param string $invoiceId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function archive(string $invoiceId, array $parameters = [])
 	{
 		return $this->post(self::BASE_PATH . "/archive/$invoiceId", $parameters);
 	}
 
+    /**
+     * Marks an Invoice as Paid
+     *
+     * @param string $invoiceId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function markAsPaid(string $invoiceId, array $parameters = [])
 	{
 		$this->validator->setRequiredParameters(['amount_paid', 'paid_by', 'payment_date', 'payment_method']);
@@ -70,6 +130,14 @@ class Invoices extends AbstractApi
 		}
 	}
 
+    /**
+     * Updates an Invoice
+     *
+     * @param string $invoiceId
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function update(string $invoiceId, array $parameters = [])
 	{
 		$this->validator->setRequiredParameters([]);
@@ -78,6 +146,13 @@ class Invoices extends AbstractApi
 		}
 	}
 
+    /**
+     * Creates an Invoice
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function create(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['customer', 'amount', 'due_date']);
