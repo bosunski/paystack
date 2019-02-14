@@ -10,7 +10,7 @@
  * @version          1.0
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
- * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
  * @link             https://github.com/bosunski/paystack
  *
  */
@@ -22,6 +22,13 @@ class Transfers extends AbstractApi
 {
 	const BASE_PATH = '/transfer';
 
+    /**
+     * Retrieves a Transfer
+     *
+     * @param string $transferId
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function fetch(string $transferId)
 	{
 		$this->validator->setRequiredParameters(['id_or_code']);
@@ -30,11 +37,25 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Retrieves all Transfers
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function list(array $parameters = [])
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}
 
+    /**
+     * Starts a Transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function initiate(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['source', 'amount', 'recipient']);
@@ -44,6 +65,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Finalizes a Transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function finalize(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['transfer_code', 'otp']);
@@ -53,6 +81,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Starts a Bulk Transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function bulk(array $parameters)
 	{
 		$this->validator->setRequiredParameters([]);
@@ -62,6 +97,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Resend an OTP
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function resendOtp(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['transfer_code', 'reason']);
@@ -71,6 +113,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Disable OTP Used for Transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function disableOtp(array $parameters = [])
 	{
 		$this->validator->setRequiredParameters([]);
@@ -80,6 +129,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Enable OTP used for transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function enableOtp(array $parameters = [])
 	{
 		$this->validator->setRequiredParameters([]);
@@ -89,6 +145,13 @@ class Transfers extends AbstractApi
 		}
 	}
 
+    /**
+     * Finalizes the disabling of OTP used for transfer
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
 	public function disableOtpFinalize(array $parameters)
 	{
 		$this->validator->setRequiredParameters(['otp']);
