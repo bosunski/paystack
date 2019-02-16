@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "655c39a0342fe78a6ab52c8dab699504",
+    "content-hash": "41ac978d06322346c1fcbc7ef7456d67",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -474,16 +474,16 @@
         },
         {
             "name": "php-http/httplug",
-            "version": "v2.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/httplug.git",
-                "reference": "b3842537338c949f2469557ef4ad4bdc47b58603"
+                "reference": "a11f1e36e8c4ea5b9ebeb60109703e21c4103f02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/httplug/zipball/b3842537338c949f2469557ef4ad4bdc47b58603",
-                "reference": "b3842537338c949f2469557ef4ad4bdc47b58603",
+                "url": "https://api.github.com/repos/php-http/httplug/zipball/a11f1e36e8c4ea5b9ebeb60109703e21c4103f02",
+                "reference": "a11f1e36e8c4ea5b9ebeb60109703e21c4103f02",
                 "shasum": ""
             },
             "require": {
@@ -527,7 +527,7 @@
                 "client",
                 "http"
             ],
-            "time": "2018-10-31T09:14:44+00:00"
+            "time": "2018-10-31T11:16:59+00:00"
         },
         {
             "name": "php-http/message",
@@ -3313,6 +3313,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "php-http/httplug": 20,
         "php-http/client-common": 20,
         "php-http/cache-plugin": 20
     },
