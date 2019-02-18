@@ -26,6 +26,7 @@ use Xeviant\Paystack\Api\Subscriptions;
 use Xeviant\Paystack\Api\Transactions;
 use Xeviant\Paystack\Api\TransferRecipients;
 use Xeviant\Paystack\Api\Transfers;
+use Xeviant\Paystack\Config as PaystackConfig;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Exception\BadMethodCallException;
@@ -63,7 +64,7 @@ class Client
      */
 	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
 	{
-		$this->config = $config;
+		$this->config = $config ?: new PaystackConfig(null, null, null, null);;
 
 		$this->responseHistory = new History();
 		$this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
