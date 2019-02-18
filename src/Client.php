@@ -37,23 +37,23 @@ use Xeviant\Paystack\HttpClient\Plugin\History;
 
 class Client
 {
-	/**
-	 * @var History
-	 */
-	private $responseHistory;
-	/**
-	 * @var Builder
-	 */
-	private $httpClientBuilder;
+    /**
+     * @var History
+     */
+    private $responseHistory;
+    /**
+     * @var Builder
+     */
+    private $httpClientBuilder;
 
-	/**
-	 * @var string
-	 */
-	private $apiVersion;
-	/**
-	 * @var Config
-	 */
-	private $config;
+    /**
+     * @var string
+     */
+    private $apiVersion;
+    /**
+     * @var Config
+     */
+    private $config;
 
     /**
      * Client constructor.
@@ -62,137 +62,137 @@ class Client
      * @param null $apiVersion
      * @param Config|null $config
      */
-	public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
-	{
-		$this->config = $config ?: new PaystackConfig(null, null, null, null);;
+    public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
+    {
+        $this->config = $config;
 
-		$this->responseHistory = new History();
-		$this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
+        $this->responseHistory = new History();
+        $this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
 
-		$builder->addPlugin(new HistoryPlugin($this->responseHistory));
-		$builder->addPlugin(new RedirectPlugin());
-		$builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
-		$builder->addPlugin(new HeaderDefaultsPlugin([], $this->config));
+        $builder->addPlugin(new HistoryPlugin($this->responseHistory));
+        $builder->addPlugin(new RedirectPlugin());
+        $builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
+        $builder->addPlugin(new HeaderDefaultsPlugin([], $this->config));
 
-		$this->apiVersion = $apiVersion ?: 'v1';
-		$builder->addHeaderValue('Accept', sprintf('application/json'));
-	}
+        $this->apiVersion = $apiVersion ?: 'v1';
+        $builder->addHeaderValue('Accept', sprintf('application/json'));
+    }
 
-	/**
+    /**
      * Creates The Paystack client with an HTTP Client
      *
-	 * @param HttpClient $httpClient
-	 *
-	 * @return Client
-	 */
-	public static function createWithHttpClient(HttpClient $httpClient): Client
-	{
-		$builder = new Builder($httpClient);
+     * @param HttpClient $httpClient
+     *
+     * @return Client
+     */
+    public static function createWithHttpClient(HttpClient $httpClient): Client
+    {
+        $builder = new Builder($httpClient);
 
-		return new self($builder);
-	}
+        return new self($builder);
+    }
 
-	/**
+    /**
      * Retrieves an HTTP Client Object
      *
-	 * @return \Http\Client\Common\HttpMethodsClientInterface
-	 */
-	public function getHttpClient(): HttpMethodsClientInterface
-	{
-		return $this->getHttpClientBuilder()->getHttpClient();
-	}
+     * @return \Http\Client\Common\HttpMethodsClientInterface
+     */
+    public function getHttpClient(): HttpMethodsClientInterface
+    {
+        return $this->getHttpClientBuilder()->getHttpClient();
+    }
 
-	/**
+    /**
      * Retrieves an HTTP Client builder object
      *
-	 * @return Builder
-	 */
-	protected function getHttpClientBuilder(): Builder
-	{
-		return $this->httpClientBuilder;
-	}
+     * @return Builder
+     */
+    protected function getHttpClientBuilder(): Builder
+    {
+        return $this->httpClientBuilder;
+    }
 
-	/**
-	 * Gets the API Instance
-	 *
-	 * @param $name
-	 *
-	 * @return ApiInterface
-	 */
-	public function api($name): ApiInterface
-	{
-		switch ($name) {
-			case 'balance':
-				$api = new Balance($this);
-				break;
-			case 'bank':
-				$api = new Bank($this);
-				break;
-			case 'bulkCharges':
-				$api = new BulkCharges($this);
-				break;
-			case 'bvn':
-				$api = new Bvn($this);
-				break;
-			case 'charge':
-				$api = new Charge($this);
-				break;
-			case 'customers':
-				$api = new Customers($this);
-				break;
-			case 'integration':
-				$api = new Integration($this);
-				break;
-			case 'invoices':
-				$api = new Invoices($this);
-				break;
-			case 'pages':
-				$api = new Pages($this);
-				break;
-			case 'plans':
-				$api = new Plans($this);
-				break;
-			case 'refund':
-				$api = new Refund($this);
-				break;
-			case 'settlements':
-				$api = new Settlements($this);
-				break;
-			case 'subAccount':
-				$api = new SubAccount($this);
-				break;
-			case 'subscriptions':
-				$api = new Subscriptions($this);
-				break;
-			case 'transactions':
-				$api = new Transactions($this);
-				break;
-			case 'transferRecipients':
-				$api = new TransferRecipients($this);
-				break;
-			case 'transfers':
-				$api = new Transfers($this);
-				break;
-			default:
-				throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
-		}
+    /**
+     * Gets the API Instance
+     *
+     * @param $name
+     *
+     * @return ApiInterface
+     */
+    public function api($name): ApiInterface
+    {
+        switch ($name) {
+            case 'balance':
+                $api = new Balance($this);
+                break;
+            case 'bank':
+                $api = new Bank($this);
+                break;
+            case 'bulkCharges':
+                $api = new BulkCharges($this);
+                break;
+            case 'bvn':
+                $api = new Bvn($this);
+                break;
+            case 'charge':
+                $api = new Charge($this);
+                break;
+            case 'customers':
+                $api = new Customers($this);
+                break;
+            case 'integration':
+                $api = new Integration($this);
+                break;
+            case 'invoices':
+                $api = new Invoices($this);
+                break;
+            case 'pages':
+                $api = new Pages($this);
+                break;
+            case 'plans':
+                $api = new Plans($this);
+                break;
+            case 'refund':
+                $api = new Refund($this);
+                break;
+            case 'settlements':
+                $api = new Settlements($this);
+                break;
+            case 'subAccount':
+                $api = new SubAccount($this);
+                break;
+            case 'subscriptions':
+                $api = new Subscriptions($this);
+                break;
+            case 'transactions':
+                $api = new Transactions($this);
+                break;
+            case 'transferRecipients':
+                $api = new TransferRecipients($this);
+                break;
+            case 'transfers':
+                $api = new Transfers($this);
+                break;
+            default:
+                throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
+        }
 
-		return $api;
-	}
+        return $api;
+    }
 
-	/**
-	 * @param $name
-	 * @param $arguments
-	 *
-	 * @return ApiInterface
-	 */
-	public function __call($name, $arguments): ApiInterface
-	{
-		try {
-			return $this->api($name);
-		} catch (InvalidArgumentException $e) {
-			throw new BadMethodCallException(sprintf('Undefined method called: "%s', $name));
-		}
-	}
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return ApiInterface
+     */
+    public function __call($name, $arguments): ApiInterface
+    {
+        try {
+            return $this->api($name);
+        } catch (InvalidArgumentException $e) {
+            throw new BadMethodCallException(sprintf('Undefined method called: "%s', $name));
+        }
+    }
 
 }
