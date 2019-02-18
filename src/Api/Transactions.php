@@ -45,6 +45,18 @@ class Transactions extends AbstractApi
 	}
 
     /**
+     * Retrieves all Transactions
+     *
+     * @param array $parameters
+     * @return array|string
+     * @throws \Http\Client\Exception
+     */
+    public function list(array $parameters = [])
+    {
+        return $this->get(self::BASE_PATH, $parameters);
+    }
+
+    /**
      * Authorizes a Charge
      *
      * @param array $parameters
