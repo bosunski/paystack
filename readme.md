@@ -1,5 +1,5 @@
 # Paystack API Client
-A simple, fluent and stable PHP client for Paystack API.
+A simple, fluent and stable PHP client for Paystack API. With this you have ALL of Paystack at your disposal!
 
 ### Features
 - Covers the **WHOLE** Paystack API as referenced [here][1]
@@ -22,6 +22,7 @@ require_once "vendor/autoload.php";
 use Xeviant\Paystack\Paystack;
 
 $paystack = new Paystack('pk_12xcd', 'sk_12xcb');
+
 /**
   * The pattern is that you call the API method and then the the part of the API you want to access
  * In this example I am accessing the list feature of the customers API check: https://developers.paystack.co/reference
@@ -48,4 +49,8 @@ var_dump($paystack->customers()->list());
 - `transferRecipients()` - Transfer Recipients
 - `transfers()` - Transfers API
 
+### Support
+Did you discover any bug while using this client? Kindly open an Issue or reach out to me on [bosunski@gmail.com][2]
+
 [1]: https://developers.paystack.co/reference
+[2]: mailto:bosunski@gmail.com
