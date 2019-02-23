@@ -47,6 +47,5 @@ var_dump($paystack->customers()->list());
 - `transactions()` - Transactions API
 - `transferRecipients()` - Transfer Recipients
 - `transfers()` - Transfers API
-```
 
 [1]: https://developers.paystack.co/reference
