@@ -61,7 +61,7 @@ class Validator
 		$values = collect($values);
 
 		$this->getRequiredParameters()->each(function($requiredParam) use ($values) {
-			if (!$values->has($requiredParam) || !$values->get($requiredParam))
+			if (!$values->has($requiredParam) || $values->get($requiredParam) === null)
 				throw new MissingArgumentException($requiredParam);
 		});
 
