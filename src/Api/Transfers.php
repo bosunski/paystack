@@ -18,7 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
-use Xeviant\Paystack\Contract\EventType;
+use Xeviant\Paystack\Contract\PaystackEventType;
 
 class Transfers extends AbstractApi
 {
@@ -66,9 +66,9 @@ class Transfers extends AbstractApi
 			$response = $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['success'] ?? null && isset($response['data']['status']) && $response['data']['status'] !== "otp") {
-			    $this->fire(EventType::TRANSFER_SUCCESS);
+			    $this->fire(PaystackEventType::TRANSFER_SUCCESS);
             } else {
-                $this->fire(EventType::TRANSFER_FAILED);
+                $this->fire(PaystackEventType::TRANSFER_FAILED);
             }
 
 			return $response;
@@ -90,9 +90,9 @@ class Transfers extends AbstractApi
 			$response = $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::TRANSFER_SUCCESS, $response['data']);
+			    $this->fire(PaystackEventType::TRANSFER_SUCCESS, $response['data']);
             } else {
-			    $this->fire(EventType::TRANSFER_FAILED, $response['data'] ?? null);
+			    $this->fire(PaystackEventType::TRANSFER_FAILED, $response['data'] ?? null);
             }
 
 			return $response;
@@ -114,9 +114,9 @@ class Transfers extends AbstractApi
 			$response = $this->post(self::BASE_PATH . '/bulk', $parameters);
 
             if ($response['status'] ?? null) {
-                $this->fire(EventType::BULK_TRANSFER_SUCCESS, $response['data']);
+                $this->fire(PaystackEventType::BULK_TRANSFER_SUCCESS, $response['data']);
             } else {
-                $this->fire(EventType::BULK_TRANSFER_FAILED, $response['data'] ?? null);
+                $this->fire(PaystackEventType::BULK_TRANSFER_FAILED, $response['data'] ?? null);
             }
 
             return $response;

@@ -18,7 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
-use Xeviant\Paystack\Contract\EventType;
+use Xeviant\Paystack\Contract\PaystackEventType;
 
 class Invoices extends AbstractApi
 {
@@ -147,7 +147,7 @@ class Invoices extends AbstractApi
 			$response = $this->put(self::BASE_PATH . "/$invoiceId", $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::INVOICE_UPDATED, $response['data'] ?? null);
+			    $this->fire(PaystackEventType::INVOICE_UPDATED, $response['data'] ?? null);
             }
 
 			return $response;
@@ -168,9 +168,9 @@ class Invoices extends AbstractApi
 			$response = $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::INVOICE_CREATED, $response['data']);
+			    $this->fire(PaystackEventType::INVOICE_CREATED, $response['data']);
             } else {
-			    $this->fire(EventType::INVOICE_FAILED, $response['data'] ?? null);
+			    $this->fire(PaystackEventType::INVOICE_FAILED, $response['data'] ?? null);
             }
 
 			return $response;

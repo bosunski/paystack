@@ -3,7 +3,7 @@
 namespace Xeviant\Paystack\Contract;
 
 
-interface EventType
+interface PaystackEventType
 {
     const INVOICE_UPDATED = 'invoice.update';
     const INVOICE_CREATED = 'invoice.create';
