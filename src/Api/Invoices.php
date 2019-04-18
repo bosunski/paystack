@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Xeviant\Paystack\Contract\EventType;
+
 class Invoices extends AbstractApi
 {
 	const BASE_PATH = '/paymentrequest';
@@ -157,7 +159,13 @@ class Invoices extends AbstractApi
 	{
 		$this->validator->setRequiredParameters(['customer', 'amount', 'due_date']);
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH, $parameters);
+			$response = $this->post(self::BASE_PATH, $parameters);
+
+			if ($response['status']) {
+			    $this->fire(EventType::INVOICE_CREATED);
+            }
+
+			return $response;
 		}
 	}
 }
