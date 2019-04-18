@@ -205,7 +205,7 @@ class Client
         }
     }
 
-    public function getEvent()
+    public function getEvent(): EventInterface
     {
         return $this->event;
     }
