@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Xeviant\Paystack\Contract\EventType;
+
 class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
@@ -42,10 +44,6 @@ class Customers extends AbstractApi
      */
 	public function list()
 	{
-        if (true) {
-            $this->client->getEvent()->fire('customer.list');
-        }
-
 		return $this->get(self::BASE_PATH);
 	}
 
