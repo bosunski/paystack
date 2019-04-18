@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Xeviant\Paystack\Contract\EventType;
+
 class Charge extends AbstractApi
 {
 	const BASE_PATH = '/charge';
@@ -34,7 +36,13 @@ class Charge extends AbstractApi
 		$this->validator->setRequiredParameters(['email', 'amount', 'card.number', 'card.cvv', 'card.expiry_month', 'card.expiry_year', 'bank.code', 'bank.account_number']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH, $parameters);
+			$response = $this->post(self::BASE_PATH, $parameters);
+
+			if ($response['status']) {
+			    $this->fire(EventType::CHARGE_SUCCESS);
+            }
+
+			return $response;
 		}
 	}
 

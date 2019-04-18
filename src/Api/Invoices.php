@@ -169,6 +169,8 @@ class Invoices extends AbstractApi
 
 			if ($response['status']) {
 			    $this->fire(EventType::INVOICE_CREATED);
+            } else {
+			    $this->fire(EventType::INVOICE_FAILED);
             }
 
 			return $response;

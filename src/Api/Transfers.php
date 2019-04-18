@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Xeviant\Paystack\Contract\EventType;
+
 class Transfers extends AbstractApi
 {
 	const BASE_PATH = '/transfer';
@@ -61,7 +63,15 @@ class Transfers extends AbstractApi
 		$this->validator->setRequiredParameters(['source', 'amount', 'recipient']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH, $parameters);
+			$response = $this->post(self::BASE_PATH, $parameters);
+
+			if ($response['success'] && isset($response['data']['status']) && $response['data']['status'] !== "otp") {
+			    $this->fire(EventType::TRANSFER_SUCCESS);
+            } else {
+                $this->fire(EventType::TRANSFER_FAILED);
+            }
+
+			return $response;
 		}
 	}
 
@@ -77,7 +87,15 @@ class Transfers extends AbstractApi
 		$this->validator->setRequiredParameters(['transfer_code', 'otp']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
+			$response = $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
+
+			if ($response['success']) {
+			    $this->fire(EventType::TRANSFER_SUCCESS);
+            } else {
+			    $this->fire(EventType::TRANSFER_FAILED);
+            }
+
+			return $response;
 		}
 	}
 
@@ -93,7 +111,15 @@ class Transfers extends AbstractApi
 		$this->validator->setRequiredParameters([]);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH . '/bulk', $parameters);
+			$response = $this->post(self::BASE_PATH . '/bulk', $parameters);
+
+            if ($response['success']) {
+                $this->fire(EventType::BULK_TRANSFER_SUCCESS);
+            } else {
+                $this->fire(EventType::BULK_TRANSFER_FAILED);
+            }
+
+            return $response;
 		}
 	}
 
