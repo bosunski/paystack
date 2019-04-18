@@ -38,7 +38,7 @@ class Charge extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH, $parameters);
 
-			if ($response['status']) {
+			if ($response['status'] ?? null) {
 			    $this->fire(EventType::CHARGE_SUCCESS);
             }
 

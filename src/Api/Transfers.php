@@ -65,7 +65,7 @@ class Transfers extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH, $parameters);
 
-			if ($response['success'] && isset($response['data']['status']) && $response['data']['status'] !== "otp") {
+			if ($response['success'] ?? null && isset($response['data']['status']) && $response['data']['status'] !== "otp") {
 			    $this->fire(EventType::TRANSFER_SUCCESS);
             } else {
                 $this->fire(EventType::TRANSFER_FAILED);
@@ -89,7 +89,7 @@ class Transfers extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
 
-			if ($response['success']) {
+			if ($response['startus'] ?? null) {
 			    $this->fire(EventType::TRANSFER_SUCCESS);
             } else {
 			    $this->fire(EventType::TRANSFER_FAILED);
@@ -113,7 +113,7 @@ class Transfers extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH . '/bulk', $parameters);
 
-            if ($response['success']) {
+            if ($response['status'] ?? null) {
                 $this->fire(EventType::BULK_TRANSFER_SUCCESS);
             } else {
                 $this->fire(EventType::BULK_TRANSFER_FAILED);

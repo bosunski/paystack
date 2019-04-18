@@ -85,7 +85,7 @@ class Client
         $this->apiVersion = $apiVersion ?: 'v1';
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = $event;
+        $this->event = $event ?? new EventHandler;
     }
 
     /**

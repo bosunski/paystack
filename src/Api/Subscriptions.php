@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Xeviant\Paystack\Contract\EventType;
+
 class Subscriptions extends AbstractApi
 {
 	const BASE_PATH = '/subscription';
@@ -63,8 +65,8 @@ class Subscriptions extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response =  $this->post(self::BASE_PATH, $parameters);
 
-			if ($response['status']) {
-			    $this->fire('subscription.create');
+			if ($response['status'] ?? null) {
+			    $this->fire(EventType::SUBSCRIPTION_CREATE);
             }
 
 			return $response;
@@ -85,8 +87,8 @@ class Subscriptions extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH . "/enable", $parameters);
 
-			if ($response['status']) {
-			    $this->fire('subscription.enable');
+			if ($response['status'] ?? null) {
+			    $this->fire(EventType::SUBSCRIPTION_ENABLED);
             }
 
 			return $response;
@@ -107,8 +109,8 @@ class Subscriptions extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH . "/disable", $parameters);
 
-            if ($response['status']) {
-                $this->fire('subscription.disable');
+            if ($response['status'] ?? null) {
+                $this->fire(EventType::SUBSCRIPTION_DISABLED);
             }
 
             return $response;
