@@ -144,7 +144,13 @@ class Invoices extends AbstractApi
 	{
 		$this->validator->setRequiredParameters([]);
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->put(self::BASE_PATH . "/$invoiceId", $parameters);
+			$response = $this->put(self::BASE_PATH . "/$invoiceId", $parameters);
+
+			if ($response['status']) {
+			    $this->fire(EventType::INVOICE_UPDATED);
+            }
+
+			return $response;
 		}
 	}
 
