@@ -147,7 +147,7 @@ class Invoices extends AbstractApi
 			$response = $this->put(self::BASE_PATH . "/$invoiceId", $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::INVOICE_UPDATED);
+			    $this->fire(EventType::INVOICE_UPDATED, $response['data'] ?? null);
             }
 
 			return $response;
@@ -168,9 +168,9 @@ class Invoices extends AbstractApi
 			$response = $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::INVOICE_CREATED);
+			    $this->fire(EventType::INVOICE_CREATED, $response['data']);
             } else {
-			    $this->fire(EventType::INVOICE_FAILED);
+			    $this->fire(EventType::INVOICE_FAILED, $response['data'] ?? null);
             }
 
 			return $response;

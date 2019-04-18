@@ -20,6 +20,7 @@ namespace Xeviant\Paystack\Api;
 
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Event\EventPayload;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 use Xeviant\Paystack\Validator;
 
@@ -229,11 +230,12 @@ abstract class AbstractApi implements ApiInterface
     /**
      * Fires an Event
      *
-     * @param $event
+     * @param string $event
+     * @param array $payload
      * @return mixed
      */
-	protected function fire($event)
+	protected function fire(string $event, array $payload = [])
     {
-        return $this->client->getEvent()->fire($event);
+        return $this->client->getEvent()->fire($event, $payload);
     }
 }

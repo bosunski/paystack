@@ -4,7 +4,7 @@ namespace Xeviant\Paystack\Contract;
 
 interface EventInterface
 {
-    public function fire($event);
+    public function fire(string $event, array $payload = []);
 
-    public function listen($event, $listener);
+    public function listen(string $event, callable $listener);
 }

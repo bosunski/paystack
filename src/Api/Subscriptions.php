@@ -66,7 +66,7 @@ class Subscriptions extends AbstractApi
 			$response =  $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::SUBSCRIPTION_CREATE);
+			    $this->fire(EventType::SUBSCRIPTION_CREATE, $response['data']);
             }
 
 			return $response;
@@ -88,7 +88,7 @@ class Subscriptions extends AbstractApi
 			$response = $this->post(self::BASE_PATH . "/enable", $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::SUBSCRIPTION_ENABLED);
+			    $this->fire(EventType::SUBSCRIPTION_ENABLED, $response['data'] ?? null);
             }
 
 			return $response;
@@ -110,7 +110,7 @@ class Subscriptions extends AbstractApi
 			$response = $this->post(self::BASE_PATH . "/disable", $parameters);
 
             if ($response['status'] ?? null) {
-                $this->fire(EventType::SUBSCRIPTION_DISABLED);
+                $this->fire(EventType::SUBSCRIPTION_DISABLED, $response['data'] ?? null);
             }
 
             return $response;

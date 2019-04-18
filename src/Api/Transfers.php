@@ -89,10 +89,10 @@ class Transfers extends AbstractApi
 		if ($this->validator->checkParameters($parameters)) {
 			$response = $this->post(self::BASE_PATH . '/finalize_transfer', $parameters);
 
-			if ($response['startus'] ?? null) {
-			    $this->fire(EventType::TRANSFER_SUCCESS);
+			if ($response['status'] ?? null) {
+			    $this->fire(EventType::TRANSFER_SUCCESS, $response['data']);
             } else {
-			    $this->fire(EventType::TRANSFER_FAILED);
+			    $this->fire(EventType::TRANSFER_FAILED, $response['data'] ?? null);
             }
 
 			return $response;
@@ -114,9 +114,9 @@ class Transfers extends AbstractApi
 			$response = $this->post(self::BASE_PATH . '/bulk', $parameters);
 
             if ($response['status'] ?? null) {
-                $this->fire(EventType::BULK_TRANSFER_SUCCESS);
+                $this->fire(EventType::BULK_TRANSFER_SUCCESS, $response['data']);
             } else {
-                $this->fire(EventType::BULK_TRANSFER_FAILED);
+                $this->fire(EventType::BULK_TRANSFER_FAILED, $response['data'] ?? null);
             }
 
             return $response;

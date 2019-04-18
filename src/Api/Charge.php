@@ -17,7 +17,6 @@
 
 namespace Xeviant\Paystack\Api;
 
-
 use Xeviant\Paystack\Contract\EventType;
 
 class Charge extends AbstractApi
@@ -39,7 +38,10 @@ class Charge extends AbstractApi
 			$response = $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['status'] ?? null) {
-			    $this->fire(EventType::CHARGE_SUCCESS);
+			    $this->fire(
+			        EventType::CHARGE_SUCCESS,
+                    $response['data']
+                );
             }
 
 			return $response;

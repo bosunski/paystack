@@ -18,8 +18,6 @@
 namespace Xeviant\Paystack\Api;
 
 
-use Xeviant\Paystack\Contract\EventType;
-
 class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
