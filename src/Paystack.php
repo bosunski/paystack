@@ -175,4 +175,12 @@ class Paystack
 	{
 		return $this->client->api($method);
 	}
+
+    /**
+     * @return Client
+     */
+	public function getClient(): Client
+    {
+        return $this->client;
+    }
 }

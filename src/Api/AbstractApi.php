@@ -30,7 +30,7 @@ abstract class AbstractApi implements ApiInterface
      *
 	 * @var Client
 	 */
-	private $client;
+	protected $client;
 
 	/**
      * Specifies the current page

@@ -42,6 +42,10 @@ class Customers extends AbstractApi
      */
 	public function list()
 	{
+        if (true) {
+            $this->client->getEvent()->fire('customer.list');
+        }
+
 		return $this->get(self::BASE_PATH);
 	}
 

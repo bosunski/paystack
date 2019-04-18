@@ -17,7 +17,6 @@
 
 namespace Xeviant\Paystack\HttpClient;
 
-
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
@@ -97,7 +96,7 @@ class Builder
 	public function clearHeaders(): void
 	{
 		$this->headers = [];
-		
+
 		$this->removePlugin(HeaderAppendPlugin::class);
 		$this->addPlugin(new HeaderAppendPlugin($this->headers));
 	}

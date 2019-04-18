@@ -61,7 +61,13 @@ class Subscriptions extends AbstractApi
 		$this->validator->setRequiredParameters(['customer', 'plan', 'authorization']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH, $parameters);
+			$response =  $this->post(self::BASE_PATH, $parameters);
+
+			if ($response['status']) {
+			    $this->client->getEvent()->fire('subscription.create');
+            }
+
+			return $response;
 		}
 	}
 
