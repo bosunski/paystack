@@ -64,7 +64,7 @@ class Subscriptions extends AbstractApi
 			$response =  $this->post(self::BASE_PATH, $parameters);
 
 			if ($response['status']) {
-			    $this->client->getEvent()->fire('subscription.create');
+			    $this->fire('subscription.create');
             }
 
 			return $response;

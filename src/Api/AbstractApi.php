@@ -225,4 +225,15 @@ abstract class AbstractApi implements ApiInterface
 
 		return $this;
 	}
+
+    /**
+     * Fires an Event
+     *
+     * @param $event
+     * @return mixed
+     */
+	protected function fire($event)
+    {
+        return $this->client->getEvent()->fire($event);
+    }
 }

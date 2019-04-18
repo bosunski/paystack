@@ -193,6 +193,5 @@ class Paystack
 	public function getEventHandler(): EventInterface
     {
         return $this->client->getEvent();
-
     }
 }
