@@ -29,6 +29,7 @@ use Xeviant\Paystack\Api\Transfers;
 use Xeviant\Paystack\Config as PaystackConfig;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\Config;
+use Xeviant\Paystack\Contract\EventInterface;
 use Xeviant\Paystack\Event\EventHandler;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
@@ -57,7 +58,7 @@ class Client
     private $config;
 
     /**
-     * @var EventHandler
+     * @var EventInterface
      */
     private $event;
 
@@ -67,8 +68,9 @@ class Client
      * @param Builder|null $httpClientBuilder
      * @param null $apiVersion
      * @param Config|null $config
+     * @param EventInterface|null $event
      */
-    public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null)
+    public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null, EventInterface $event = null)
     {
         $this->config = $config;
 
@@ -83,7 +85,7 @@ class Client
         $this->apiVersion = $apiVersion ?: 'v1';
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = new EventHandler;
+        $this->event = $event;
     }
 
     /**

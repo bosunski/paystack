@@ -18,6 +18,9 @@
 
 namespace Xeviant\Paystack;
 
+use Xeviant\Paystack\Contract\EventInterface;
+use Xeviant\Paystack\Event\EventHandler;
+
 /**
  * @method \Xeviant\Paystack\Api\Customers customers()
  * @method \Xeviant\Paystack\Api\Balance balance()
@@ -64,7 +67,7 @@ class Paystack
 	public function __construct($publicKey = null, $secretKey = null, $apiVersion = null)
 	{
 		$this->config = new Config(self::VERSION, $publicKey, $secretKey, $apiVersion);
-		$this->client = new Client(null, null, $this->config);
+		$this->client = new Client(null, null, $this->config, new EventHandler);
 	}
 
 	/**
@@ -182,5 +185,14 @@ class Paystack
 	public function getClient(): Client
     {
         return $this->client;
+    }
+
+    /**
+     * @return EventInterface
+     */
+	public function getEvent(): EventInterface
+    {
+        return $this->client->getEvent();
+
     }
 }
