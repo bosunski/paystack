@@ -83,7 +83,13 @@ class Subscriptions extends AbstractApi
 		$this->validator->setRequiredParameters(['code', 'token']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH . "/enable", $parameters);
+			$response = $this->post(self::BASE_PATH . "/enable", $parameters);
+
+			if ($response['status']) {
+			    $this->fire('subscription.enable');
+            }
+
+			return $response;
 		}
 	}
 
@@ -99,7 +105,13 @@ class Subscriptions extends AbstractApi
 		$this->validator->setRequiredParameters(['code', 'token']);
 
 		if ($this->validator->checkParameters($parameters)) {
-			return $this->post(self::BASE_PATH . "/disable", $parameters);
+			$response = $this->post(self::BASE_PATH . "/disable", $parameters);
+
+            if ($response['status']) {
+                $this->fire('subscription.disable');
+            }
+
+            return $response;
 		}
 	}
 
