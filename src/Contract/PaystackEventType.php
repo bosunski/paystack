@@ -15,5 +15,5 @@ interface PaystackEventType
     const INVOICE_FAILED = 'invoice.failed';
     const SUBSCRIPTION_ENABLED = 'subscription.enable';
     const SUBSCRIPTION_DISABLED = 'subscription.disable';
-    const SUBSCRIPTION_CREATE = 'subscription.disable';
+    const SUBSCRIPTION_CREATE = 'subscription.create';
 }
