@@ -18,6 +18,7 @@
 
 namespace Xeviant\Paystack;
 
+use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Contract\EventInterface;
 use Xeviant\Paystack\Event\EventHandler;
 
@@ -64,10 +65,10 @@ class Paystack
 	 */
 	private $client;
 
-	public function __construct($publicKey = null, $secretKey = null, $apiVersion = null)
+	public function __construct($publicKey = null, $secretKey = null)
 	{
-		$this->config = new Config(self::VERSION, $publicKey, $secretKey, $apiVersion);
-		$this->client = new Client(null, null, $this->config, new EventHandler);
+	    $app = new PaystackApplication($publicKey, $secretKey, dirname(__FILE__));
+		$this->client = $app->make(Client::class);
 	}
 
 	/**

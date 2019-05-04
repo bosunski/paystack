@@ -20,7 +20,8 @@
         "php-http/cache-plugin": "^1.6@dev",
         "illuminate/support": "^5.7",
         "league/event": "^2.2",
-        "php-http/guzzle6-adapter": "^2.0"
+        "php-http/guzzle6-adapter": "^2.0",
+        "illuminate/container": "^5.8"
     },
     "autoload": {
         "psr-4": {
