@@ -26,11 +26,10 @@ use Xeviant\Paystack\Api\Subscriptions;
 use Xeviant\Paystack\Api\Transactions;
 use Xeviant\Paystack\Api\TransferRecipients;
 use Xeviant\Paystack\Api\Transfers;
-use Xeviant\Paystack\Config as PaystackConfig;
 use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
-use Xeviant\Paystack\Event\EventHandler;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
@@ -61,16 +60,25 @@ class Client
      * @var EventInterface
      */
     private $event;
+    /**
+     * @var ApplicationInterface
+     */
+    private $app;
 
     /**
      * Client constructor.
      *
+     * @param ApplicationInterface $app
      * @param Builder|null $httpClientBuilder
-     * @param null $apiVersion
      * @param Config|null $config
      * @param EventInterface|null $event
      */
-    public function __construct(Builder $httpClientBuilder = null, Config $config = null, EventInterface $event = null)
+    public function __construct(
+        ApplicationInterface $app,
+        Builder $httpClientBuilder = null,
+        Config $config = null,
+        EventInterface $event = null
+    )
     {
         $this->config = $config;
 
@@ -86,6 +94,7 @@ class Client
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
         $this->event = $event;
+        $this->app = $app;
     }
 
     /**
@@ -131,63 +140,12 @@ class Client
      */
     public function api($name): ApiInterface
     {
-        switch ($name) {
-            case 'balance':
-                $api = new Balance($this);
-                break;
-            case 'bank':
-                $api = new Bank($this);
-                break;
-            case 'bulkCharges':
-                $api = new BulkCharges($this);
-                break;
-            case 'bvn':
-                $api = new Bvn($this);
-                break;
-            case 'charge':
-                $api = new Charge($this);
-                break;
-            case 'customers':
-                $api = new Customers($this);
-                break;
-            case 'integration':
-                $api = new Integration($this);
-                break;
-            case 'invoices':
-                $api = new Invoices($this);
-                break;
-            case 'pages':
-                $api = new Pages($this);
-                break;
-            case 'plans':
-                $api = new Plans($this);
-                break;
-            case 'refund':
-                $api = new Refund($this);
-                break;
-            case 'settlements':
-                $api = new Settlements($this);
-                break;
-            case 'subAccount':
-                $api = new SubAccount($this);
-                break;
-            case 'subscriptions':
-                $api = new Subscriptions($this);
-                break;
-            case 'transactions':
-                $api = new Transactions($this);
-                break;
-            case 'transferRecipients':
-                $api = new TransferRecipients($this);
-                break;
-            case 'transfers':
-                $api = new Transfers($this);
-                break;
-            default:
-                throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
+        try {
+            return $this->app->makeApi($name);
         }
-
-        return $api;
+        catch (InvalidArgumentException $e) {
+                throw new InvalidArgumentException($e->getMessage());
+        }
     }
 
     /**

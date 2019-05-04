@@ -6,18 +6,21 @@ use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
-use Http\Message\MessageFactory;
 use Http\Message\RequestFactory;
 use Http\Message\StreamFactory;
 use Illuminate\Container\Container;
+use ReflectionException;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Config as PaystackConfig;
+use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
 use Xeviant\Paystack\Event\EventHandler;
+use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
 
-class PaystackApplication extends Container
+class PaystackApplication extends Container implements ApplicationInterface
 {
 
     /**
@@ -75,7 +78,7 @@ class PaystackApplication extends Container
     {
         $services = $this->paystackBindings['providers'];
         foreach ($services as $key => $service) {
-            $this->bind($key, $services);
+            $this->bind($key, $service);
         }
     }
 
@@ -86,9 +89,10 @@ class PaystackApplication extends Container
             return new PaystackConfig(self::VERSION, $this->publicKey, $this->secretKey, self::API_VERSION);
         });
         $this->bind(EventInterface::class, EventHandler::class);
-        $this->bind(Client::class, Client::class);
 
-        $this->instance(PaystackApplication::class, $this);
+        $this->instance(ApplicationInterface::class, $this);
+
+        $this->bind(Client::class, Client::class);
     }
 
     protected function registerVendorServices()
@@ -104,5 +108,18 @@ class PaystackApplication extends Container
         $this->bind(StreamFactory::class, function($app) {
             return StreamFactoryDiscovery::find();
         });
+    }
+
+    public function makeApi(string $apiName): ApiInterface
+    {
+        try {
+            return $this->make($apiName);
+        } catch (ReflectionException $e) {
+            throw new InvalidArgumentException(sprintf('Undefined API called: "%s', $apiName));
+        }
+    }
+
+    public function makeModel(string $apiName)
+    {
     }
 }
