@@ -179,6 +179,11 @@ class Paystack
 		return $this->client->api($method);
 	}
 
+	public function __get($attribute)
+    {
+        return $this->client->model($attribute);
+    }
+
     /**
      * @return Client
      */

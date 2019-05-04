@@ -74,6 +74,19 @@ final class ClientTest extends TestCase
 	}
 
 	/**
+	 * @param $apiName
+	 * @param $class
+	 * @test
+	 * @dataProvider getApiServiceProvider
+	 */
+	public function shouldMagicallyGetApiModels($apiName, $class)
+	{
+		$client = new Client;
+
+		$this->assertInstanceOf($class, $client->$apiName());
+	}
+
+	/**
 	 * @test
 	 * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
 	 */
@@ -81,16 +94,6 @@ final class ClientTest extends TestCase
 	{
 		$client = new Client;
 		$client->api('this_doesnt_exist');
-	}
-
-	/**
-	 * @test
-	 * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
-	 */
-	public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
-	{
-		$client = new Client;
-		$client->doesNotExist();
 	}
 
 	public function getApiServiceProvider(): array

@@ -36,6 +36,8 @@ use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
 use Xeviant\Paystack\HttpClient\Plugin\HeaderDefaultsPlugin;
 use Xeviant\Paystack\HttpClient\Plugin\History;
+use Xeviant\Paystack\Model\Customer;
+use Xeviant\Paystack\Model\Model;
 
 class Client
 {
@@ -122,6 +124,11 @@ class Client
         return $this->httpClientBuilder;
     }
 
+    public function getEvent(): EventInterface
+    {
+        return $this->event;
+    }
+
     /**
      * Gets the API Instance
      *
@@ -205,8 +212,16 @@ class Client
         }
     }
 
-    public function getEvent(): EventInterface
+    public function model($attribute)
     {
-        return $this->event;
+        switch ($attribute) {
+            case 'customer':
+                return new Customer;
+        }
+    }
+
+    public function __get($attribute)
+    {
+        return $this->model($attribute);
     }
 }
