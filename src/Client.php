@@ -70,22 +70,22 @@ class Client
      * @param Config|null $config
      * @param EventInterface|null $event
      */
-    public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null, EventInterface $event = null)
+    public function __construct(Builder $httpClientBuilder = null, Config $config = null, EventInterface $event = null)
     {
         $this->config = $config;
 
         $this->responseHistory = new History();
-        $this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
+        $this->httpClientBuilder = $builder = $httpClientBuilder;
 
         $builder->addPlugin(new HistoryPlugin($this->responseHistory));
         $builder->addPlugin(new RedirectPlugin());
         $builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
         $builder->addPlugin(new HeaderDefaultsPlugin([], $this->config));
 
-        $this->apiVersion = $apiVersion ?: 'v1';
+        $this->apiVersion = $this->config->getApiVersion();
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = $event ?? new EventHandler;
+        $this->event = $event;
     }
 
     /**

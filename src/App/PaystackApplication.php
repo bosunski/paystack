@@ -65,7 +65,6 @@ class PaystackApplication extends Container
 
     protected function registerInstances()
     {
-//        $this->instance('', '');
     }
 
     protected function registerApiModels()
@@ -88,6 +87,8 @@ class PaystackApplication extends Container
         });
         $this->bind(EventInterface::class, EventHandler::class);
         $this->bind(Client::class, Client::class);
+
+        $this->instance(PaystackApplication::class, $this);
     }
 
     protected function registerVendorServices()
