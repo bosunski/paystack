@@ -15,11 +15,6 @@ php:
   - 7.2
   - 7.3
 
-matrix:
-  include:
-    - php: hhvm
-      dist: trusty
-
 before_install:
   - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
 
