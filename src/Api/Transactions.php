@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+
 class Transactions extends AbstractApi
 {
 	const BASE_PATH = '/transaction';
@@ -48,10 +50,10 @@ class Transactions extends AbstractApi
      * Retrieves all Transactions
      *
      * @param array $parameters
-     * @return array|string
+     * @return \Illuminate\Support\Collection
      * @throws \Http\Client\Exception
      */
-    public function list(array $parameters = [])
+    public function list(array $parameters = []): Collection
     {
         return $this->get(self::BASE_PATH, $parameters);
     }

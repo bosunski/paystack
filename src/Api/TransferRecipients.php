@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+
 class TransferRecipients extends AbstractApi
 {
 	const BASE_PATH = '/transferrecipient';
@@ -41,10 +43,10 @@ class TransferRecipients extends AbstractApi
      * Retrieves all Transfer recipients
      *
      * @param array $parameters
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list(array $parameters = [])
+	public function list(array $parameters = []): Collection
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}

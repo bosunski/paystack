@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+
 class Pages extends AbstractApi
 {
 	const BASE_PATH = '/page';
@@ -56,10 +58,10 @@ class Pages extends AbstractApi
      * Retrieves all Payment pages
      *
      * @param array $parameters
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list(array $parameters = [])
+	public function list(array $parameters = []): Collection
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}

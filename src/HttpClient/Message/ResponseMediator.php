@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\HttpClient\Message;
 
 
+use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Xeviant\Paystack\Exception\ApiLimitExceededException;
 
@@ -37,12 +38,27 @@ class ResponseMediator
 			$content = json_decode($body, true);
 
 			if (JSON_ERROR_NONE === json_last_error()) {
-				return $content;
+				return static::parseContent($content);
 			}
 		}
 
 		return $body;
 	}
+
+
+	protected static function parseContent($content)
+    {
+        if (is_array($content) && isset($content['data'])) {
+            $data = $content['data'];
+            if (isset($data[0])) {
+                return Collection::make($data);
+            }
+
+            return $data;
+        }
+
+        return $content;
+    }
 
 	/**
      * Retrieves a header in a Response
