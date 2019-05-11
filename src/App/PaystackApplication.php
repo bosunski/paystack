@@ -22,7 +22,6 @@ use Xeviant\Paystack\HttpClient\Builder;
 
 class PaystackApplication extends Container implements ApplicationInterface
 {
-
     /**
      * The Package Version
      *
@@ -31,13 +30,15 @@ class PaystackApplication extends Container implements ApplicationInterface
     const VERSION = '1.0';
 
     /**
-     * The Package Version
+     * The API Version
      *
      * @var string
      */
     const API_VERSION = '1.0';
 
     /**
+     * Source path
+     *
      * @var null
      */
     private $basePath;
