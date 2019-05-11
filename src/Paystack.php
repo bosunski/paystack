@@ -21,7 +21,6 @@ namespace Xeviant\Paystack;
 use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
-use Xeviant\Paystack\Event\EventHandler;
 
 /**
  * @method \Xeviant\Paystack\Api\Customers customers()
@@ -169,14 +168,15 @@ class Paystack
 		return $this->config->getApiVersion();
 	}
 
-	/**
-	 * Creates access for dynamically handling missing method.
-	 *
-	 * @param       $method
-	 * @param array $arguments
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Creates access for dynamically handling missing method.
+     *
+     * @param       $method
+     * @param array $arguments
+     *
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function __call(string $method, array $arguments)
 	{
 		return $this->client->api($method);

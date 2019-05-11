@@ -21,7 +21,7 @@
         "illuminate/support": "^5.7",
         "league/event": "^2.2",
         "php-http/guzzle6-adapter": "^2.0",
-        "illuminate/container": "^5.8"
+        "illuminate/container": "^5.7"
     },
     "autoload": {
         "psr-4": {
