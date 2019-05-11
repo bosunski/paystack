@@ -35,7 +35,7 @@ class PaystackTest extends TestCase
 
     public function setUp()
     {
-        $this->paystack = new Paystack('public-key', 'secret-key', 'apiVersion');
+        $this->paystack = new Paystack('public-key', 'secret-key');
     }
 
     public function tearDown()
@@ -48,7 +48,7 @@ class PaystackTest extends TestCase
 	 */
     public function test_it_can_create_a_new_instance_using_make_method()
     {
-    	$paystack = Paystack::make('public-key', 'secret-key', '1.0');
+    	$paystack = Paystack::make('public-key', 'secret-key');
     	$this->assertEquals('public-key', $paystack->getPublicKey());
     	$this->assertEquals('secret-key', $paystack->getSecretKey());
     	$this->assertEquals('1.0', $paystack->getApiVersion());

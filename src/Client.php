@@ -2,34 +2,18 @@
 
 namespace Xeviant\Paystack;
 
-
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
-use Xeviant\Paystack\Api\Balance;
-use Xeviant\Paystack\Api\Bank;
-use Xeviant\Paystack\Api\BulkCharges;
-use Xeviant\Paystack\Api\Bvn;
-use Xeviant\Paystack\Api\Charge;
-use Xeviant\Paystack\Api\Customers;
-use Xeviant\Paystack\Api\Integration;
-use Xeviant\Paystack\Api\Invoices;
-use Xeviant\Paystack\Api\Pages;
-use Xeviant\Paystack\Api\Plans;
-use Xeviant\Paystack\Api\Refund;
-use Xeviant\Paystack\Api\Settlements;
-use Xeviant\Paystack\Api\SubAccount;
-use Xeviant\Paystack\Api\Subscriptions;
-use Xeviant\Paystack\Api\Transactions;
-use Xeviant\Paystack\Api\TransferRecipients;
-use Xeviant\Paystack\Api\Transfers;
+use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
+use Xeviant\Paystack\Event\EventHandler;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
@@ -74,27 +58,27 @@ class Client
      * @param EventInterface|null $event
      */
     public function __construct(
-        ApplicationInterface $app,
+        ApplicationInterface $app = null,
         Builder $httpClientBuilder = null,
         Config $config = null,
         EventInterface $event = null
     )
     {
-        $this->config = $config;
+        $this->config = $config ?? new \Xeviant\Paystack\Config();
 
         $this->responseHistory = new History();
-        $this->httpClientBuilder = $builder = $httpClientBuilder;
+        $this->httpClientBuilder = $builder = $httpClientBuilder ?? new Builder();
 
         $builder->addPlugin(new HistoryPlugin($this->responseHistory));
         $builder->addPlugin(new RedirectPlugin());
         $builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
         $builder->addPlugin(new HeaderDefaultsPlugin([], $this->config));
 
-        $this->apiVersion = $this->config->getApiVersion();
+        $this->apiVersion = $this->config ? $this->config->getApiVersion() : 'v1';
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = $event;
-        $this->app = $app;
+        $this->event = $event ?? new EventHandler;
+        $this->app = $app ?? new PaystackApplication;
     }
 
     /**
@@ -108,7 +92,7 @@ class Client
     {
         $builder = new Builder($httpClient);
 
-        return new self($builder);
+        return new self(new PaystackApplication, $builder);
     }
 
     /**

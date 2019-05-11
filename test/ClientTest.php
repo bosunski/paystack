@@ -3,7 +3,6 @@
 namespace Xeviant\Paystack\Tests;
 
 use Http\Client\HttpClient;
-use PHPUnit\Framework\TestCase;
 use Xeviant\Paystack\Api\Balance;
 use Xeviant\Paystack\Api\Bank;
 use Xeviant\Paystack\Api\BulkCharges;
@@ -55,7 +54,7 @@ final class ClientTest extends TestCase
 	 */
 	public function shouldGetApiInstance($apiName, $class)
 	{
-		$client = new Client();
+		$client = $this->createApplication()->make(Client::class);
 
 		$this->assertInstanceOf($class, $client->api($apiName));
 	}

@@ -41,24 +41,45 @@ class PaystackApplication extends Container implements ApplicationInterface
      * @var null
      */
     private $basePath;
-    private $paystackBindings = [];
+
     /**
+     * The Paystack Client APIs + Models + Core Classes
+     *
+     * @var array
+     */
+    private $paystackBindings = [];
+
+    /**
+     * Paystack Public key
+     *
      * @var string
      */
     private $publicKey;
+
+
     /**
+     * Paystack Secret Key
+     *
      * @var string
      */
     private $secretKey;
 
-    public function __construct(string $publicKey, string $secretKey, $basePath = null)
+    /**
+     * PaystackApplication constructor.
+     *
+     * @param string|null $publicKey
+     * @param string|null $secretKey
+     * @param null $basePath
+     */
+    public function __construct(string $publicKey = null, string $secretKey = null, $basePath = null)
     {
-        $this->basePath = $basePath;
-        $this->paystackBindings = require_once "{$this->basePath}/config/bindings.php";
         $this->publicKey = $publicKey;
         $this->secretKey = $secretKey;
 
-        // This order must be maintained
+        $this->setBasePath($basePath);
+        $this->loadBindings();
+
+        // This order should be maintained
         $this->registerInstances();
         $this->registerVendorServices();
         $this->registerBaseBindings();
@@ -66,22 +87,44 @@ class PaystackApplication extends Container implements ApplicationInterface
         $this->registerApiModels();
     }
 
-    protected function registerInstances()
+    protected function setBasePath($basePath)
     {
+        if (!$basePath) {
+            $this->basePath = __DIR__ ."/../";
+
+            return $this;
+        }
+
+        $this->basePath = $basePath;
     }
 
+    protected function registerInstances()
+    {
+        $this->instance(ApplicationInterface::class, $this);
+    }
+
+    /**
+     * Registers all the Application Models
+     */
     protected function registerApiModels()
     {
     }
 
+    /**
+     * Registers all API services
+     */
     protected function registerApiServices()
     {
         $services = $this->paystackBindings['providers'];
+
         foreach ($services as $key => $service) {
             $this->bind($key, $service);
         }
     }
 
+    /**
+     * Registers
+     */
     protected function registerBaseBindings()
     {
         $this->bind(Builder::class, Builder::class);
@@ -89,12 +132,12 @@ class PaystackApplication extends Container implements ApplicationInterface
             return new PaystackConfig(self::VERSION, $this->publicKey, $this->secretKey, self::API_VERSION);
         });
         $this->bind(EventInterface::class, EventHandler::class);
-
-        $this->instance(ApplicationInterface::class, $this);
-
         $this->bind(Client::class, Client::class);
     }
 
+    /**
+     * Registers all External tools used
+     */
     protected function registerVendorServices()
     {
         $this->bind(HttpClient::class, function($app) {
@@ -110,6 +153,13 @@ class PaystackApplication extends Container implements ApplicationInterface
         });
     }
 
+    /**
+     * Creates an instance of an API
+     *
+     * @param string $apiName
+     * @return ApiInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function makeApi(string $apiName): ApiInterface
     {
         try {
@@ -119,7 +169,20 @@ class PaystackApplication extends Container implements ApplicationInterface
         }
     }
 
-    public function makeModel(string $apiName)
+    /**
+     * Creates an instance of a model
+     *
+     * @param string $modelName
+     */
+    public function makeModel(string $modelName)
     {
+    }
+
+    /**
+     * Loads all the app bindings Core + APIs + Models
+     */
+    private function loadBindings()
+    {
+        $this->paystackBindings = require __DIR__ ."/../config/bindings.php";
     }
 }

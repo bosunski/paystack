@@ -12,10 +12,10 @@ class EventHandler extends Emitter implements EventInterface
      * Fires an Event
      *
      * @param string $event
-     * @param array $payload
+     * @param mixed $payload
      * @return \League\Event\EventInterface|mixed|string
      */
-    public function fire(string $event, array $payload = [])
+    public function fire(string $event, $payload = null)
     {
         return $this->emit($event, $this->getEventPayload($event, $payload));
     }
@@ -36,10 +36,10 @@ class EventHandler extends Emitter implements EventInterface
      * Creates a consumable Event Payload
      *
      * @param string $evenType
-     * @param array $payload
+     * @param mixed $payload
      * @return EventPayload
      */
-    protected function getEventPayload(string $evenType, array $payload = []): EventPayload
+    protected function getEventPayload(string $evenType, $payload = null): EventPayload
     {
         return new EventPayload($evenType, $payload);
     }
