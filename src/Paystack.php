@@ -18,8 +18,9 @@
 
 namespace Xeviant\Paystack;
 
+use Xeviant\Paystack\App\PaystackApplication;
+use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
-use Xeviant\Paystack\Event\EventHandler;
 
 /**
  * @method \Xeviant\Paystack\Api\Customers customers()
@@ -64,10 +65,11 @@ class Paystack
 	 */
 	private $client;
 
-	public function __construct($publicKey = null, $secretKey = null, $apiVersion = null)
+	public function __construct($publicKey = null, $secretKey = null)
 	{
-		$this->config = new Config(self::VERSION, $publicKey, $secretKey, $apiVersion);
-		$this->client = new Client(null, null, $this->config, new EventHandler);
+	    $app = new PaystackApplication($publicKey, $secretKey);
+		$this->client = $app->make(Client::class);
+		$this->config = $app->make(Config::class);
 	}
 
 	/**
@@ -81,7 +83,7 @@ class Paystack
 	 */
 	public static function make($publicKey = null, $secretKey = null, $apiVersion = null)
 	{
-		return new static($publicKey, $secretKey, $apiVersion);
+		return new static($publicKey, $secretKey);
 	}
 
 	/**
@@ -166,14 +168,15 @@ class Paystack
 		return $this->config->getApiVersion();
 	}
 
-	/**
-	 * Creates access for dynamically handling missing method.
-	 *
-	 * @param       $method
-	 * @param array $arguments
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Creates access for dynamically handling missing method.
+     *
+     * @param       $method
+     * @param array $arguments
+     *
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function __call(string $method, array $arguments)
 	{
 		return $this->client->api($method);

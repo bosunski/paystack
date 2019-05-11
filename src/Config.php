@@ -52,7 +52,7 @@ class Config implements ConfigInterface
 	 */
 	protected $apiVersion;
 
-	public function __construct($packageVersion, $publicKey, $secretKey, $apiVersion)
+	public function __construct($packageVersion = '', $publicKey ='', $secretKey='', $apiVersion='')
 	{
 		$this->setPackageVersion($packageVersion);
 

@@ -3,7 +3,6 @@
 namespace Xeviant\Paystack\Tests;
 
 use Http\Client\HttpClient;
-use PHPUnit\Framework\TestCase;
 use Xeviant\Paystack\Api\Balance;
 use Xeviant\Paystack\Api\Bank;
 use Xeviant\Paystack\Api\BulkCharges;
@@ -47,25 +46,27 @@ final class ClientTest extends TestCase
 		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
 	}
 
-	/**
-	 * @param $apiName
-	 * @param $class
-	 * @test
-	 * @dataProvider getApiServiceProvider
-	 */
+    /**
+     * @param $apiName
+     * @param $class
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @test
+     * @dataProvider getApiServiceProvider
+     */
 	public function shouldGetApiInstance($apiName, $class)
 	{
-		$client = new Client();
+		$client = $this->createApplication()->make(Client::class);
 
 		$this->assertInstanceOf($class, $client->api($apiName));
 	}
 
-	/**
-	 * @param $apiName
-	 * @param $class
-	 * @test
-	 * @dataProvider getApiServiceProvider
-	 */
+    /**
+     * @param $apiName
+     * @param $class
+     * @test
+     * @dataProvider getApiServiceProvider
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function shouldMagicallyGetApiInstance($apiName, $class)
 	{
 		$client = new Client;
@@ -73,27 +74,26 @@ final class ClientTest extends TestCase
 		$this->assertInstanceOf($class, $client->$apiName());
 	}
 
-	/**
-	 * @param $apiName
-	 * @param $class
-	 * @test
-	 * @dataProvider getApiServiceProvider
-	 */
-	public function shouldMagicallyGetApiModels($apiName, $class)
-	{
-		$client = new Client;
-
-		$this->assertInstanceOf($class, $client->$apiName());
-	}
-
-	/**
-	 * @test
-	 * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
-	 */
+    /**
+     * @test
+     * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
 	{
 		$client = new Client;
 		$client->api('this_doesnt_exist');
+	}
+
+    /**
+     * @test
+     * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+	public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
+	{
+		$client = new Client;
+		$client->doesNotExist();
 	}
 
 	public function getApiServiceProvider(): array

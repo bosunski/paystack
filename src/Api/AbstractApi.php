@@ -234,7 +234,7 @@ abstract class AbstractApi implements ApiInterface
      * @param array $payload
      * @return mixed
      */
-	protected function fire(string $event, array $payload = [])
+	protected function fire(string $event, $payload = null)
     {
         return $this->client->getEvent()->fire($event, $payload);
     }

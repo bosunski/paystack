@@ -85,9 +85,9 @@ class Builder
 		StreamFactory $streamFactory = null
 	)
 	{
-		$this->httpClient = $httpClient ?: HttpClientDiscovery::find();
-		$this->requestFactory = $requestFactory ?: MessageFactoryDiscovery::find();
-		$this->streamFactory = $streamFactory ?: StreamFactoryDiscovery::find();
+		$this->httpClient = $httpClient ?? HttpClientDiscovery::find();
+		$this->requestFactory = $requestFactory ?? MessageFactoryDiscovery::find();
+		$this->streamFactory = $streamFactory ?? StreamFactoryDiscovery::find();
 	}
 
     /**
@@ -169,6 +169,7 @@ class Builder
 			$this->httpClientModified = false;
 
 			$plugins = $this->plugins;
+
 			if ($this->cachePlugin) {
 				$plugins[] = $this->cachePlugin;
 			}

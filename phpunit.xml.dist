@@ -8,7 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="test/bootstrap.php"
 >
     <testsuites>
         <testsuite name="Paystack API Test Suite">

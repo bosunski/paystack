@@ -2,32 +2,15 @@
 
 namespace Xeviant\Paystack;
 
-
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Client\HttpClient;
 use Http\Discovery\UriFactoryDiscovery;
-use Xeviant\Paystack\Api\Balance;
-use Xeviant\Paystack\Api\Bank;
-use Xeviant\Paystack\Api\BulkCharges;
-use Xeviant\Paystack\Api\Bvn;
-use Xeviant\Paystack\Api\Charge;
-use Xeviant\Paystack\Api\Customers;
-use Xeviant\Paystack\Api\Integration;
-use Xeviant\Paystack\Api\Invoices;
-use Xeviant\Paystack\Api\Pages;
-use Xeviant\Paystack\Api\Plans;
-use Xeviant\Paystack\Api\Refund;
-use Xeviant\Paystack\Api\Settlements;
-use Xeviant\Paystack\Api\SubAccount;
-use Xeviant\Paystack\Api\Subscriptions;
-use Xeviant\Paystack\Api\Transactions;
-use Xeviant\Paystack\Api\TransferRecipients;
-use Xeviant\Paystack\Api\Transfers;
-use Xeviant\Paystack\Config as PaystackConfig;
+use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
 use Xeviant\Paystack\Event\EventHandler;
@@ -63,31 +46,37 @@ class Client
      * @var EventInterface
      */
     private $event;
+    /**
+     * @var ApplicationInterface
+     */
+    private $app;
 
     /**
      * Client constructor.
      *
-     * @param Builder|null $httpClientBuilder
-     * @param null $apiVersion
-     * @param Config|null $config
-     * @param EventInterface|null $event
+     * @param ApplicationInterface $app
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(Builder $httpClientBuilder = null, $apiVersion = null, Config $config = null, EventInterface $event = null)
+    public function __construct(ApplicationInterface $app = null)
     {
-        $this->config = $config;
+        $this->app = $app ?? new PaystackApplication;
+
+        $this->config = $this->app->make(Config::class);
 
         $this->responseHistory = new History();
-        $this->httpClientBuilder = $builder = $httpClientBuilder ?: new Builder();
+        $this->httpClientBuilder = $builder = $this->app->make(Builder::class);
 
         $builder->addPlugin(new HistoryPlugin($this->responseHistory));
         $builder->addPlugin(new RedirectPlugin());
         $builder->addPlugin(new AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.paystack.co')));
         $builder->addPlugin(new HeaderDefaultsPlugin([], $this->config));
 
-        $this->apiVersion = $apiVersion ?: 'v1';
+        $this->apiVersion = $this->config ? $this->config->getApiVersion() : 'v1';
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = $event ?? new EventHandler;
+        $this->httpClientBuilder = $builder;
+
+        $this->event = $this->app->make(EventInterface::class);
     }
 
     /**
@@ -96,12 +85,17 @@ class Client
      * @param HttpClient $httpClient
      *
      * @return Client
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public static function createWithHttpClient(HttpClient $httpClient): Client
     {
-        $builder = new Builder($httpClient);
+        $app = new PaystackApplication;
 
-        return new self($builder);
+        $app->bind(Builder::class, function ($app) use ($httpClient) {
+            return new Builder($httpClient);
+        });
+
+        return new self($app);
     }
 
     /**
@@ -135,66 +129,16 @@ class Client
      * @param $name
      *
      * @return ApiInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function api($name): ApiInterface
     {
-        switch ($name) {
-            case 'balance':
-                $api = new Balance($this);
-                break;
-            case 'bank':
-                $api = new Bank($this);
-                break;
-            case 'bulkCharges':
-                $api = new BulkCharges($this);
-                break;
-            case 'bvn':
-                $api = new Bvn($this);
-                break;
-            case 'charge':
-                $api = new Charge($this);
-                break;
-            case 'customers':
-                $api = new Customers($this);
-                break;
-            case 'integration':
-                $api = new Integration($this);
-                break;
-            case 'invoices':
-                $api = new Invoices($this);
-                break;
-            case 'pages':
-                $api = new Pages($this);
-                break;
-            case 'plans':
-                $api = new Plans($this);
-                break;
-            case 'refund':
-                $api = new Refund($this);
-                break;
-            case 'settlements':
-                $api = new Settlements($this);
-                break;
-            case 'subAccount':
-                $api = new SubAccount($this);
-                break;
-            case 'subscriptions':
-                $api = new Subscriptions($this);
-                break;
-            case 'transactions':
-                $api = new Transactions($this);
-                break;
-            case 'transferRecipients':
-                $api = new TransferRecipients($this);
-                break;
-            case 'transfers':
-                $api = new Transfers($this);
-                break;
-            default:
-                throw new InvalidArgumentException(sprintf('Undefined method called: "%s', $name));
+        try {
+            return $this->app->makeApi($name);
         }
-
-        return $api;
+        catch (InvalidArgumentException $e) {
+                throw new InvalidArgumentException($e->getMessage());
+        }
     }
 
     /**
@@ -202,6 +146,7 @@ class Client
      * @param $arguments
      *
      * @return ApiInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __call($name, $arguments): ApiInterface
     {

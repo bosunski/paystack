@@ -12,11 +12,11 @@ class EventPayload
     private $eventType;
 
     /**
-     * @var array
+     * @var mixed
      */
     private $payload;
 
-    public function __construct(string $eventType, array $payload = [])
+    public function __construct(string $eventType, $payload)
     {
         $this->eventType = $eventType;
         $this->payload = $payload;
@@ -29,7 +29,7 @@ class EventPayload
 
     public function getPayload(): stdClass
     {
-        return (object) $this->payload;
+        return is_array($this->payload) ? (object) $this->payload: $this->payload;
     }
 
     public function getEventName(): string
