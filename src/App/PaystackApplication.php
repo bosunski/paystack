@@ -81,7 +81,7 @@ class PaystackApplication extends Container implements ApplicationInterface
         $this->loadBindings();
 
         // This order should be maintained
-        $this->registerInstances();
+        $this->registerSharedObjects();
         $this->registerVendorServices();
         $this->registerBaseBindings();
         $this->registerApiServices();
@@ -99,7 +99,7 @@ class PaystackApplication extends Container implements ApplicationInterface
         $this->basePath = $basePath;
     }
 
-    protected function registerInstances()
+    protected function registerSharedObjects()
     {
         $this->instance(ApplicationInterface::class, $this);
     }
