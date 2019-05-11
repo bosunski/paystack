@@ -121,6 +121,7 @@ class Client
      * @param $name
      *
      * @return ApiInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function api($name): ApiInterface
     {
@@ -137,6 +138,7 @@ class Client
      * @param $arguments
      *
      * @return ApiInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __call($name, $arguments): ApiInterface
     {
