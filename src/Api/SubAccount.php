@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+
 class SubAccount extends AbstractApi
 {
 	const BASE_PATH = '/subaccount';
@@ -43,10 +45,10 @@ class SubAccount extends AbstractApi
      * Lists all created SubAccounts
      *
      * @param array $parameters
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list(array $parameters = [])
+	public function list(array $parameters = []): Collection
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}

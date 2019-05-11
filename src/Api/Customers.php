@@ -18,6 +18,9 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+use Xeviant\Paystack\Client;
+
 class Customers extends AbstractApi
 {
 	const BASE_PATH = '/customer';
@@ -37,10 +40,10 @@ class Customers extends AbstractApi
     /**
      * Retrieves all Customers
      *
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list()
+	public function list(): Collection
 	{
 		return $this->get(self::BASE_PATH);
 	}

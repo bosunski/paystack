@@ -17,6 +17,7 @@
 
 namespace Xeviant\Paystack\Api;
 
+use Illuminate\Support\Collection;
 
 class Bank extends AbstractApi
 {
@@ -25,10 +26,10 @@ class Bank extends AbstractApi
     /**
      * Retrieves List of Supported banks by Paystack
      *
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list()
+	public function list(): Collection
 	{
 		return $this->get(self::BASE_PATH);
 	}

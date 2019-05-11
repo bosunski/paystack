@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
 class Subscriptions extends AbstractApi
@@ -43,10 +44,10 @@ class Subscriptions extends AbstractApi
      * Retrieves all Subscriptions
      *
      * @param array $parameters
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list(array $parameters = [])
+	public function list(array $parameters = []): Collection
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}

@@ -18,6 +18,8 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
+
 class Settlements extends AbstractApi
 {
 	const BASE_PATH = '/settlement';
@@ -26,10 +28,10 @@ class Settlements extends AbstractApi
      * Retrieves all Settlements
      *
      * @param array $parameters
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list(array $parameters = [])
+	public function list(array $parameters = []): Collection
 	{
 		return $this->get(self::BASE_PATH, $parameters);
 	}

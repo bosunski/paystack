@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
 class Invoices extends AbstractApi
@@ -68,10 +69,10 @@ class Invoices extends AbstractApi
     /**
      * Retrieves all Invoices
      *
-     * @return array|string
+     * @return Collection
      * @throws \Http\Client\Exception
      */
-	public function list()
+	public function list(): Collection
 	{
 		return $this->get(self::BASE_PATH);
 	}
