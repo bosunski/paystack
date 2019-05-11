@@ -3,6 +3,8 @@
 namespace Xeviant\Paystack\Tests;
 
 use Http\Client\HttpClient;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Xeviant\Paystack\Api\Balance;
 use Xeviant\Paystack\Api\Bank;
 use Xeviant\Paystack\Api\BulkCharges;
@@ -46,12 +48,13 @@ final class ClientTest extends TestCase
 		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
 	}
 
-	/**
-	 * @param $apiName
-	 * @param $class
-	 * @test
-	 * @dataProvider getApiServiceProvider
-	 */
+    /**
+     * @param $apiName
+     * @param $class
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @test
+     * @dataProvider getApiServiceProvider
+     */
 	public function shouldGetApiInstance($apiName, $class)
 	{
 		$client = $this->createApplication()->make(Client::class);
@@ -59,12 +62,13 @@ final class ClientTest extends TestCase
 		$this->assertInstanceOf($class, $client->api($apiName));
 	}
 
-	/**
-	 * @param $apiName
-	 * @param $class
-	 * @test
-	 * @dataProvider getApiServiceProvider
-	 */
+    /**
+     * @param $apiName
+     * @param $class
+     * @test
+     * @dataProvider getApiServiceProvider
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function shouldMagicallyGetApiInstance($apiName, $class)
 	{
 		$client = new Client;
@@ -72,20 +76,22 @@ final class ClientTest extends TestCase
 		$this->assertInstanceOf($class, $client->$apiName());
 	}
 
-	/**
-	 * @test
-	 * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
-	 */
+    /**
+     * @test
+     * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
 	{
 		$client = new Client;
 		$client->api('this_doesnt_exist');
 	}
 
-	/**
-	 * @test
-	 * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
-	 */
+    /**
+     * @test
+     * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
 	public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
 	{
 		$client = new Client;

@@ -129,9 +129,11 @@ class PaystackApplication extends Container implements ApplicationInterface
     protected function registerBaseBindings()
     {
         $this->bind(Builder::class, Builder::class);
+
         $this->bind(Config::class, function ($app) {
             return new PaystackConfig(self::VERSION, $this->publicKey, $this->secretKey, self::API_VERSION);
         });
+
         $this->bind(EventInterface::class, EventHandler::class);
         $this->bind(Client::class, Client::class);
     }

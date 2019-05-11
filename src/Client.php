@@ -53,21 +53,16 @@ class Client
      * Client constructor.
      *
      * @param ApplicationInterface $app
-     * @param Builder|null $httpClientBuilder
-     * @param Config|null $config
-     * @param EventInterface|null $event
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(
-        ApplicationInterface $app = null,
-        Builder $httpClientBuilder = null,
-        Config $config = null,
-        EventInterface $event = null
-    )
+    public function __construct(ApplicationInterface $app = null)
     {
-        $this->config = $config ?? new \Xeviant\Paystack\Config();
+        $this->app = $app ?? new PaystackApplication;
+
+        $this->config = $this->app->make(Config::class);
 
         $this->responseHistory = new History();
-        $this->httpClientBuilder = $builder = $httpClientBuilder ?? new Builder();
+        $this->httpClientBuilder = $builder = $this->app->make(Builder::class);
 
         $builder->addPlugin(new HistoryPlugin($this->responseHistory));
         $builder->addPlugin(new RedirectPlugin());
@@ -77,8 +72,9 @@ class Client
         $this->apiVersion = $this->config ? $this->config->getApiVersion() : 'v1';
         $builder->addHeaderValue('Accept', sprintf('application/json'));
 
-        $this->event = $event ?? new EventHandler;
-        $this->app = $app ?? new PaystackApplication;
+        $this->httpClientBuilder = $builder;
+
+        $this->event = $this->app->make(EventInterface::class);
     }
 
     /**
@@ -87,12 +83,17 @@ class Client
      * @param HttpClient $httpClient
      *
      * @return Client
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public static function createWithHttpClient(HttpClient $httpClient): Client
     {
-        $builder = new Builder($httpClient);
+        $app = new PaystackApplication;
 
-        return new self(new PaystackApplication, $builder);
+        $app->bind(Builder::class, function ($app) use ($httpClient) {
+            return new Builder($httpClient);
+        });
+
+        return new self($app);
     }
 
     /**
