@@ -120,6 +120,7 @@ class Charge extends AbstractApi
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function checkPendingCharge(string $reference)
 	{
