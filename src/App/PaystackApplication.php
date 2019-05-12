@@ -1,5 +1,21 @@
 <?php
 
+/**
+ *
+ * This file is part of the Xeviant Paystack package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package         Paystack
+ * @version         2.0
+ * @author          Olatunbosun Egberinde
+ * @license         MIT Licence
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @link            https://github.com/bosunski/paystack
+ *
+ */
+
 namespace Xeviant\Paystack\App;
 
 use Http\Client\HttpClient;
@@ -22,6 +38,7 @@ use Xeviant\Paystack\HttpClient\Builder;
 
 class PaystackApplication extends Container implements ApplicationInterface
 {
+    const MODEL_PREFIX = 'model.';
     /**
      * The Package Version
      *
@@ -109,6 +126,11 @@ class PaystackApplication extends Container implements ApplicationInterface
      */
     protected function registerApiModels()
     {
+        $models = $this->paystackBindings['models'];
+
+        foreach ($models as $key => $service) {
+            $this->bind(self::MODEL_PREFIX . $key, $service);
+        }
     }
 
     /**
@@ -176,9 +198,17 @@ class PaystackApplication extends Container implements ApplicationInterface
      * Creates an instance of a model
      *
      * @param string $modelName
+     * @param array $parameters
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeModel(string $modelName)
+    public function makeModel(string $modelName, $parameters = [])
     {
+        try {
+            return $this->make(self::MODEL_PREFIX . $modelName, $parameters);
+        } catch (ReflectionException $e) {
+            throw new InvalidArgumentException(sprintf('Undefined Model called: "%s', $modelName));
+        }
     }
 
     /**

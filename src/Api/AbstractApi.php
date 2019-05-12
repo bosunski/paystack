@@ -18,9 +18,13 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Exception;
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Contract\ApiInterface;
+use Xeviant\Paystack\Contract\ApplicationInterface;
+use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Event\EventPayload;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 use Xeviant\Paystack\Validator;
@@ -54,17 +58,23 @@ abstract class AbstractApi implements ApiInterface
 	 * @var Validator
 	 */
 	protected $validator;
+    /**
+     * @var ApplicationInterface|null
+     */
+    private $app;
 
     /**
      * AbstractApi constructor.
      *
      * @param Client $client
+     * @param ApplicationInterface|null $app
      */
-	public function __construct(Client $client)
+	public function __construct(Client $client, ApplicationInterface $app = null)
 	{
 		$this->client    = $client;
 		$this->validator = new Validator;
-	}
+        $this->app = $app ?? new PaystackApplication;
+    }
 
     /**
      * Performs a GET Request through the Client
@@ -238,5 +248,20 @@ abstract class AbstractApi implements ApiInterface
 	protected function fire(string $event, $payload = null)
     {
         return $this->client->getEvent()->fire($event, $payload);
+    }
+
+    /**
+     * @param array $attributes
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exception
+     */
+    protected function getApiModel(array $attributes)
+    {
+        if ($this instanceof ModelAware) {
+            return $this->app->makeModel($this->getApiModelAccessor(), ['attributes' => $attributes]);
+        }
+
+        throw new Exception("This API doesn't support Model!");
     }
 }

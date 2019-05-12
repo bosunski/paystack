@@ -30,7 +30,11 @@ abstract class ApiTestCase extends TestCase
 	 */
 	abstract protected function getApiClass(): string;
 
-	protected function getApiMock()
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function getApiMock()
 	{
 		$httpClient = $this->getMockBuilder(HttpClient::class)
 			->setMethods(['sendRequest'])

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * This file is part of the Xeviant Paystack package.
@@ -18,6 +17,6 @@
 
 namespace Xeviant\Paystack\Model;
 
-class Customer extends Model
+class BulkCharge extends Model
 {
 }

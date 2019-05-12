@@ -24,6 +24,6 @@ return [
         'transferRecipients' => \Xeviant\Paystack\Api\TransferRecipients::class,
     ],
     'models' => [
-        'customer' => ''
+        'customer' => \Xeviant\Paystack\Model\Customer::class
     ],
 ];

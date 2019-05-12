@@ -16,8 +16,9 @@
  *
  */
 
-namespace Xeviant\Paystack\Model;
+namespace Xeviant\Paystack\Contract;
 
-class Customer extends Model
+interface ModelAware
 {
+    public function getApiModelAccessor(): string;
 }

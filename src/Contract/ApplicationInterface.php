@@ -7,5 +7,5 @@ interface ApplicationInterface
 {
     public function makeApi(string $apiName): ApiInterface;
 
-    public function makeModel(string $apiName);
+    public function makeModel(string $apiName, $parameters = []);
 }

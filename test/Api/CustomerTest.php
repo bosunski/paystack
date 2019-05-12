@@ -19,6 +19,7 @@ namespace Xeviant\Paystack\Tests\Api;
 
 
 use Xeviant\Paystack\Api\Customers;
+use Xeviant\Paystack\Model\Customer;
 
 class CustomerTest extends ApiTestCase
 {
@@ -44,7 +45,7 @@ class CustomerTest extends ApiTestCase
 	 */
 	public function shouldGetCustomers(): void
 	{
-		$expectedResult = ['data' => [['email' => 'email@example.com']]];
+		$expectedResult = collect([new Customer(['email' => 'email@example.com'])]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

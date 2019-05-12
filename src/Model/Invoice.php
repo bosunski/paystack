@@ -18,6 +18,6 @@
 
 namespace Xeviant\Paystack\Model;
 
-class Customer extends Model
+class Invoice extends Model
 {
 }

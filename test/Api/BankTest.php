@@ -29,7 +29,7 @@ class BankTest extends ApiTestCase
 	 */
 	public function shouldGetBanks(): void
 	{
-		$expectedResult = ['data' => [['name' => 'Access Bank']]];
+		$expectedResult = collect([['name' => 'Access Bank']]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

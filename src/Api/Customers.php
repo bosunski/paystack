@@ -19,9 +19,9 @@ namespace Xeviant\Paystack\Api;
 
 
 use Illuminate\Support\Collection;
-use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Contract\ModelAware;
 
-class Customers extends AbstractApi
+class Customers extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/customer';
 
@@ -45,7 +45,9 @@ class Customers extends AbstractApi
      */
 	public function list(): Collection
 	{
-		return $this->get(self::BASE_PATH);
+		return $this->get(self::BASE_PATH)->map(function ($customer) {
+		    return $this->getApiModel($customer);
+        });
 	}
 
     /**
@@ -124,4 +126,9 @@ class Customers extends AbstractApi
 	{
 		return $this->put(self::BASE_PATH . DIRECTORY_SEPARATOR. $customerId, $parameters);
 	}
+
+	public function getApiModelAccessor(): string
+    {
+        return 'customer';
+    }
 }

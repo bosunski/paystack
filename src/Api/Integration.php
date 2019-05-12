@@ -17,8 +17,6 @@
 
 namespace Xeviant\Paystack\Api;
 
-
-
 class Integration extends AbstractApi
 {
 	const BASE_PATH = '/integration';
