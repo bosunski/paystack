@@ -35,6 +35,7 @@ use Xeviant\Paystack\Contract\EventInterface;
 use Xeviant\Paystack\Event\EventHandler;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
+use Xeviant\Paystack\Model\Model;
 
 class PaystackApplication extends Container implements ApplicationInterface
 {
@@ -158,6 +159,8 @@ class PaystackApplication extends Container implements ApplicationInterface
 
         $this->bind(EventInterface::class, EventHandler::class);
         $this->bind(Client::class, Client::class);
+
+        $this->bind(Model::class, Model::class);
     }
 
     /**

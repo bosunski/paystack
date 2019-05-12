@@ -3,6 +3,7 @@
 namespace Xeviant\Paystack\Model;
 
 use ArrayAccess;
+use Xeviant\Paystack\Contract\ApplicationInterface;
 
 class Model implements ArrayAccess
 {
@@ -12,15 +13,21 @@ class Model implements ArrayAccess
      * @var array
      */
     protected $attributes = [];
+    /**
+     * @var
+     */
+    private $application;
 
     /**
      * Model constructor.
      *
      * @param array $attributes
+     * @param ApplicationInterface $application
      */
-    public function __construct(array $attributes = [])
+    public function __construct(array $attributes = [], ApplicationInterface $application)
     {
-        return $this->fill($attributes);
+        $this->fill($attributes);
+        $this->application = $application;
     }
 
     /**
