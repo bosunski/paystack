@@ -17,10 +17,10 @@
 
 namespace Xeviant\Paystack\Api;
 
-
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\Contract\ModelAware;
 
-class Plans extends AbstractApi
+class Plans extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/plan';
 
@@ -33,6 +33,7 @@ class Plans extends AbstractApi
      *
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch($planId)
 	{
@@ -49,6 +50,7 @@ class Plans extends AbstractApi
      *
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
@@ -95,4 +97,14 @@ class Plans extends AbstractApi
 
 		return $this->put(self::BASE_PATH . "/$planId", $parameters);
 	}
+
+    /**
+     * Retrieves Model accessor inside container
+     *
+     * @return string
+     */
+    public function getApiModelAccessor(): string
+    {
+        return 'plan';
+    }
 }

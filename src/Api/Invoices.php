@@ -32,6 +32,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
      */
 	public function fetch(string $invoiceId)
@@ -48,6 +49,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @return array|string
      * @throws \Http\Client\Exception
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function verify(string $invoiceId)
 	{
@@ -61,6 +63,7 @@ class Invoices extends AbstractApi implements ModelAware
      *
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function totals()
 	{
@@ -72,12 +75,11 @@ class Invoices extends AbstractApi implements ModelAware
      *
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(): Collection
 	{
-		return $this->get(self::BASE_PATH)->map(function($invoice) {
-		    return $this->getApiModel($invoice);
-        });
+		return $this->get(self::BASE_PATH);
 	}
 
     /**

@@ -55,7 +55,7 @@ class SubAccountTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/subaccount')
-		    ->willReturn(Collection::make([$attributes]));
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

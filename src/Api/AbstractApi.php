@@ -84,6 +84,7 @@ abstract class AbstractApi implements ApiInterface
      * @param array $requestHeaders
      * @return array|string|Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	protected function get($path, array $parameters = [], array $requestHeaders = [])
 	{
@@ -101,7 +102,19 @@ abstract class AbstractApi implements ApiInterface
 
 		$response = $this->client->getHttpClient()->get($path, $requestHeaders);
 
-		return ResponseMediator::getContent($response);
+		$response = ResponseMediator::getContent($response);
+
+		if ($response instanceof Collection && $this instanceof ModelAware) {
+		    return $response->map(function ($item) {
+		        return $this->getApiModel($item);
+            });
+        }
+
+		if (is_array($response) && $this instanceof ModelAware) {
+		    return $this->getApiModel($response);
+        }
+
+		return $response;
 	}
 
     /**

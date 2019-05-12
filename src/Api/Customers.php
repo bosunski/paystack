@@ -31,6 +31,7 @@ class Customers extends AbstractApi implements ModelAware
      * @param $email
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch($email)
 	{
@@ -42,12 +43,11 @@ class Customers extends AbstractApi implements ModelAware
      *
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(): Collection
 	{
-		return $this->get(self::BASE_PATH)->map(function ($customer) {
-		    return $this->getApiModel($customer);
-        });
+		return $this->get(self::BASE_PATH);
 	}
 
     /**

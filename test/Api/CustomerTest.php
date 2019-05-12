@@ -50,16 +50,12 @@ class CustomerTest extends ApiTestCase
 		    $this->createApplication()->makeModel('customer', ['attributes' => $attributes])
         ]);
 
-		$apiResult = collect([
-		    $attributes
-        ]);
-
 		$api = $this->getApiMock();
 
 		$api->expects(self::once())
 			->method('get')
 			->with('/customer')
-			->willReturn($apiResult);
+			->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

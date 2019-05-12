@@ -57,7 +57,7 @@ class TransfersTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn(Collection::make([$attributes]));
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

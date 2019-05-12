@@ -31,12 +31,11 @@ class Settlements extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters)->map(function ($settlement) {
-		    return $this->getApiModel($settlement);
-        });
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
     /**

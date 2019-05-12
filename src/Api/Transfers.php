@@ -31,6 +31,7 @@ class Transfers extends AbstractApi implements ModelAware
      * @param string $transferId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch(string $transferId)
 	{
@@ -46,12 +47,11 @@ class Transfers extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters)->map(function ($transfer) {
-		    return $this->getApiModel($transfer);
-        });
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
     /**

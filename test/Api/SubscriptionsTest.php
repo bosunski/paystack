@@ -17,13 +17,13 @@
 
 namespace Xeviant\Paystack\Tests\Api;
 
-
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Subscriptions;
 
 class SubscriptionsTest extends ApiTestCase
 {
 	const PATH = '/subscription';
+
 	/**
 	 * @test
 	 */
@@ -56,7 +56,7 @@ class SubscriptionsTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn(Collection::make([$attributes]));
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

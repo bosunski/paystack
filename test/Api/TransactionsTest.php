@@ -101,7 +101,7 @@ class TransactionsTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/transaction')
-		    ->willReturn(Collection::make([$attributes]));
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

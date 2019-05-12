@@ -35,6 +35,7 @@ class Transactions extends AbstractApi implements ModelAware
      * @param string $reference
      * @return array|bool|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function verify(string $reference)
 	{
@@ -53,12 +54,11 @@ class Transactions extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return \Illuminate\Support\Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function list(array $parameters = []): Collection
     {
-        return $this->get(self::BASE_PATH, $parameters)->map(function ($transaction) {
-            return $this->getApiModel($transaction);
-        });
+        return $this->get(self::BASE_PATH, $parameters);
     }
 
     /**
@@ -142,6 +142,7 @@ class Transactions extends AbstractApi implements ModelAware
      * @param int $transactionId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch(int $transactionId)
 	{
@@ -157,6 +158,7 @@ class Transactions extends AbstractApi implements ModelAware
      * @param string $transactionId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function timeline(string $transactionId)
 	{
@@ -171,6 +173,7 @@ class Transactions extends AbstractApi implements ModelAware
      *
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function totals()
 	{
@@ -184,6 +187,7 @@ class Transactions extends AbstractApi implements ModelAware
      * @return array|string
      * @throws \Xeviant\Paystack\Exception\ValueNotAllowedException
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function export(array $parameters = [])
 	{

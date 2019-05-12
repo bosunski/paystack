@@ -28,6 +28,7 @@ class Bank extends AbstractApi
      *
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(): Collection
 	{

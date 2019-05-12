@@ -39,7 +39,7 @@ class SettlementsTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/settlement')
-		    ->willReturn(Collection::make([$attributes]));
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

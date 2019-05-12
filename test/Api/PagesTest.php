@@ -66,8 +66,6 @@ class PagesTest extends ApiTestCase
 	{
 		$attributes = ['integration' => 900713];
 
-		$apiResult = Collection::make([$attributes]);
-
 		$finalResult = Collection::make([
 		    $this->createApplication()->makeModel('page', ['attributes' => $attributes])
         ]);
@@ -76,7 +74,7 @@ class PagesTest extends ApiTestCase
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn($apiResult);
+		    ->willReturn($finalResult);
 
 		$this->assertEquals($finalResult, $api->list());
 	}

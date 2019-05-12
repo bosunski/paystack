@@ -33,6 +33,7 @@ class SubAccount extends AbstractApi implements ModelAware
      * @param string $accountId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch(string $accountId)
 	{
@@ -48,12 +49,11 @@ class SubAccount extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters)->map(function ($subaccount) {
-		    return $this->getApiModel($subaccount);
-        });
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
     /**

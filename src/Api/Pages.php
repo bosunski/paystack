@@ -31,6 +31,7 @@ class Pages extends AbstractApi implements ModelAware
      * @param $pageId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch($pageId)
 	{
@@ -46,6 +47,7 @@ class Pages extends AbstractApi implements ModelAware
      * @param $slug
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function checkSlugAvailability($slug)
 	{
@@ -61,12 +63,11 @@ class Pages extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters)->map(function ($page) {
-		    return $this->getApiModel($page);
-        });
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
     /**

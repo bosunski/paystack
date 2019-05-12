@@ -17,7 +17,6 @@
 
 namespace Xeviant\Paystack\Api;
 
-
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Contract\PaystackEventType;
@@ -32,6 +31,7 @@ class Subscriptions extends AbstractApi implements ModelAware
      * @param string $subscriptionId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch(string $subscriptionId)
 	{
@@ -47,12 +47,11 @@ class Subscriptions extends AbstractApi implements ModelAware
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters)->map(function ($subscription) {
-		    return $this->getApiModel($subscription);
-        });
+		return $this->get(self::BASE_PATH, $parameters);
 	}
 
     /**

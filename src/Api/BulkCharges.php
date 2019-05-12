@@ -30,6 +30,7 @@ class BulkCharges extends AbstractApi
      * @param $bulkChargeId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch($bulkChargeId)
 	{
@@ -42,6 +43,7 @@ class BulkCharges extends AbstractApi
      * @param $bulkChargeId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function pause($bulkChargeId)
 	{
@@ -54,6 +56,7 @@ class BulkCharges extends AbstractApi
      * @param $bulkChargeId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function resume($bulkChargeId)
 	{
@@ -66,6 +69,7 @@ class BulkCharges extends AbstractApi
      * @param $bulkChargeId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function charges($bulkChargeId)
 	{
@@ -78,6 +82,7 @@ class BulkCharges extends AbstractApi
      * @param array $parameters
      * @return Collection
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = []): Collection
 	{

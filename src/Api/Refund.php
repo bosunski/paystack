@@ -28,6 +28,7 @@ class Refund extends AbstractApi
      * @param $refundId
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function fetch($refundId)
 	{
@@ -43,6 +44,7 @@ class Refund extends AbstractApi
      * @param array $parameters
      * @return array|string
      * @throws \Http\Client\Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
 	public function list(array $parameters = [])
 	{
