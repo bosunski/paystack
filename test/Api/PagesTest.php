@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Pages;
 
 class PagesTest extends ApiTestCase
@@ -63,15 +64,21 @@ class PagesTest extends ApiTestCase
 	 */
 	public function shouldGetPaymentPages(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$attributes = ['integration' => 900713];
+
+		$apiResult = Collection::make([$attributes]);
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('page', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn($expectedResult);
+		    ->willReturn($apiResult);
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 	/**

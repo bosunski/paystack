@@ -2,7 +2,6 @@
 
 namespace Xeviant\Paystack\Model;
 
-
-class Transfer
+class Transfer extends Model
 {
 }

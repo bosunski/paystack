@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Settlements;
 
 class SettlementsTest extends ApiTestCase
@@ -28,15 +29,19 @@ class SettlementsTest extends ApiTestCase
 	 */
 	public function shouldGetSettlements(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$attributes = ['integration' => 900713];
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('settlement', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/settlement')
-		    ->willReturn($expectedResult);
+		    ->willReturn(Collection::make([$attributes]));
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 

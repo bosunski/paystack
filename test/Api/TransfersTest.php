@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Transfers;
 
 class TransfersTest extends ApiTestCase
@@ -46,15 +47,19 @@ class TransfersTest extends ApiTestCase
 	 */
 	public function shouldGetTransfers(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$attributes = ['integration' => 900713];
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('transfer', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn($expectedResult);
+		    ->willReturn(Collection::make([$attributes]));
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 	/**

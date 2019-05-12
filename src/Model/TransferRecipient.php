@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * This file is part of the Xeviant Paystack package.
@@ -16,14 +15,8 @@
  *
  */
 
-namespace Xeviant\Paystack\Contract;
+namespace Xeviant\Paystack\Model;
 
-interface ModelAware
+class TransferRecipient extends Model
 {
-    /**
-     * Retrieves Model accessor inside container
-     *
-     * @return string
-     */
-    public function getApiModelAccessor(): string;
 }

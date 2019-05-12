@@ -19,9 +19,10 @@ namespace Xeviant\Paystack\Api;
 
 
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
-class Subscriptions extends AbstractApi
+class Subscriptions extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/subscription';
 
@@ -49,7 +50,9 @@ class Subscriptions extends AbstractApi
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters);
+		return $this->get(self::BASE_PATH, $parameters)->map(function ($subscription) {
+		    return $this->getApiModel($subscription);
+        });
 	}
 
     /**
@@ -130,4 +133,14 @@ class Subscriptions extends AbstractApi
 	{
 		return $this->put(self::BASE_PATH . "/$accountId", $parameters);
 	}
+
+    /**
+     * Retrieves Model accessor inside container
+     *
+     * @return string
+     */
+    public function getApiModelAccessor(): string
+    {
+        return 'subscription';
+    }
 }

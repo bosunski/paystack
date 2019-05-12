@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Subscriptions;
 
 class SubscriptionsTest extends ApiTestCase
@@ -45,15 +46,19 @@ class SubscriptionsTest extends ApiTestCase
 	 */
 	public function shouldGetSubscriptions(): void
 	{
-		$expectedResult = ['data' => [['invoices' => [], 'customer' => []]]];
+		$attributes = ['invoices' => [], 'customer' => []];
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('subscription', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn($expectedResult);
+		    ->willReturn(Collection::make([$attributes]));
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 	/**

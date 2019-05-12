@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Transactions;
 
 class TransactionsTest extends ApiTestCase
@@ -90,15 +91,19 @@ class TransactionsTest extends ApiTestCase
      */
 	public function shouldListTransactions()
 	{
-		$expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
+		$attributes = ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn'];
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('transaction', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/transaction')
-		    ->willReturn($expectedResult);
+		    ->willReturn(Collection::make([$attributes]));
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 	/**

@@ -19,9 +19,10 @@ namespace Xeviant\Paystack\Api;
 
 
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
-class Invoices extends AbstractApi
+class Invoices extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/paymentrequest';
 
@@ -74,7 +75,9 @@ class Invoices extends AbstractApi
      */
 	public function list(): Collection
 	{
-		return $this->get(self::BASE_PATH);
+		return $this->get(self::BASE_PATH)->map(function($invoice) {
+		    return $this->getApiModel($invoice);
+        });
 	}
 
     /**
@@ -177,4 +180,9 @@ class Invoices extends AbstractApi
 			return $response;
 		}
 	}
+
+    public function getApiModelAccessor(): string
+    {
+        return 'invoice';
+    }
 }

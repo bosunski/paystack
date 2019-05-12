@@ -19,9 +19,9 @@ namespace Xeviant\Paystack\Tests\Api;
 
 
 use Http\Client\HttpClient;
-use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Tests\TestCase;
 
 abstract class ApiTestCase extends TestCase
 {

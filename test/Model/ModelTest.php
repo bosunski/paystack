@@ -61,7 +61,7 @@ class ModelTest extends TestCase
         self::assertNull($model->name, 'Model did not return null when attribute is not set');
     }
 
-    public function getModel($attributes = [])
+    public function getModel($attributes = []): Model
     {
         return $this->createApplication()->make(Model::class, ['attributes' => $attributes]);
     }

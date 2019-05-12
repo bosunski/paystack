@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Tests\Api;
 
 
+use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\SubAccount;
 
 class SubAccountTest extends ApiTestCase
@@ -44,15 +45,19 @@ class SubAccountTest extends ApiTestCase
 	 */
 	public function shouldGetSubAccounts(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$attributes = ['integration' => 900713];
+
+		$finalResult = Collection::make([
+		    $this->createApplication()->makeModel('subaccount', ['attributes' => $attributes])
+        ]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with('/subaccount')
-		    ->willReturn($expectedResult);
+		    ->willReturn(Collection::make([$attributes]));
 
-		$this->assertEquals($expectedResult, $api->list());
+		$this->assertEquals($finalResult, $api->list());
 	}
 
 	/**

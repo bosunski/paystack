@@ -24,6 +24,14 @@ return [
         'transferRecipients' => \Xeviant\Paystack\Api\TransferRecipients::class,
     ],
     'models' => [
-        'customer' => \Xeviant\Paystack\Model\Customer::class
+        'customer' => \Xeviant\Paystack\Model\Customer::class,
+        'invoice' => \Xeviant\Paystack\Model\Invoice::class,
+        'page' => \Xeviant\Paystack\Model\Page::class,
+        'settlement' => \Xeviant\Paystack\Model\Settlement::class,
+        'subaccount' => \Xeviant\Paystack\Model\SubAccount::class,
+        'subscription' => \Xeviant\Paystack\Model\Subscription::class,
+        'transaction' => \Xeviant\Paystack\Model\Transaction::class,
+        'transfer.recipient' => \Xeviant\Paystack\Model\TransferRecipient::class,
+        'transfer' => \Xeviant\Paystack\Model\Transfer::class,
     ],
 ];

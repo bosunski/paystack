@@ -19,8 +19,9 @@ namespace Xeviant\Paystack\Api;
 
 
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\Contract\ModelAware;
 
-class Pages extends AbstractApi
+class Pages extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/page';
 
@@ -63,7 +64,9 @@ class Pages extends AbstractApi
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters);
+		return $this->get(self::BASE_PATH, $parameters)->map(function ($page) {
+		    return $this->getApiModel($page);
+        });
 	}
 
     /**
@@ -94,4 +97,9 @@ class Pages extends AbstractApi
 	{
 		return $this->put(self::BASE_PATH . "/$pageId", $parameters);
 	}
+
+    public function getApiModelAccessor(): string
+    {
+        return 'page';
+    }
 }

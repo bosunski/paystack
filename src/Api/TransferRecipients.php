@@ -19,8 +19,9 @@ namespace Xeviant\Paystack\Api;
 
 
 use Illuminate\Support\Collection;
+use Xeviant\Paystack\Contract\ModelAware;
 
-class TransferRecipients extends AbstractApi
+class TransferRecipients extends AbstractApi implements ModelAware
 {
 	const BASE_PATH = '/transferrecipient';
 
@@ -48,7 +49,9 @@ class TransferRecipients extends AbstractApi
      */
 	public function list(array $parameters = []): Collection
 	{
-		return $this->get(self::BASE_PATH, $parameters);
+		return $this->get(self::BASE_PATH, $parameters)->map(function ($transferRecipient) {
+		    return $this->getApiModel($transferRecipient);
+        });
 	}
 
     /**
@@ -79,4 +82,14 @@ class TransferRecipients extends AbstractApi
 	{
 		return $this->put(self::BASE_PATH . "/$recipientCode", $parameters);
 	}
+
+    /**
+     * Retrieves Model accessor inside container
+     *
+     * @return string
+     */
+    public function getApiModelAccessor(): string
+    {
+        return 'transfer.recipient';
+    }
 }
