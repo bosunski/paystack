@@ -25,7 +25,6 @@ use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\ModelAware;
-use Xeviant\Paystack\Event\EventPayload;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 use Xeviant\Paystack\Validator;
 
