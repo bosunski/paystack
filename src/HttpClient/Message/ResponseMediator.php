@@ -17,9 +17,8 @@
 
 namespace Xeviant\Paystack\HttpClient\Message;
 
-
-use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
+use Xeviant\Paystack\Collection;
 use Xeviant\Paystack\Exception\ApiLimitExceededException;
 
 class ResponseMediator
