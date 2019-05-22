@@ -17,7 +17,6 @@
 
 namespace Xeviant\Paystack\Api;
 
-
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\ModelAware;
 
