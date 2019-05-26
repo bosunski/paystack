@@ -20,6 +20,7 @@ namespace Xeviant\Paystack\Api;
 
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Collection as PaystackCollection;
 
 class Customers extends AbstractApi
 {
@@ -40,10 +41,10 @@ class Customers extends AbstractApi
     /**
      * Retrieves all Customers
      *
-     * @return Collection
+     * @return PaystackCollection
      * @throws \Http\Client\Exception
      */
-	public function list(): Collection
+	public function list(): PaystackCollection
 	{
 		return $this->get(self::BASE_PATH);
 	}

@@ -18,10 +18,9 @@
 namespace Xeviant\Paystack\Api;
 
 
-use Illuminate\Support\Collection;
 use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Collection as PaystackCollection;
 use Xeviant\Paystack\Contract\ApiInterface;
-use Xeviant\Paystack\Event\EventPayload;
 use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 use Xeviant\Paystack\Validator;
 
@@ -72,7 +71,7 @@ abstract class AbstractApi implements ApiInterface
      * @param $path
      * @param array $parameters
      * @param array $requestHeaders
-     * @return array|string|Collection
+     * @return array|string|PaystackCollection
      * @throws \Http\Client\Exception
      */
 	protected function get($path, array $parameters = [], array $requestHeaders = [])

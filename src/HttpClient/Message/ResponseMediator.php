@@ -17,9 +17,8 @@
 
 namespace Xeviant\Paystack\HttpClient\Message;
 
-
-use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
+use Xeviant\Paystack\Collection as PaystackCollection;
 use Xeviant\Paystack\Exception\ApiLimitExceededException;
 
 class ResponseMediator
@@ -51,7 +50,7 @@ class ResponseMediator
         if (is_array($content) && isset($content['data'])) {
             $data = $content['data'];
             if (isset($data[0])) {
-                return Collection::make($data);
+                return PaystackCollection::make($data);
             }
 
             return $data;
