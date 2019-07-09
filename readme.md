@@ -1,56 +1,20 @@
-# Paystack API Client
-A simple, fluent and stable PHP client for Paystack API. With this you have ALL of Paystack at your disposal!
+<p align="center">
+    <a href="https://paystack.com/" target="_blank"><img width="200" src="https://s3-eu-west-1.amazonaws.com/pstk-blog-staging/images/articles/Paystack-mark.png"></a><br>
+    A simple, fluent and stable PHP Client for Paystack API coming to you with ALL of Paystack at your disposal!
+</p>
 
-### Features
-- Covers the **WHOLE** Paystack API as referenced [here][1]
-- Well tested - tests covering the whole API.
+<p align="center">
+    <a href="https://travis-ci.org/bosunski/paystack"><img src="https://travis-ci.com/bosunski/paystack.svg?branch=master" alt="Build Status"></a>
+    <a href="https://github.com/bosunski/paystack/releases"><img src="https://img.shields.io/packagist/v/xeviant/paystack.svg" alt="Latest Release"></a>
+    <a href="https://github.com/bosunski/paystack/blob/master/LICENSE"><img src="https://img.shields.io/github/license/bosunski/paystack.svg" alt="License"></a>
+</p>
 
+------
 
-### Requirements
-- PHP >= 7.1
+## Documentation
 
-### Installation
-```bash
-$ composer require xeviant/paystack
-```
+For full documentation, visit the Docs [Here](https://paystack-client.herokuapp.com).
 
-### Basic Usage
-```php
-<?php
+## Contributing
 
-require_once "vendor/autoload.php";
-use Xeviant\Paystack\Paystack;
-
-$paystack = new Paystack('pk_12xcd', 'sk_12xcb');
-
-/**
-  * The pattern is that you call the API method and then the the part of the API you want to access
- * In this example I am accessing the list feature of the customers API check: https://developers.paystack.co/reference
- */
-var_dump($paystack->customers()->list());
-```
-
-### Available API Methods
-- `customers()` - Customers API
-- `balance()` - Balance API
-- `bank()` - Bank API
-- `bulkCharges()` - Bulk Charges API
-- `bvn()` - BVN API
-- `charge()` - Charge API
-- `integration()` - Integration API
-- `invoices()` - Invoices API
-- `pages()` - Pages API
-- `plans()` - Plans API
-- `refund()` - Refund API
-- `settlements()` - Settlements API
-- `subAccount()` - Sub-accounts API
-- `subscriptions()` - Subscriptions API
-- `transactions()` - Transactions API
-- `transferRecipients()` - Transfer Recipients
-- `transfers()` - Transfers API
-
-### Support
-Did you discover any bug while using this client? Kindly open an Issue or reach out to me on [bosunski@gmail.com][2]
-
-[1]: https://developers.paystack.co/reference
-[2]: mailto:bosunski@gmail.com
+If you're interested in contributing to this project, don't wait, fork it and make a PR!
