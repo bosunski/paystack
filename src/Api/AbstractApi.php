@@ -22,6 +22,7 @@ use Exception;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Collection as PaystackCollection;
 use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\ModelAware;
@@ -81,7 +82,7 @@ abstract class AbstractApi implements ApiInterface
      * @param $path
      * @param array $parameters
      * @param array $requestHeaders
-     * @return array|string|Collection
+     * @return array|string|PaystackCollection
      * @throws \Http\Client\Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -91,8 +92,8 @@ abstract class AbstractApi implements ApiInterface
 			$parameters['page'] = $this->page;
 		}
 
-		if (null !== $this->perPage && !isset($parameters['per_page'])) {
-			$parameters['per_page'] = $this->perPage;
+		if (null !== $this->perPage && !isset($parameters['perPage'])) {
+			$parameters['perPage'] = $this->perPage;
 		}
 
 		if (count($parameters) > 0) {

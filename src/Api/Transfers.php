@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * This file is part of the Xeviant Paystack package.
@@ -17,6 +18,7 @@
 
 namespace Xeviant\Paystack\Api;
 
+use Http\Client\Exception;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Contract\PaystackEventType;

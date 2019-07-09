@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Http\Client\Exception;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\ModelAware;
 use Xeviant\Paystack\Contract\PaystackEventType;
@@ -31,6 +32,7 @@ class Invoices extends AbstractApi implements ModelAware
      *
      * @param string $invoiceId
      * @return array|string
+     * @throws Exception
      * @throws \Http\Client\Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
@@ -47,7 +49,7 @@ class Invoices extends AbstractApi implements ModelAware
      *
      * @param string $invoiceId
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -62,6 +64,7 @@ class Invoices extends AbstractApi implements ModelAware
      * Retrieves Invoice totals
      *
      * @return array|string
+     * @throws Exception
      * @throws \Http\Client\Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -74,6 +77,7 @@ class Invoices extends AbstractApi implements ModelAware
      * Retrieves all Invoices
      *
      * @return Collection
+     * @throws Exception
      * @throws \Http\Client\Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -88,7 +92,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function notify(string $invoiceId, array $parameters = [])
 	{
@@ -101,7 +105,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function finalize(string $invoiceId, array $parameters = [])
 	{
@@ -114,7 +118,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function archive(string $invoiceId, array $parameters = [])
 	{
@@ -127,7 +131,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function markAsPaid(string $invoiceId, array $parameters = [])
 	{
@@ -144,7 +148,7 @@ class Invoices extends AbstractApi implements ModelAware
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function update(string $invoiceId, array $parameters = [])
 	{
@@ -165,7 +169,7 @@ class Invoices extends AbstractApi implements ModelAware
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function create(array $parameters)
 	{

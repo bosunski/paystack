@@ -98,7 +98,7 @@ class BulkChargesTest extends ApiTestCase
 	 */
 	public function shouldGetBulkCharges(): void
 	{
-		$expectedResult = collect([['batch_code' => 'BCH_180tl7oq7cayggh']]);
+		$expectedResult = collect(['data' => [['batch_code' => 'BCH_180tl7oq7cayggh']]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

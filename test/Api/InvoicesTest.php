@@ -156,20 +156,15 @@ class InvoicesTest extends ApiTestCase
 	 */
 	public function shouldGetInvoices(): void
 	{
-		$attributes = ['id' => 900713];
-
-		$finalResult = collect([
-		    $this->createApplication()->makeModel('invoice', ['attributes' => $attributes])
-        ]);
+		$expectedResult = collect(['data' => [['id' => 900713]]]);
 
 		$api = $this->getApiMock();
-
 		$api->expects(self::once())
 		    ->method('get')
 		    ->with(self::PATH)
-		    ->willReturn($finalResult);
+		    ->willReturn($expectedResult);
 
-		$this->assertEquals($finalResult, $api->list());
+		$this->assertEquals($expectedResult, $api->list());
 	}
 
 	/**
