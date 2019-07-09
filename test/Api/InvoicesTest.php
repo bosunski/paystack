@@ -156,7 +156,7 @@ class InvoicesTest extends ApiTestCase
 	 */
 	public function shouldGetInvoices(): void
 	{
-		$expectedResult = ['data' => [['id' => 900713]]];
+		$expectedResult = collect(['data' => [['id' => 900713]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * This file is part of the Xeviant Paystack package.
@@ -17,7 +18,7 @@
 
 namespace Xeviant\Paystack\Api;
 
-
+use Http\Client\Exception;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
@@ -30,7 +31,7 @@ class Transfers extends AbstractApi
      *
      * @param string $transferId
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function fetch(string $transferId)
 	{
@@ -45,7 +46,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return Collection
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function list(array $parameters = []): Collection
 	{
@@ -57,7 +58,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function initiate(array $parameters)
 	{
@@ -81,7 +82,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function finalize(array $parameters)
 	{
@@ -105,7 +106,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function bulk(array $parameters)
 	{
@@ -129,7 +130,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function resendOtp(array $parameters)
 	{
@@ -145,7 +146,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function disableOtp(array $parameters = [])
 	{
@@ -161,7 +162,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function enableOtp(array $parameters = [])
 	{
@@ -177,7 +178,7 @@ class Transfers extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function disableOtpFinalize(array $parameters)
 	{

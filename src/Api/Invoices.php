@@ -18,6 +18,7 @@
 namespace Xeviant\Paystack\Api;
 
 
+use Http\Client\Exception;
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
@@ -30,7 +31,7 @@ class Invoices extends AbstractApi
      *
      * @param string $invoiceId
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
      */
 	public function fetch(string $invoiceId)
@@ -45,7 +46,7 @@ class Invoices extends AbstractApi
      *
      * @param string $invoiceId
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      * @throws \Xeviant\Paystack\Exception\MissingArgumentException
      */
 	public function verify(string $invoiceId)
@@ -59,7 +60,7 @@ class Invoices extends AbstractApi
      * Retrieves Invoice totals
      *
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function totals()
 	{
@@ -70,7 +71,7 @@ class Invoices extends AbstractApi
      * Retrieves all Invoices
      *
      * @return Collection
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function list(): Collection
 	{
@@ -83,7 +84,7 @@ class Invoices extends AbstractApi
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function notify(string $invoiceId, array $parameters = [])
 	{
@@ -96,7 +97,7 @@ class Invoices extends AbstractApi
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function finalize(string $invoiceId, array $parameters = [])
 	{
@@ -109,7 +110,7 @@ class Invoices extends AbstractApi
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function archive(string $invoiceId, array $parameters = [])
 	{
@@ -122,7 +123,7 @@ class Invoices extends AbstractApi
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function markAsPaid(string $invoiceId, array $parameters = [])
 	{
@@ -139,7 +140,7 @@ class Invoices extends AbstractApi
      * @param string $invoiceId
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function update(string $invoiceId, array $parameters = [])
 	{
@@ -160,7 +161,7 @@ class Invoices extends AbstractApi
      *
      * @param array $parameters
      * @return array|string
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
 	public function create(array $parameters)
 	{

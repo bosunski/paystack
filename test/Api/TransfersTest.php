@@ -46,7 +46,7 @@ class TransfersTest extends ApiTestCase
 	 */
 	public function shouldGetTransfers(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$expectedResult = collect(['data' => [['integration' => 900713]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

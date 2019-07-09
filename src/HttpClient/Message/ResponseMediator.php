@@ -47,6 +47,10 @@ class ResponseMediator
 
 	protected static function parseContent($content)
     {
+//        if (!$content['status']) {
+//            return null;
+//        }
+
         if (is_array($content) && isset($content['data'])) {
             $data = $content['data'];
             if (isset($data[0])) {

@@ -45,7 +45,7 @@ class SubscriptionsTest extends ApiTestCase
 	 */
 	public function shouldGetSubscriptions(): void
 	{
-		$expectedResult = ['data' => [['invoices' => [], 'customer' => []]]];
+		$expectedResult = collect(['data' => [['invoices' => [], 'customer' => []]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

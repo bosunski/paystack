@@ -44,7 +44,7 @@ class PlansTest extends ApiTestCase
 	 */
 	public function shouldGetPlans(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$expectedResult = collect(['data' => [['integration' => 900713]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

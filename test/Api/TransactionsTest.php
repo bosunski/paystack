@@ -90,7 +90,7 @@ class TransactionsTest extends ApiTestCase
      */
 	public function shouldListTransactions()
 	{
-		$expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
+		$expectedResult = collect(['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

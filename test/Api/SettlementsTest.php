@@ -28,7 +28,7 @@ class SettlementsTest extends ApiTestCase
 	 */
 	public function shouldGetSettlements(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$expectedResult = collect(['data' => [['integration' => 900713]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

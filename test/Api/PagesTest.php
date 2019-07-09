@@ -63,7 +63,7 @@ class PagesTest extends ApiTestCase
 	 */
 	public function shouldGetPaymentPages(): void
 	{
-		$expectedResult = ['data' => [['integration' => 900713]]];
+		$expectedResult = collect(['data' => [['integration' => 900713]]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())

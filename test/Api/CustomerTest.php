@@ -44,7 +44,7 @@ class CustomerTest extends ApiTestCase
 	 */
 	public function shouldGetCustomers(): void
 	{
-		$expectedResult = ['data' => [['email' => 'email@example.com']]];
+		$expectedResult = collect(['data' => [['email' => 'email@example.com']]]);
 
 		$api = $this->getApiMock();
 		$api->expects(self::once())
