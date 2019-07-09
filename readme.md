@@ -6,6 +6,7 @@
 <p align="center">
     <a href="https://travis-ci.org/bosunski/paystack"><img src="https://travis-ci.com/bosunski/paystack.svg?branch=master" alt="Build Status"></a>
     <a href="https://github.com/bosunski/paystack/releases"><img src="https://img.shields.io/packagist/v/xeviant/paystack.svg" alt="Latest Release"></a>
+    <a href="https://packagist.org/xeviant/paystack"><img src="https://img.shields.io/packagist/dt/xeviant/paystack.svg" alt="Downloads"></a>
     <a href="https://github.com/bosunski/paystack/blob/master/LICENSE"><img src="https://img.shields.io/github/license/bosunski/paystack.svg" alt="License"></a>
 </p>
 
