@@ -1,19 +1,18 @@
 <?php
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         2.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/paystack
  *
+ * @link            https://github.com/bosunski/paystack
  */
 
 namespace Xeviant\Paystack\App;
@@ -41,43 +40,42 @@ class PaystackApplication extends Container implements ApplicationInterface
 {
     const MODEL_PREFIX = 'model.';
     /**
-     * The Package Version
+     * The Package Version.
      *
      * @var string
      */
     const VERSION = '1.0';
 
     /**
-     * The API Version
+     * The API Version.
      *
      * @var string
      */
     const API_VERSION = '1.0';
 
     /**
-     * Source path
+     * Source path.
      *
      * @var null
      */
     private $basePath;
 
     /**
-     * The Paystack Client APIs + Models + Core Classes
+     * The Paystack Client APIs + Models + Core Classes.
      *
      * @var array
      */
     private $paystackBindings = [];
 
     /**
-     * Paystack Public key
+     * Paystack Public key.
      *
      * @var string
      */
     private $publicKey;
 
-
     /**
-     * Paystack Secret Key
+     * Paystack Secret Key.
      *
      * @var string
      */
@@ -88,7 +86,7 @@ class PaystackApplication extends Container implements ApplicationInterface
      *
      * @param string|null $publicKey
      * @param string|null $secretKey
-     * @param null $basePath
+     * @param null        $basePath
      */
     public function __construct(string $publicKey = null, string $secretKey = null, $basePath = null)
     {
@@ -109,7 +107,7 @@ class PaystackApplication extends Container implements ApplicationInterface
     protected function setBasePath($basePath)
     {
         if (!$basePath) {
-            $this->basePath = __DIR__ ."/../";
+            $this->basePath = __DIR__.'/../';
 
             return $this;
         }
@@ -123,19 +121,19 @@ class PaystackApplication extends Container implements ApplicationInterface
     }
 
     /**
-     * Registers all the Application Models
+     * Registers all the Application Models.
      */
     protected function registerApiModels()
     {
         $models = $this->paystackBindings['models'];
 
         foreach ($models as $key => $service) {
-            $this->bind(self::MODEL_PREFIX . $key, $service);
+            $this->bind(self::MODEL_PREFIX.$key, $service);
         }
     }
 
     /**
-     * Registers all API services
+     * Registers all API services.
      */
     protected function registerApiServices()
     {
@@ -147,7 +145,7 @@ class PaystackApplication extends Container implements ApplicationInterface
     }
 
     /**
-     * Registers
+     * Registers.
      */
     protected function registerBaseBindings()
     {
@@ -164,11 +162,11 @@ class PaystackApplication extends Container implements ApplicationInterface
     }
 
     /**
-     * Registers all External tools used
+     * Registers all External tools used.
      */
     protected function registerVendorServices()
     {
-        $this->bind(HttpClient::class, function($app) {
+        $this->bind(HttpClient::class, function ($app) {
             return HttpClientDiscovery::find();
         });
 
@@ -176,17 +174,19 @@ class PaystackApplication extends Container implements ApplicationInterface
             return MessageFactoryDiscovery::find();
         });
 
-        $this->bind(StreamFactory::class, function($app) {
+        $this->bind(StreamFactory::class, function ($app) {
             return StreamFactoryDiscovery::find();
         });
     }
 
     /**
-     * Creates an instance of an API
+     * Creates an instance of an API.
      *
      * @param string $apiName
-     * @return ApiInterface
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return ApiInterface
      */
     public function makeApi(string $apiName): ApiInterface
     {
@@ -198,27 +198,29 @@ class PaystackApplication extends Container implements ApplicationInterface
     }
 
     /**
-     * Creates an instance of a model
+     * Creates an instance of a model.
      *
      * @param string $modelName
-     * @param array $parameters
-     * @return mixed
+     * @param array  $parameters
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return mixed
      */
     public function makeModel(string $modelName, $parameters = [])
     {
         try {
-            return $this->make(self::MODEL_PREFIX . $modelName, $parameters);
+            return $this->make(self::MODEL_PREFIX.$modelName, $parameters);
         } catch (ReflectionException $e) {
             throw new InvalidArgumentException(sprintf('Undefined Model called: "%s', $modelName));
         }
     }
 
     /**
-     * Loads all the app bindings Core + APIs + Models
+     * Loads all the app bindings Core + APIs + Models.
      */
     private function loadBindings()
     {
-        $this->paystackBindings = require __DIR__ ."/../config/bindings.php";
+        $this->paystackBindings = require __DIR__.'/../config/bindings.php';
     }
 }

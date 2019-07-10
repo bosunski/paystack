@@ -13,118 +13,117 @@ use Xeviant\Paystack\Exception\ExceptionInterface;
 use Xeviant\Paystack\HttpClient\Plugin\PaystackExceptionThrower;
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         2.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright   (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/paystack
  *
+ * @link            https://github.com/bosunski/paystack
  */
-
 final class PaystackExceptionThrowerTest extends TestCase
 {
-	/**
-	 * @param ResponseInterface       $response
-	 * @param ExceptionInterface|null $exception
-	 *
-	 * @dataProvider responseProvider
-	 * @throws \ReflectionException
-	 */
-	public function testHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
-	{
-		$request = $this->getMockForAbstractClass(RequestInterface::class);
+    /**
+     * @param ResponseInterface       $response
+     * @param ExceptionInterface|null $exception
+     *
+     * @dataProvider responseProvider
+     *
+     * @throws \ReflectionException
+     */
+    public function testHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
+    {
+        $request = $this->getMockForAbstractClass(RequestInterface::class);
 
-		$promise = $this
-			->getMockBuilder(Promise::class)
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
+        $promise = $this
+            ->getMockBuilder(Promise::class)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
-		$promise->expects(self::once())
-			->method('then')
-			->willReturnCallback(function ($callback) use ($response) {
-				return $callback($response);
-		});
+        $promise->expects(self::once())
+            ->method('then')
+            ->willReturnCallback(function ($callback) use ($response) {
+                return $callback($response);
+            });
 
-		$plugin = new PaystackExceptionThrower();
+        $plugin = new PaystackExceptionThrower();
 
-		if ($exception) {
-			$this->expectException(get_class($exception));
-			$this->expectExceptionCode($exception->getCode());
-			$this->expectExceptionMessage($exception->getMessage());
-		}
+        if ($exception) {
+            $this->expectException(get_class($exception));
+            $this->expectExceptionCode($exception->getCode());
+            $this->expectExceptionMessage($exception->getMessage());
+        }
 
-		$plugin->handleRequest(
-			$request,
-			function (RequestInterface $request) use ($promise) {
-				return $promise;
-			},
-			function (RequestInterface $request) use ($promise) {
-				return $promise;
-			}
-		);
-	}
+        $plugin->handleRequest(
+            $request,
+            function (RequestInterface $request) use ($promise) {
+                return $promise;
+            },
+            function (RequestInterface $request) use ($promise) {
+                return $promise;
+            }
+        );
+    }
 
-	/**
-	 * @return array
-	 */
-	public function responseProvider(): array
-	{
-		return [
-			'200 Response' => [
-				'response' => new Response(),
-				'exception' => null,
-			],
-			'Too Many Request' => [
-				'response' => new Response(
-					429,
-					[
-						'Content-Type' => 'application/json',
-						'X-RateLimit-Remaining' => 0,
-						'X-RateLimit-Limit' => 5000,
-					],
-					''
-				),
-				'exception' => new ApiLimitExceededException(5000)
-			],
-			'400 Bad Request' => [
-				'response' => new Response(
-					400,
-					[
-						'Content-Type' => 'application/json',
-					],
-					json_encode(['message' => 'Bad Request'])
-				),
-				'exception' => new ErrorException('Bad Request', 400),
-			],
-			'422 Unprocessable Entity' => [
-				'response' => new Response(
-					422,
-					[
-						'Content-Type' => 'application/json',
-					],
-					json_encode(
-						[
-							'message' => 'Bad Request',
-							'errors' => [
-								[
-									'code' => 'missing',
-									'field' => 'field',
-									'value' => 'value',
-									'resource' => 'resource',
-								],
-							],
-						]
-					)
-				),
-				'exception' => new ErrorException('Validation Failed: The field value does not exist, for resource "resource"', 422),
-			]
-		];
-	}
+    /**
+     * @return array
+     */
+    public function responseProvider(): array
+    {
+        return [
+            '200 Response' => [
+                'response'  => new Response(),
+                'exception' => null,
+            ],
+            'Too Many Request' => [
+                'response' => new Response(
+                    429,
+                    [
+                        'Content-Type'          => 'application/json',
+                        'X-RateLimit-Remaining' => 0,
+                        'X-RateLimit-Limit'     => 5000,
+                    ],
+                    ''
+                ),
+                'exception' => new ApiLimitExceededException(5000),
+            ],
+            '400 Bad Request' => [
+                'response' => new Response(
+                    400,
+                    [
+                        'Content-Type' => 'application/json',
+                    ],
+                    json_encode(['message' => 'Bad Request'])
+                ),
+                'exception' => new ErrorException('Bad Request', 400),
+            ],
+            '422 Unprocessable Entity' => [
+                'response' => new Response(
+                    422,
+                    [
+                        'Content-Type' => 'application/json',
+                    ],
+                    json_encode(
+                        [
+                            'message' => 'Bad Request',
+                            'errors'  => [
+                                [
+                                    'code'     => 'missing',
+                                    'field'    => 'field',
+                                    'value'    => 'value',
+                                    'resource' => 'resource',
+                                ],
+                            ],
+                        ]
+                    )
+                ),
+                'exception' => new ErrorException('Validation Failed: The field value does not exist, for resource "resource"', 422),
+            ],
+        ];
+    }
 }

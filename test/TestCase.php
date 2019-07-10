@@ -9,6 +9,6 @@ class TestCase extends PHPUnitTestCase
 {
     public function createApplication()
     {
-        return new PaystackApplication;
+        return new PaystackApplication();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Xeviant\Paystack\Contract;
 
-
 interface ApplicationInterface
 {
     public function makeApi(string $apiName): ApiInterface;

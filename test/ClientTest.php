@@ -24,99 +24,103 @@ use Xeviant\Paystack\Client;
 
 final class ClientTest extends TestCase
 {
-	/**
-	 * @test
-	 */
-	public function shouldNotHaveToPassHttpClientToConstructor()
-	{
-		$client = new Client();
+    /**
+     * @test
+     */
+    public function shouldNotHaveToPassHttpClientToConstructor()
+    {
+        $client = new Client();
 
-		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
-	}
+        $this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldPassHttpClientInterfaceToConstructor()
-	{
-		$httpClientMock = $this->getMockBuilder(HttpClient::class)->getMock();
+    /**
+     * @test
+     */
+    public function shouldPassHttpClientInterfaceToConstructor()
+    {
+        $httpClientMock = $this->getMockBuilder(HttpClient::class)->getMock();
 
-		$client = Client::createWithHttpClient($httpClientMock);
+        $client = Client::createWithHttpClient($httpClientMock);
 
-		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
-	}
+        $this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
+    }
 
     /**
      * @param $apiName
      * @param $class
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @test
      * @dataProvider getApiServiceProvider
      */
-	public function shouldGetApiInstance($apiName, $class)
-	{
-		$client = $this->createApplication()->make(Client::class);
+    public function shouldGetApiInstance($apiName, $class)
+    {
+        $client = $this->createApplication()->make(Client::class);
 
-		$this->assertInstanceOf($class, $client->api($apiName));
-	}
+        $this->assertInstanceOf($class, $client->api($apiName));
+    }
 
     /**
      * @param $apiName
      * @param $class
      * @test
      * @dataProvider getApiServiceProvider
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-	public function shouldMagicallyGetApiInstance($apiName, $class)
-	{
-		$client = new Client;
+    public function shouldMagicallyGetApiInstance($apiName, $class)
+    {
+        $client = new Client();
 
-		$this->assertInstanceOf($class, $client->$apiName());
-	}
+        $this->assertInstanceOf($class, $client->$apiName());
+    }
 
     /**
      * @test
      * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-	public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
-	{
-		$client = new Client;
-		$client->api('this_doesnt_exist');
-	}
+    public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
+    {
+        $client = new Client();
+        $client->api('this_doesnt_exist');
+    }
 
     /**
      * @test
      * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-	public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
-	{
-		$client = new Client;
-		$client->doesNotExist();
-	}
+    public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
+    {
+        $client = new Client();
+        $client->doesNotExist();
+    }
 
-	public function getApiServiceProvider(): array
-	{
-		return [
-			['bvn', Bvn::class],
-			['bank', Bank::class],
-			['pages', Pages::class],
-			['plans', Plans::class],
-			['charge', Charge::class],
-			['charge', Charge::class],
-			['refund', Refund::class],
-			['balance', Balance::class],
-			['invoices', Invoices::class],
-			['transfers', Transfers::class],
-			['customers', Customers::class],
-			['subAccount', SubAccount::class],
-			['settlements', Settlements::class],
-			['bulkCharges', BulkCharges::class],
-			['integration', Integration::class],
-			['transactions', Transactions::class],
-			['subscriptions', Subscriptions::class],
-			['transferRecipients', TransferRecipients::class],
-		];
-	}
+    public function getApiServiceProvider(): array
+    {
+        return [
+            ['bvn', Bvn::class],
+            ['bank', Bank::class],
+            ['pages', Pages::class],
+            ['plans', Plans::class],
+            ['charge', Charge::class],
+            ['charge', Charge::class],
+            ['refund', Refund::class],
+            ['balance', Balance::class],
+            ['invoices', Invoices::class],
+            ['transfers', Transfers::class],
+            ['customers', Customers::class],
+            ['subAccount', SubAccount::class],
+            ['settlements', Settlements::class],
+            ['bulkCharges', BulkCharges::class],
+            ['integration', Integration::class],
+            ['transactions', Transactions::class],
+            ['subscriptions', Subscriptions::class],
+            ['transferRecipients', TransferRecipients::class],
+        ];
+    }
 }

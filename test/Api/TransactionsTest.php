@@ -1,235 +1,232 @@
 <?php
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/paystack
  *
+ * @link            https://github.com/bosunski/paystack
  */
 
 namespace Xeviant\Paystack\Tests\Api;
-
 
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Transactions;
 
 class TransactionsTest extends ApiTestCase
 {
-	/**
-	 * @test
-	 */
-	public function shouldVerifyTransactions()
-	{
-		$reference = 'DG4uishudoq90LD';
-		$expectedResult = ['data' => ['amount' => 50000]];
+    /**
+     * @test
+     */
+    public function shouldVerifyTransactions()
+    {
+        $reference = 'DG4uishudoq90LD';
+        $expectedResult = ['data' => ['amount' => 50000]];
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-			->method('get')
-			->with('/transaction/verify/' . $reference)
-			->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction/verify/'.$reference)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->verify($reference));
-	}
-
-	/**
-	 * @test
-	 */
-	public function shouldChargeReturningCustomer()
-	{
-		$input = [
-				'amount' => 20000,
-				'email' => 'customer@email.com',
-				"reference" => '0bxco8lyc2aa0fq',
-				'authorization_code' => 'AUTH_72btv547',
-		];
-
-		$expectedResult = ['data' => ['amount' => 5000]];
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-			->method('post')
-			->with('/transaction/charge_authorization', $input)
-			->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->charge($input));
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function shouldInitializeTransaction()
-	{
-		$input = [
-			"reference" => "7PVGX8MEk85tgeEpVDtD",
-			"amount"=> 500000,
-			"email"=> "customer@email.com"
-		];
-
-		$expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
-
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('post')
-		    ->with('/transaction/initialize', $input)
-		    ->willReturn($expectedResult);
-
-		$this->assertEquals($expectedResult, $api->initialize($input));
-	}
+        $this->assertEquals($expectedResult, $api->verify($reference));
+    }
 
     /**
      * @test
      */
-	public function shouldListTransactions()
-	{
-		$attributes = ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn'];
+    public function shouldChargeReturningCustomer()
+    {
+        $input = [
+                'amount'             => 20000,
+                'email'              => 'customer@email.com',
+                'reference'          => '0bxco8lyc2aa0fq',
+                'authorization_code' => 'AUTH_72btv547',
+        ];
 
-		$finalResult = Collection::make([
-		    $this->createApplication()->makeModel('transaction', ['attributes' => $attributes])
+        $expectedResult = ['data' => ['amount' => 5000]];
+
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('post')
+            ->with('/transaction/charge_authorization', $input)
+            ->willReturn($expectedResult);
+
+        $this->assertEquals($expectedResult, $api->charge($input));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldInitializeTransaction()
+    {
+        $input = [
+            'reference' => '7PVGX8MEk85tgeEpVDtD',
+            'amount'    => 500000,
+            'email'     => 'customer@email.com',
+        ];
+
+        $expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
+
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('post')
+            ->with('/transaction/initialize', $input)
+            ->willReturn($expectedResult);
+
+        $this->assertEquals($expectedResult, $api->initialize($input));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldListTransactions()
+    {
+        $attributes = ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn'];
+
+        $finalResult = Collection::make([
+            $this->createApplication()->makeModel('transaction', ['attributes' => $attributes]),
         ]);
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/transaction')
-		    ->willReturn($finalResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction')
+            ->willReturn($finalResult);
 
-		$this->assertEquals($finalResult, $api->list());
-	}
+        $this->assertEquals($finalResult, $api->list());
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldGetTransaction(): void
-	{
-		$expectedResult = ['data' => ['email' => 'email@example.com']];
-		$id = 123;
+    /**
+     * @test
+     */
+    public function shouldGetTransaction(): void
+    {
+        $expectedResult = ['data' => ['email' => 'email@example.com']];
+        $id = 123;
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/transaction/' . $id)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction/'.$id)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($id));
-	}
+        $this->assertEquals($expectedResult, $api->fetch($id));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldGetTransactionTimeline(): void
-	{
-		$expectedResult = ['data' => ['time_spent' => 900]];
-		$id = "x123";
+    /**
+     * @test
+     */
+    public function shouldGetTransactionTimeline(): void
+    {
+        $expectedResult = ['data' => ['time_spent' => 900]];
+        $id = 'x123';
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/transaction/timeline/' . $id)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction/timeline/'.$id)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->timeline($id));
-	}
+        $this->assertEquals($expectedResult, $api->timeline($id));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldGetTransactionTotals(): void
-	{
-		$expectedResult = ['data' => ['total_transactions' => 900]];
+    /**
+     * @test
+     */
+    public function shouldGetTransactionTotals(): void
+    {
+        $expectedResult = ['data' => ['total_transactions' => 900]];
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/transaction/totals')
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction/totals')
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->totals());
-	}
+        $this->assertEquals($expectedResult, $api->totals());
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldExportTransactions(): void
-	{
-		$expectedResult = ['data' => ['path' => 'https://example.com/file.csv']];
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with('/transaction/export')
-		    ->willReturn($expectedResult);
+    /**
+     * @test
+     */
+    public function shouldExportTransactions(): void
+    {
+        $expectedResult = ['data' => ['path' => 'https://example.com/file.csv']];
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with('/transaction/export')
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->export());
-	}
+        $this->assertEquals($expectedResult, $api->export());
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldRequestReauthorization()
-	{
-		$input = [
-			"authorization_code" => "7PVGX8MEk85tgeEpVDtD",
-			"amount"=> 500000,
-			"email"=> "customer@email.com"
-		];
+    /**
+     * @test
+     */
+    public function shouldRequestReauthorization()
+    {
+        $input = [
+            'authorization_code' => '7PVGX8MEk85tgeEpVDtD',
+            'amount'             => 500000,
+            'email'              => 'customer@email.com',
+        ];
 
-		$expectedResult = ['data' => ['reauthorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
+        $expectedResult = ['data' => ['reauthorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('post')
-		    ->with('/transaction/request_reauthorization', $input)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('post')
+            ->with('/transaction/request_reauthorization', $input)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->reauthorize($input));
-	}
+        $this->assertEquals($expectedResult, $api->reauthorize($input));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldCheckAuthorization()
-	{
-		$input = [
-			"authorization_code" => "7PVGX8MEk85tgeEpVDtD",
-			"amount"=> 500000,
-			"email"=> "customer@email.com"
-		];
+    /**
+     * @test
+     */
+    public function shouldCheckAuthorization()
+    {
+        $input = [
+            'authorization_code' => '7PVGX8MEk85tgeEpVDtD',
+            'amount'             => 500000,
+            'email'              => 'customer@email.com',
+        ];
 
-		$expectedResult = ['data' => ['amount' => 400]];
+        $expectedResult = ['data' => ['amount' => 400]];
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('post')
-		    ->with('/transaction/check_authorization', $input)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('post')
+            ->with('/transaction/check_authorization', $input)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->checkAuthorization($input));
-	}
+        $this->assertEquals($expectedResult, $api->checkAuthorization($input));
+    }
 
+    /**
+     * @test
+     */
+    public function shouldGetTransactionsApiObject()
+    {
+        $api = $this->getApiMock();
 
-	/**
-	 * @test
-	 */
-	public function shouldGetTransactionsApiObject()
-	{
-		$api = $this->getApiMock();
+        self::assertInstanceOf(Transactions::class, $api);
+    }
 
-		self::assertInstanceOf(Transactions::class, $api);
-	}
-	/**
-	 * @return string
-	 */
-	protected function getApiClass(): string
-	{
-		return Transactions::class;
-	}
+    /**
+     * @return string
+     */
+    protected function getApiClass(): string
+    {
+        return Transactions::class;
+    }
 }
