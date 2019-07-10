@@ -29,7 +29,7 @@ class EventPayload
 
     public function getPayload(): stdClass
     {
-        return is_array($this->payload) ? (object) $this->payload: $this->payload;
+        return is_array($this->payload) ? (object) $this->payload : $this->payload;
     }
 
     public function getEventName(): string

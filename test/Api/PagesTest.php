@@ -1,139 +1,136 @@
 <?php
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package          Paystack
  * @version          1.0
+ *
  * @author           Olatunbosun Egberinde
  * @license          MIT Licence
  * @copyright        (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link             https://github.com/bosunski/paystack
  *
+ * @link             https://github.com/bosunski/paystack
  */
 
 namespace Xeviant\Paystack\Tests\Api;
-
 
 use Illuminate\Support\Collection;
 use Xeviant\Paystack\Api\Pages;
 
 class PagesTest extends ApiTestCase
 {
-	const PATH = '/page';
+    const PATH = '/page';
 
-	/**
-	 * @test
-	 */
-	public function shouldGetPaymentPage(): void
-	{
-		$expectedResult = ['data' => ['integration' => 900713]];
-		$id = 'xb2der';
+    /**
+     * @test
+     */
+    public function shouldGetPaymentPage(): void
+    {
+        $expectedResult = ['data' => ['integration' => 900713]];
+        $id = 'xb2der';
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with(self::PATH .'/' . $id)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with(self::PATH.'/'.$id)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->fetch($id));
-	}
+        $this->assertEquals($expectedResult, $api->fetch($id));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldCheckSlugAvailability(): void
-	{
-		$expectedResult = ['data' => ['message' => 'Slug is available']];
-		$slug = 'xb2der';
+    /**
+     * @test
+     */
+    public function shouldCheckSlugAvailability(): void
+    {
+        $expectedResult = ['data' => ['message' => 'Slug is available']];
+        $slug = 'xb2der';
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with(self::PATH .'/check_slug_availability/' . $slug)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with(self::PATH.'/check_slug_availability/'.$slug)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->checkSlugAvailability($slug));
-	}
+        $this->assertEquals($expectedResult, $api->checkSlugAvailability($slug));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldGetPaymentPages(): void
-	{
-		$attributes = ['integration' => 900713];
+    /**
+     * @test
+     */
+    public function shouldGetPaymentPages(): void
+    {
+        $attributes = ['integration' => 900713];
 
-		$finalResult = Collection::make([
-		    $this->createApplication()->makeModel('page', ['attributes' => $attributes])
+        $finalResult = Collection::make([
+            $this->createApplication()->makeModel('page', ['attributes' => $attributes]),
         ]);
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('get')
-		    ->with(self::PATH)
-		    ->willReturn($finalResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('get')
+            ->with(self::PATH)
+            ->willReturn($finalResult);
 
-		$this->assertEquals($finalResult, $api->list());
-	}
+        $this->assertEquals($finalResult, $api->list());
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldCreatePage(): void
-	{
-		$expectedResult = ['data' => ['integration' => 90713]];
-		$input = [
-			'name' => 'Name',
-			'amount' => 5000,
-			'description' => 'Description',
-		];
+    /**
+     * @test
+     */
+    public function shouldCreatePage(): void
+    {
+        $expectedResult = ['data' => ['integration' => 90713]];
+        $input = [
+            'name'        => 'Name',
+            'amount'      => 5000,
+            'description' => 'Description',
+        ];
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('post')
-		    ->with(self::PATH, $input)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('post')
+            ->with(self::PATH, $input)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->create($input));
-	}
+        $this->assertEquals($expectedResult, $api->create($input));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldUpdatePage(): void
-	{
-		$input = ['name' => 'Example Name 2'];
-		$expectedResult = ['data' => ['name' => 'Example Name 2']];
-		$pageId = '3x_x123';
+    /**
+     * @test
+     */
+    public function shouldUpdatePage(): void
+    {
+        $input = ['name' => 'Example Name 2'];
+        $expectedResult = ['data' => ['name' => 'Example Name 2']];
+        $pageId = '3x_x123';
 
-		$api = $this->getApiMock();
-		$api->expects(self::once())
-		    ->method('put')
-		    ->with(self::PATH . "/$pageId", $input)
-		    ->willReturn($expectedResult);
+        $api = $this->getApiMock();
+        $api->expects(self::once())
+            ->method('put')
+            ->with(self::PATH."/$pageId", $input)
+            ->willReturn($expectedResult);
 
-		$this->assertEquals($expectedResult, $api->update($pageId, $input));
-	}
+        $this->assertEquals($expectedResult, $api->update($pageId, $input));
+    }
 
-	/**
-	 * @test
-	 */
-	public function shouldGetTransactionsApiObject()
-	{
-		$api = $this->getApiMock();
+    /**
+     * @test
+     */
+    public function shouldGetTransactionsApiObject()
+    {
+        $api = $this->getApiMock();
 
-		self::assertInstanceOf(Pages::class, $api);
-	}
+        self::assertInstanceOf(Pages::class, $api);
+    }
 
-
-	/**
-	 * @return string
-	 */
-	protected function getApiClass(): string
-	{
-		return Pages::class;
-	}
+    /**
+     * @return string
+     */
+    protected function getApiClass(): string
+    {
+        return Pages::class;
+    }
 }

@@ -13,7 +13,6 @@ use Xeviant\Paystack\Contract\ApiInterface;
 use Xeviant\Paystack\Contract\ApplicationInterface;
 use Xeviant\Paystack\Contract\Config;
 use Xeviant\Paystack\Contract\EventInterface;
-use Xeviant\Paystack\Event\EventHandler;
 use Xeviant\Paystack\Exception\BadMethodCallException;
 use Xeviant\Paystack\Exception\InvalidArgumentException;
 use Xeviant\Paystack\HttpClient\Builder;
@@ -55,11 +54,12 @@ class Client
      * Client constructor.
      *
      * @param ApplicationInterface $app
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(ApplicationInterface $app = null)
     {
-        $this->app = $app ?? new PaystackApplication;
+        $this->app = $app ?? new PaystackApplication();
 
         $this->config = $this->app->make(Config::class);
 
@@ -80,16 +80,17 @@ class Client
     }
 
     /**
-     * Creates The Paystack client with an HTTP Client
+     * Creates The Paystack client with an HTTP Client.
      *
      * @param HttpClient $httpClient
      *
-     * @return Client
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Client
      */
-    public static function createWithHttpClient(HttpClient $httpClient): Client
+    public static function createWithHttpClient(HttpClient $httpClient): self
     {
-        $app = new PaystackApplication;
+        $app = new PaystackApplication();
 
         $app->bind(Builder::class, function ($app) use ($httpClient) {
             return new Builder($httpClient);
@@ -99,7 +100,7 @@ class Client
     }
 
     /**
-     * Retrieves an HTTP Client Object
+     * Retrieves an HTTP Client Object.
      *
      * @return \Http\Client\Common\HttpMethodsClientInterface
      */
@@ -109,7 +110,7 @@ class Client
     }
 
     /**
-     * Retrieves an HTTP Client builder object
+     * Retrieves an HTTP Client builder object.
      *
      * @return Builder
      */
@@ -124,20 +125,20 @@ class Client
     }
 
     /**
-     * Gets the API Instance
+     * Gets the API Instance.
      *
      * @param $name
      *
-     * @return ApiInterface
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return ApiInterface
      */
     public function api($name): ApiInterface
     {
         try {
             return $this->app->makeApi($name);
-        }
-        catch (InvalidArgumentException $e) {
-                throw new InvalidArgumentException($e->getMessage());
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e->getMessage());
         }
     }
 
@@ -145,8 +146,9 @@ class Client
      * @param $name
      * @param $arguments
      *
-     * @return ApiInterface
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return ApiInterface
      */
     public function __call($name, $arguments): ApiInterface
     {
@@ -161,7 +163,7 @@ class Client
     {
         switch ($attribute) {
             case 'customer':
-                return new Customer;
+                return new Customer();
         }
     }
 
