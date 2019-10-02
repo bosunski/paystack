@@ -18,10 +18,10 @@
         "php-http/discovery": "^1.6",
         "php-http/client-common": "^2.0@dev",
         "php-http/cache-plugin": "^1.6@dev",
-        "illuminate/support": "^5.7",
+        "illuminate/support": "^5.7|^5.8|^6.0",
         "league/event": "^2.2",
         "php-http/guzzle6-adapter": "*",
-        "illuminate/container": "^5.7"
+        "illuminate/container": "^5.7|^5.8|^6.0"
     },
     "autoload": {
         "psr-4": {
