@@ -138,7 +138,7 @@ class Client
         try {
             return $this->app->makeApi($name);
         } catch (InvalidArgumentException $e) {
-            throw new InvalidArgumentException($e->getMessage());
+            throw $e;
         }
     }
 

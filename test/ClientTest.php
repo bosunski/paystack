@@ -3,6 +3,7 @@
 namespace Xeviant\Paystack\Tests;
 
 use Http\Client\HttpClient;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Xeviant\Paystack\Api\Balance;
 use Xeviant\Paystack\Api\Bank;
 use Xeviant\Paystack\Api\BulkCharges;
@@ -21,6 +22,8 @@ use Xeviant\Paystack\Api\Transactions;
 use Xeviant\Paystack\Api\TransferRecipients;
 use Xeviant\Paystack\Api\Transfers;
 use Xeviant\Paystack\Client;
+use Xeviant\Paystack\Exception\BadMethodCallException;
+use Xeviant\Paystack\Exception\InvalidArgumentException;
 
 final class ClientTest extends TestCase
 {
@@ -78,24 +81,22 @@ final class ClientTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Xeviant\Paystack\Exception\InvalidArgumentException
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
     {
+        $this->expectException(InvalidArgumentException::class);
         $client = new Client();
         $client->api('this_doesnt_exist');
     }
 
     /**
      * @test
-     * @expectedException \Xeviant\Paystack\Exception\BadMethodCallException
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
     {
+        $this->expectException(BadMethodCallException::class);
         $client = new Client();
         $client->doesNotExist();
     }
