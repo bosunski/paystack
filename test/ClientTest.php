@@ -3,7 +3,6 @@
 namespace Xeviant\Paystack\Tests;
 
 use Http\Client\HttpClient;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Xeviant\Paystack\Api\Balance;
 use Xeviant\Paystack\Api\Bank;
 use Xeviant\Paystack\Api\BulkCharges;
