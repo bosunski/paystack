@@ -75,7 +75,7 @@ class Transactions extends AbstractApi implements ModelAware
      */
     public function charge(array $parameters)
     {
-        $this->validator->setRequiredParameters([]);
+        $this->validator->setRequiredParameters(['authorization_code', 'amount', 'email']);
 
         if ($this->validator->checkParameters($parameters)) {
             if (isset($parameters['queue']) && $this->validator->contains(['queue' => (string) $parameters['queue']], self::BOOLEANS)) {
