@@ -194,7 +194,7 @@ class Invoices extends AbstractApi implements ModelAware
             $response = $this->post(self::BASE_PATH, $parameters);
 
             if ($response['status'] ?? null) {
-                $this->fire(PaystackEventType::INVOICE_CREATED, $response['data']);
+                $this->fire(PaystackEventType::INVOICE_CREATED, $response['data'] ?? null);
             } else {
                 $this->fire(PaystackEventType::INVOICE_FAILED, $response['data'] ?? null);
             }
