@@ -44,10 +44,10 @@ class TransactionsTest extends ApiTestCase
     public function shouldChargeReturningCustomer()
     {
         $input = [
-                'amount'             => 20000,
-                'email'              => 'customer@email.com',
-                'reference'          => '0bxco8lyc2aa0fq',
-                'authorization_code' => 'AUTH_72btv547',
+            'amount'             => 20000,
+            'email'              => 'customer@email.com',
+            'reference'          => '0bxco8lyc2aa0fq',
+            'authorization_code' => 'AUTH_72btv547',
         ];
 
         $expectedResult = ['data' => ['amount' => 5000]];
