@@ -30,7 +30,7 @@ class IntegrationTest extends ApiTestCase
         $expectedResult = ['data' => ['payment_session_timeout' => 30]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/payment_session_timeout')
             ->willReturn($expectedResult);
@@ -47,7 +47,7 @@ class IntegrationTest extends ApiTestCase
         $expectedResult = ['data' => ['payment_session_timeout' => 60]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with(self::PATH.'/payment_session_timeout')
             ->willReturn($expectedResult);
@@ -62,7 +62,7 @@ class IntegrationTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Integration::class, $api);
+        $this->assertInstanceOf(Integration::class, $api);
     }
 
     /**

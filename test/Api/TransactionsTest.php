@@ -30,7 +30,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['amount' => 50000]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction/verify/'.$reference)
             ->willReturn($expectedResult);
@@ -53,7 +53,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['amount' => 5000]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/transaction/charge_authorization', $input)
             ->willReturn($expectedResult);
@@ -75,7 +75,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['authorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/transaction/initialize', $input)
             ->willReturn($expectedResult);
@@ -95,7 +95,7 @@ class TransactionsTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction')
             ->willReturn($finalResult);
@@ -112,7 +112,7 @@ class TransactionsTest extends ApiTestCase
         $id = 123;
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction/'.$id)
             ->willReturn($expectedResult);
@@ -129,7 +129,7 @@ class TransactionsTest extends ApiTestCase
         $id = 'x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction/timeline/'.$id)
             ->willReturn($expectedResult);
@@ -145,7 +145,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['total_transactions' => 900]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction/totals')
             ->willReturn($expectedResult);
@@ -160,7 +160,7 @@ class TransactionsTest extends ApiTestCase
     {
         $expectedResult = ['data' => ['path' => 'https://example.com/file.csv']];
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/transaction/export')
             ->willReturn($expectedResult);
@@ -182,7 +182,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['reauthorization_url' => 'https://checkout.paystack.com/0peioxfhpn']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/transaction/request_reauthorization', $input)
             ->willReturn($expectedResult);
@@ -204,7 +204,7 @@ class TransactionsTest extends ApiTestCase
         $expectedResult = ['data' => ['amount' => 400]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/transaction/check_authorization', $input)
             ->willReturn($expectedResult);
@@ -219,7 +219,7 @@ class TransactionsTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Transactions::class, $api);
+        $this->assertInstanceOf(Transactions::class, $api);
     }
 
     /**

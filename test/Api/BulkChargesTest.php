@@ -31,7 +31,7 @@ class BulkChargesTest extends ApiTestCase
         $bulkChargeId = 'BCH_180tl7oq7cayggh';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$bulkChargeId)
             ->willReturn($expectedResult);
@@ -48,7 +48,7 @@ class BulkChargesTest extends ApiTestCase
         $bulkChargeId = 'BCH_180tl7oq7cayggh';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/pause/'.$bulkChargeId)
             ->willReturn($expectedResult);
@@ -65,7 +65,7 @@ class BulkChargesTest extends ApiTestCase
         $bulkChargeId = 'BCH_180tl7oq7cayggh';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/resume/'.$bulkChargeId)
             ->willReturn($expectedResult);
@@ -82,7 +82,7 @@ class BulkChargesTest extends ApiTestCase
         $bulkChargeId = 'BCH_180tl7oq7cayggh';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$bulkChargeId.'/charges')
             ->willReturn($expectedResult);
@@ -98,7 +98,7 @@ class BulkChargesTest extends ApiTestCase
         $expectedResult = collect(['data' => [['batch_code' => 'BCH_180tl7oq7cayggh']]]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($expectedResult);
@@ -115,7 +115,7 @@ class BulkChargesTest extends ApiTestCase
         $input = [['authorization' => 'AUTH_n95vpedf']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -130,7 +130,7 @@ class BulkChargesTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(BulkCharges::class, $api);
+        $this->assertInstanceOf(BulkCharges::class, $api);
     }
 
     /**

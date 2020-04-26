@@ -47,7 +47,7 @@ class ChargeTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -73,7 +73,7 @@ class ChargeTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/submit_pin', $input)
             ->willReturn($expectedResult);
@@ -99,7 +99,7 @@ class ChargeTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/submit_otp', $input)
             ->willReturn($expectedResult);
@@ -125,7 +125,7 @@ class ChargeTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/submit_phone', $input)
             ->willReturn($expectedResult);
@@ -151,7 +151,7 @@ class ChargeTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/submit_birthday', $input)
             ->willReturn($expectedResult);
@@ -174,7 +174,7 @@ class ChargeTest extends ApiTestCase
         $reference = '0t4gwo2ft6q0n9h';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$reference)
             ->willReturn($expectedResult);
@@ -189,7 +189,7 @@ class ChargeTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Charge::class, $api);
+        $this->assertInstanceOf(Charge::class, $api);
     }
 
     /**

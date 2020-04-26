@@ -30,7 +30,7 @@ class BalanceTest extends ApiTestCase
         $expectedResult = ['data' => [['balance' => 123000]]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($expectedResult);
@@ -45,7 +45,7 @@ class BalanceTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Balance::class, $api);
+        $this->assertInstanceOf(Balance::class, $api);
     }
 
     /**

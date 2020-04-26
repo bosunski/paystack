@@ -31,7 +31,7 @@ class BvnTest extends ApiTestCase
         $bvn = '21212917741';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/resolve_bvn/'.$bvn)
             ->willReturn($expectedResult);
@@ -48,7 +48,7 @@ class BvnTest extends ApiTestCase
         $bin = '539983';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/decision/bin/'.$bin)
             ->willReturn($expectedResult);
@@ -68,7 +68,7 @@ class BvnTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/resolve?'.http_build_query($accountDetails))
             ->willReturn($expectedResult);
@@ -89,7 +89,7 @@ class BvnTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/verifications', $input)
             ->willReturn($expectedResult);
@@ -104,7 +104,7 @@ class BvnTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Bvn::class, $api);
+        $this->assertInstanceOf(Bvn::class, $api);
     }
 
     /**

@@ -90,7 +90,7 @@ class AbstractApiTest extends ApiTestCase
         $expectedValue = ['value'];
 
         $httpClient = $this->getHttpMethodsMock(['patch']);
-        $httpClient->expects(self::once())
+        $httpClient->expects($this->once())
             ->method('patch')
             ->with('/path', ['option1' => 'option1value'], json_encode(['param1' => 'param1value']))
             ->willReturn($this->getPSR7Response($expectedValue));
@@ -98,7 +98,7 @@ class AbstractApiTest extends ApiTestCase
         $client = $this->getMockBuilder(Client::class)
             ->setMethods(['getHttpClient'])
             ->getMock();
-        $client->expects(self::any())
+        $client->expects($this->any())
             ->method('getHttpClient')
             ->willReturn($httpClient);
 
@@ -119,7 +119,7 @@ class AbstractApiTest extends ApiTestCase
         $expectedValue = ['value'];
 
         $httpClient = $this->getHttpMethodsMock(['put']);
-        $httpClient->expects(self::once())
+        $httpClient->expects($this->once())
             ->method('put')
             ->with('/path', ['option1' => 'option1value'], json_encode(['param1' => 'param1value']))
             ->willReturn($this->getPSR7Response($expectedValue));
@@ -128,7 +128,7 @@ class AbstractApiTest extends ApiTestCase
             ->setMethods(['getHttpClient'])
             ->getMock();
 
-        $client->expects(self::any())
+        $client->expects($this->any())
             ->method('getHttpClient')
             ->willReturn($httpClient);
 
@@ -149,7 +149,7 @@ class AbstractApiTest extends ApiTestCase
         $expectedValue = ['value'];
 
         $httpClient = $this->getHttpMethodsMock(['delete']);
-        $httpClient->expects(self::once())
+        $httpClient->expects($this->once())
             ->method('delete')
             ->with('/path', ['option1' => 'option1value'], json_encode(['param1' => 'param1value']))
             ->willReturn($this->getPSR7Response($expectedValue));
@@ -157,7 +157,7 @@ class AbstractApiTest extends ApiTestCase
         $client = $this->getMockBuilder(Client::class)
             ->setMethods(['getHttpClient'])
             ->getMock();
-        $client->expects(self::any())
+        $client->expects($this->any())
             ->method('getHttpClient')
             ->willReturn($httpClient);
 

@@ -33,7 +33,7 @@ class SettlementsTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/settlement')
             ->willReturn($finalResult);
@@ -48,7 +48,7 @@ class SettlementsTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Settlements::class, $api);
+        $this->assertInstanceOf(Settlements::class, $api);
     }
 
     /**

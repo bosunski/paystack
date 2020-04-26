@@ -28,7 +28,7 @@ class CustomerTest extends ApiTestCase
         $expectedResult = ['data' => ['email' => 'email@example.com']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/customer/email@example.com')
             ->willReturn($expectedResult);
@@ -44,7 +44,7 @@ class CustomerTest extends ApiTestCase
         $expectedResult = collect(['data' => [['email' => 'email@example.com']]]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/customer')
             ->willReturn($expectedResult);
@@ -61,7 +61,7 @@ class CustomerTest extends ApiTestCase
         $input = $expectedResult['data'];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/customer', $input)
             ->willReturn($expectedResult);
@@ -79,7 +79,7 @@ class CustomerTest extends ApiTestCase
         $customerId = 'email@example.com';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with("/customer/$customerId", $input)
             ->willReturn($expectedResult);
@@ -97,7 +97,7 @@ class CustomerTest extends ApiTestCase
         $expectedResult = ['data' => ['first_name' => 'Example Name']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/customer/set_risk_action', $input)
             ->willReturn($expectedResult);
@@ -115,7 +115,7 @@ class CustomerTest extends ApiTestCase
         $expectedResult = ['data' => ['first_name' => 'Example Name']];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/customer/set_risk_action', $input)
             ->willReturn($expectedResult);
@@ -132,7 +132,7 @@ class CustomerTest extends ApiTestCase
         $expectedResult = ['status' => true, 'message' => 'Authorization has been disabled'];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/customer/deactivate_authorization', $input)
             ->willReturn($expectedResult);

@@ -32,7 +32,7 @@ class SubscriptionsTest extends ApiTestCase
         $subId = 'SUB_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$subId)
             ->willReturn($expectedResult);
@@ -52,7 +52,7 @@ class SubscriptionsTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($finalResult);
@@ -74,7 +74,7 @@ class SubscriptionsTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -91,7 +91,7 @@ class SubscriptionsTest extends ApiTestCase
         $expectedResult = ['message' => 'Subscription disabled successfully'];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/disable', $input)
             ->willReturn($expectedResult);
@@ -108,7 +108,7 @@ class SubscriptionsTest extends ApiTestCase
         $expectedResult = ['message' => 'Subscription enabled successfully'];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/enable', $input)
             ->willReturn($expectedResult);
@@ -123,7 +123,7 @@ class SubscriptionsTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Subscriptions::class, $api);
+        $this->assertInstanceOf(Subscriptions::class, $api);
     }
 
     /**

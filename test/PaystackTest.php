@@ -31,7 +31,7 @@ class PaystackTest extends TestCase
      */
     protected $paystack;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->paystack = new Paystack('public-key', 'secret-key');
     }

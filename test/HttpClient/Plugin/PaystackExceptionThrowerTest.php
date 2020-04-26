@@ -45,7 +45,7 @@ final class PaystackExceptionThrowerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
 
-        $promise->expects(self::once())
+        $promise->expects($this->once())
             ->method('then')
             ->willReturnCallback(function ($callback) use ($response) {
                 return $callback($response);

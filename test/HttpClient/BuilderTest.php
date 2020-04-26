@@ -17,7 +17,7 @@ final class BuilderTest extends TestCase
             ->setMethods(['addPlugin', 'removePlugin'])
             ->getMock();
 
-        $builder->expects(self::once())
+        $builder->expects($this->once())
             ->method('removePlugin')
             ->with(HeaderAppendPlugin::class);
 
@@ -34,10 +34,10 @@ final class BuilderTest extends TestCase
         $client = $this->getMockBuilder(Builder::class)
             ->setMethods(['addPlugin', 'removePlugin'])
             ->getMock();
-        $client->expects(self::once())
+        $client->expects($this->once())
             ->method('addPlugin')
-            ->with(self::isInstanceOf(HeaderAppendPlugin::class));
-        $client->expects(self::once())
+            ->with($this->isInstanceOf(HeaderAppendPlugin::class));
+        $client->expects($this->once())
             ->method('removePlugin')
             ->with(HeaderAppendPlugin::class);
 
