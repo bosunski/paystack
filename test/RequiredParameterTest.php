@@ -26,7 +26,7 @@ class RequiredParameterTest extends TestCase
      */
     private $required;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->required = new Validator();
     }

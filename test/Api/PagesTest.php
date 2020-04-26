@@ -32,7 +32,7 @@ class PagesTest extends ApiTestCase
         $id = 'xb2der';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$id)
             ->willReturn($expectedResult);
@@ -49,7 +49,7 @@ class PagesTest extends ApiTestCase
         $slug = 'xb2der';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/check_slug_availability/'.$slug)
             ->willReturn($expectedResult);
@@ -69,7 +69,7 @@ class PagesTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($finalResult);
@@ -90,7 +90,7 @@ class PagesTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -108,7 +108,7 @@ class PagesTest extends ApiTestCase
         $pageId = '3x_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with(self::PATH."/$pageId", $input)
             ->willReturn($expectedResult);
@@ -123,7 +123,7 @@ class PagesTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Pages::class, $api);
+        $this->assertInstanceOf(Pages::class, $api);
     }
 
     /**

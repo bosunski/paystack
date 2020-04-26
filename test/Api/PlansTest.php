@@ -29,7 +29,7 @@ class PlansTest extends ApiTestCase
         $plan = 'PLN_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/plan/'.$plan)
             ->willReturn($expectedResult);
@@ -45,7 +45,7 @@ class PlansTest extends ApiTestCase
         $expectedResult = collect([['integration' => 900713]]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/plan')
             ->willReturn($expectedResult);
@@ -66,7 +66,7 @@ class PlansTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/plan', $input)
             ->willReturn($expectedResult);
@@ -84,7 +84,7 @@ class PlansTest extends ApiTestCase
         $planId = 'PLN_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with("/plan/$planId", $input)
             ->willReturn($expectedResult);
@@ -99,7 +99,7 @@ class PlansTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Plans::class, $api);
+        $this->assertInstanceOf(Plans::class, $api);
     }
 
     /**

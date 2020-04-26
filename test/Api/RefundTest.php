@@ -31,7 +31,7 @@ class RefundTest extends ApiTestCase
         $reference = 'RF_X1234';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$reference)
             ->willReturn($expectedResult);
@@ -47,7 +47,7 @@ class RefundTest extends ApiTestCase
         $expectedResult = ['data' => [['integration' => 900713]]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($expectedResult);
@@ -67,7 +67,7 @@ class RefundTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -82,7 +82,7 @@ class RefundTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Refund::class, $api);
+        $this->assertInstanceOf(Refund::class, $api);
     }
 
     /**

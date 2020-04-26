@@ -32,7 +32,7 @@ class TransferRecipientsTest extends ApiTestCase
         $recipientId = 'RCP_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('delete')
             ->with(self::PATH.'/'.$recipientId)
             ->willReturn($expectedResult);
@@ -52,7 +52,7 @@ class TransferRecipientsTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($finalResult);
@@ -72,7 +72,7 @@ class TransferRecipientsTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -90,7 +90,7 @@ class TransferRecipientsTest extends ApiTestCase
         $recipientId = 'RCP_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with(self::PATH."/$recipientId", $input)
             ->willReturn($expectedResult);
@@ -105,7 +105,7 @@ class TransferRecipientsTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(TransferRecipients::class, $api);
+        $this->assertInstanceOf(TransferRecipients::class, $api);
     }
 
     /**

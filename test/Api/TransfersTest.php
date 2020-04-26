@@ -32,7 +32,7 @@ class TransfersTest extends ApiTestCase
         $transferId = 'TRF_2x5j67tnnw1t98k';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$transferId)
             ->willReturn($expectedResult);
@@ -52,7 +52,7 @@ class TransfersTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($finalResult);
@@ -73,7 +73,7 @@ class TransfersTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -96,7 +96,7 @@ class TransfersTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/bulk', $input)
             ->willReturn($expectedResult);
@@ -116,7 +116,7 @@ class TransfersTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/finalize_transfer', $input)
             ->willReturn($expectedResult);
@@ -136,7 +136,7 @@ class TransfersTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/resend_otp', $input)
             ->willReturn($expectedResult);
@@ -153,7 +153,7 @@ class TransfersTest extends ApiTestCase
         $input = [];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/disable_otp', $input)
             ->willReturn($expectedResult);
@@ -170,7 +170,7 @@ class TransfersTest extends ApiTestCase
         $input = [];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/enable_otp', $input)
             ->willReturn($expectedResult);
@@ -189,7 +189,7 @@ class TransfersTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/disable_otp_finalize', $input)
             ->willReturn($expectedResult);
@@ -204,7 +204,7 @@ class TransfersTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Transfers::class, $api);
+        $this->assertInstanceOf(Transfers::class, $api);
     }
 
     /**

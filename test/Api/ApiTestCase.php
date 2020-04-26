@@ -38,7 +38,7 @@ abstract class ApiTestCase extends TestCase
         $httpClient = $this->getMockBuilder(HttpClient::class)
             ->setMethods(['sendRequest'])
             ->getMock();
-        $httpClient->expects(self::any())
+        $httpClient->expects($this->any())
             ->method('sendRequest');
 
         $client = Client::createWithHttpClient($httpClient);

@@ -30,7 +30,7 @@ class BankTest extends ApiTestCase
         $expectedResult = collect(['data' => [['name' => 'Access Bank']]]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($expectedResult);
@@ -45,7 +45,7 @@ class BankTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Bank::class, $api);
+        $this->assertInstanceOf(Bank::class, $api);
     }
 
     /**

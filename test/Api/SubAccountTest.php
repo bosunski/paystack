@@ -30,7 +30,7 @@ class SubAccountTest extends ApiTestCase
         $account = 'ACC_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/subaccount/'.$account)
             ->willReturn($expectedResult);
@@ -50,7 +50,7 @@ class SubAccountTest extends ApiTestCase
         ]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with('/subaccount')
             ->willReturn($finalResult);
@@ -72,7 +72,7 @@ class SubAccountTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with('/subaccount', $input)
             ->willReturn($expectedResult);
@@ -90,7 +90,7 @@ class SubAccountTest extends ApiTestCase
         $accountId = 'ACC_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with("/subaccount/$accountId", $input)
             ->willReturn($expectedResult);
@@ -105,7 +105,7 @@ class SubAccountTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(SubAccount::class, $api);
+        $this->assertInstanceOf(SubAccount::class, $api);
     }
 
     /**

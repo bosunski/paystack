@@ -31,7 +31,7 @@ class InvoicesTest extends ApiTestCase
         $invoiceId = 'xb2der';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/'.$invoiceId)
             ->willReturn($expectedResult);
@@ -47,7 +47,7 @@ class InvoicesTest extends ApiTestCase
         $expectedResult = ['data' => ['totals' => 900713]];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/totals')
             ->willReturn($expectedResult);
@@ -64,7 +64,7 @@ class InvoicesTest extends ApiTestCase
         $invoiceId = 'xb2der';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH.'/verify/'.$invoiceId)
             ->willReturn($expectedResult);
@@ -82,7 +82,7 @@ class InvoicesTest extends ApiTestCase
         $input = [];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/notify/'.$invoiceId, $input)
             ->willReturn($expectedResult);
@@ -100,7 +100,7 @@ class InvoicesTest extends ApiTestCase
         $input = [];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/finalize/'.$invoiceId, $input)
             ->willReturn($expectedResult);
@@ -118,7 +118,7 @@ class InvoicesTest extends ApiTestCase
         $input = [];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/archive/'.$invoiceId, $input)
             ->willReturn($expectedResult);
@@ -141,7 +141,7 @@ class InvoicesTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH.'/mark_as_paid/'.$invoiceId, $input)
             ->willReturn($expectedResult);
@@ -157,7 +157,7 @@ class InvoicesTest extends ApiTestCase
         $expectedResult = collect(['data' => [['id' => 900713]]]);
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('get')
             ->with(self::PATH)
             ->willReturn($expectedResult);
@@ -181,7 +181,7 @@ class InvoicesTest extends ApiTestCase
         ];
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('post')
             ->with(self::PATH, $input)
             ->willReturn($expectedResult);
@@ -199,7 +199,7 @@ class InvoicesTest extends ApiTestCase
         $invoiceId = '3x_x123';
 
         $api = $this->getApiMock();
-        $api->expects(self::once())
+        $api->expects($this->once())
             ->method('put')
             ->with(self::PATH."/$invoiceId", $input)
             ->willReturn($expectedResult);
@@ -214,7 +214,7 @@ class InvoicesTest extends ApiTestCase
     {
         $api = $this->getApiMock();
 
-        self::assertInstanceOf(Invoices::class, $api);
+        $this->assertInstanceOf(Invoices::class, $api);
     }
 
     /**
