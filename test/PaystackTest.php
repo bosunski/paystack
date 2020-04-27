@@ -31,12 +31,12 @@ class PaystackTest extends TestCase
      */
     protected $paystack;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->paystack = new Paystack('public-key', 'secret-key');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->paystack = null;
     }
@@ -44,7 +44,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_create_a_new_instance_using_make_method()
+    public function it_can_create_a_new_instance_using_make_method(): void
     {
         $paystack = Paystack::make('public-key', 'secret-key');
         $this->assertEquals('public-key', $paystack->getPublicKey());
@@ -55,7 +55,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_create_a_new_instance_using_env_variables()
+    public function it_can_create_a_new_instance_using_env_variables(): void
     {
         $paystack = new Paystack();
         $this->assertEquals(getenv('PAYSTACK_PUBLIC_KEY'), $paystack->getPublicKey());
@@ -65,7 +65,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_set_and_get_public_and_secret_keys()
+    public function it_can_set_and_get_public_and_secret_keys(): void
     {
         $this->paystack->setPublicKey('pk_test_1234');
         $this->paystack->setSecretKey('sk_test_1234');
@@ -77,7 +77,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_throws_an_exception_when_the_public_or_secret_key_is_not_set()
+    public function it_throws_an_exception_when_the_public_or_secret_key_is_not_set(): void
     {
         $this->expectException(RuntimeException::class);
         putenv('PAYSTACK_PUBLIC_KEY');
@@ -89,7 +89,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_set_and_get_api_version()
+    public function it_can_set_and_get_api_version(): void
     {
         $this->paystack->setApiVersion('1.0');
 
@@ -99,7 +99,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_get_the_current_package_version()
+    public function it_can_get_the_current_package_version(): void
     {
         $this->assertNotEmpty($this->paystack->getPackageVersion());
     }
@@ -107,7 +107,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function it_can_create_request()
+    public function it_can_create_request(): void
     {
         $this->assertNotNull($this->paystack->customers());
     }
@@ -115,7 +115,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function if_exception_is_thrown_when_the_request_is_invalid()
+    public function if_exception_is_thrown_when_the_request_is_invalid(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->paystack->thisApiDoesNotExist();

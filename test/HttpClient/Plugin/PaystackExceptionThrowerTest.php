@@ -38,7 +38,7 @@ final class PaystackExceptionThrowerTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function shouldHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
+    public function shouldHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null): void
     {
         $request = $this->getMockForAbstractClass(RequestInterface::class);
 

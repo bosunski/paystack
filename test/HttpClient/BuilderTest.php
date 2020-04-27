@@ -11,7 +11,7 @@ final class BuilderTest extends TestCase
     /**
      * @test
      */
-    public function shouldClearHeaders()
+    public function shouldClearHeaders(): void
     {
         $builder = $this->getMockBuilder(Builder::class)
             ->setMethods(['addPlugin', 'removePlugin'])
@@ -27,7 +27,7 @@ final class BuilderTest extends TestCase
     /**
      * @test
      */
-    public function shouldAddHeaders()
+    public function shouldAddHeaders(): void
     {
         $headers = ['Header1', 'Header2'];
 
@@ -47,7 +47,7 @@ final class BuilderTest extends TestCase
     /**
      * @test
      */
-    public function appendingHeaderShouldAddAndRemovePlugin()
+    public function appendingHeaderShouldAddAndRemovePlugin(): void
     {
         $expectedHeaders = [
             'Accept' => 'application/json',

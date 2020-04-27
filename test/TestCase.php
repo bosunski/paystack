@@ -7,7 +7,7 @@ use Xeviant\Paystack\App\PaystackApplication;
 
 class TestCase extends PHPUnitTestCase
 {
-    public function createApplication()
+    public function createApplication(): PaystackApplication
     {
         return new PaystackApplication();
     }

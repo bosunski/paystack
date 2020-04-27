@@ -185,7 +185,7 @@ class ChargeTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetTransactionsApiObject()
+    public function shouldGetTransactionsApiObject(): void
     {
         $api = $this->getApiMock();
 

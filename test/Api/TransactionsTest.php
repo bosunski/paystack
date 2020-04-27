@@ -24,7 +24,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldVerifyTransactions()
+    public function shouldVerifyTransactions(): void
     {
         $reference = 'DG4uishudoq90LD';
         $expectedResult = ['data' => ['amount' => 50000]];
@@ -41,7 +41,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldChargeReturningCustomer()
+    public function shouldChargeReturningCustomer(): void
     {
         $input = [
             'amount'             => 20000,
@@ -64,7 +64,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldInitializeTransaction()
+    public function shouldInitializeTransaction(): void
     {
         $input = [
             'reference' => '7PVGX8MEk85tgeEpVDtD',
@@ -171,7 +171,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldRequestReauthorization()
+    public function shouldRequestReauthorization(): void
     {
         $input = [
             'authorization_code' => '7PVGX8MEk85tgeEpVDtD',
@@ -193,7 +193,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldCheckAuthorization()
+    public function shouldCheckAuthorization(): void
     {
         $input = [
             'authorization_code' => '7PVGX8MEk85tgeEpVDtD',
@@ -215,7 +215,7 @@ class TransactionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetTransactionsApiObject()
+    public function shouldGetTransactionsApiObject(): void
     {
         $api = $this->getApiMock();
 

@@ -90,7 +90,7 @@ class CustomerTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldWhiteListCustomer()
+    public function shouldWhiteListCustomer(): void
     {
         $customer = 'CUS_xbxb';
         $input = ['customer' => $customer, 'risk_action' => 'allow'];
@@ -108,7 +108,7 @@ class CustomerTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldBlackListCustomer()
+    public function shouldBlackListCustomer(): void
     {
         $customer = 'CUS_xbxb';
         $input = ['customer' => $customer, 'risk_action' => 'deny'];
@@ -126,7 +126,7 @@ class CustomerTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldDeactivateAuthorization()
+    public function shouldDeactivateAuthorization(): void
     {
         $input = ['authorization_code' => 'AUTH_au6hc0de'];
         $expectedResult = ['status' => true, 'message' => 'Authorization has been disabled'];

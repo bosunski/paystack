@@ -29,7 +29,7 @@ final class ClientTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotHaveToPassHttpClientToConstructor()
+    public function shouldNotHaveToPassHttpClientToConstructor(): void
     {
         $client = new Client();
 
@@ -39,7 +39,7 @@ final class ClientTest extends TestCase
     /**
      * @test
      */
-    public function shouldPassHttpClientInterfaceToConstructor()
+    public function shouldPassHttpClientInterfaceToConstructor(): void
     {
         $httpClientMock = $this->getMockBuilder(HttpClient::class)->getMock();
 
@@ -56,7 +56,7 @@ final class ClientTest extends TestCase
      * @test
      * @dataProvider getApiServiceProvider
      */
-    public function shouldGetApiInstance($apiName, $class)
+    public function shouldGetApiInstance($apiName, $class): void
     {
         $client = $this->createApplication()->make(Client::class);
 
@@ -71,7 +71,7 @@ final class ClientTest extends TestCase
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function shouldMagicallyGetApiInstance($apiName, $class)
+    public function shouldMagicallyGetApiInstance($apiName, $class): void
     {
         $client = new Client();
 
@@ -81,7 +81,7 @@ final class ClientTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotBeAbleToGetApiInstanceThatDoesntExits()
+    public function shouldNotBeAbleToGetApiInstanceThatDoesntExits(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $client = new Client();
@@ -93,7 +93,7 @@ final class ClientTest extends TestCase
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits()
+    public function shouldNotBeAbleToGetMagicApiInstanceThatDoesntExits(): void
     {
         $this->expectException(BadMethodCallException::class);
         $client = new Client();

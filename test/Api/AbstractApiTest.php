@@ -19,6 +19,7 @@ namespace Xeviant\Paystack\Tests\Api;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
 use Http\Client\Common\HttpMethodsClientInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Xeviant\Paystack\Api\AbstractApi;
 use Xeviant\Paystack\Client;
 
@@ -27,7 +28,7 @@ class AbstractApiTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldPassGETRequestToClient()
+    public function shouldPassGETRequestToClient(): void
     {
         $expectedArray = ['value'];
 
@@ -55,7 +56,7 @@ class AbstractApiTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldPassPOSTRequestToClient()
+    public function shouldPassPOSTRequestToClient(): void
     {
         $expectedResult = ['value'];
 
@@ -85,7 +86,7 @@ class AbstractApiTest extends ApiTestCase
      *
      * @throws \ReflectionException
      */
-    public function shouldPassPATCHRequestToClient()
+    public function shouldPassPATCHRequestToClient(): void
     {
         $expectedValue = ['value'];
 
@@ -114,7 +115,7 @@ class AbstractApiTest extends ApiTestCase
      *
      * @throws \ReflectionException
      */
-    public function shouldPassPUTRequestToClient()
+    public function shouldPassPUTRequestToClient(): void
     {
         $expectedValue = ['value'];
 
@@ -144,7 +145,7 @@ class AbstractApiTest extends ApiTestCase
      *
      * @throws \ReflectionException
      */
-    public function shouldPassDELETERequest()
+    public function shouldPassDELETERequest(): void
     {
         $expectedValue = ['value'];
 
@@ -168,7 +169,7 @@ class AbstractApiTest extends ApiTestCase
         $this->assertEquals($expectedValue, $actual);
     }
 
-    public function getHttpMethodsMock(array $methods = [])
+    public function getHttpMethodsMock(array $methods = []): MockObject
     {
         $methods = array_merge(['sendRequest'], $methods);
 
@@ -197,7 +198,7 @@ class AbstractApiTest extends ApiTestCase
         );
     }
 
-    protected function getAbstractApiObject($client)
+    protected function getAbstractApiObject($client): MockObject
     {
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(null)
