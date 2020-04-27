@@ -7,21 +7,30 @@ use Xeviant\Paystack\Tests\TestCase;
 
 class ModelTest extends TestCase
 {
-    public function testCanCreateModelInstance()
+    /**
+     * @test
+     */
+    public function canCreateModelInstance()
     {
         $model = $this->getModel();
 
         $this->assertNotNull($model, 'Cannot create a Model instance');
     }
 
-    public function testCanCreateModelInstanceWithAttributes()
+    /**
+     * @test
+     */
+    public function canCreateModelInstanceWithAttributes()
     {
         $model = $this->getModel(['name' => 'bosun']);
 
         $this->assertNotNull($model, 'Cannot create model instance with attributes');
     }
 
-    public function testCanRetrieveAttributes()
+    /**
+     * @test
+     */
+    public function canRetrieveAttributes()
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -29,7 +38,10 @@ class ModelTest extends TestCase
         $this->assertSame($model->getAttributes(), $attributes, 'Model did not return original attributes');
     }
 
-    public function testCanRetrieveAnAttribute()
+    /**
+     * @test
+     */
+    public function canRetrieveAnAttribute()
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -37,7 +49,10 @@ class ModelTest extends TestCase
         $this->assertSame($model->getAttribute('name'), $attributes['name'], 'Model cannot retrieve an attribute');
     }
 
-    public function testCanSetAttributesUsingFillMethod()
+    /**
+     * @test
+     */
+    public function canSetAttributesUsingFillMethod()
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -46,7 +61,10 @@ class ModelTest extends TestCase
         $this->assertSame($model->getAttributes(), $attributes, 'Model Cannot set attributes using fill method');
     }
 
-    public function testCanDynamicallyRetrievesAModelAttribute()
+    /**
+     * @test
+     */
+    public function canDynamicallyRetrievesAModelAttribute()
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -55,7 +73,10 @@ class ModelTest extends TestCase
         $this->assertSame($model->name, $attributes['name'], 'Model cannot retrieve attribute dynamically.');
     }
 
-    public function testModelWillReturnNullIfAttributeNotExists()
+    /**
+     * @test
+     */
+    public function modelWillReturnNullIfAttributeNotExists()
     {
         $model = $this->getModel([]);
         $this->assertNull($model->name, 'Model did not return null when attribute is not set');

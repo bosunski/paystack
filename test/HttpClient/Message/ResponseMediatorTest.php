@@ -24,7 +24,10 @@ use Xeviant\Paystack\HttpClient\Message\ResponseMediator;
 
 class ResponseMediatorTest extends TestCase
 {
-    public function testGetContent()
+    /**
+     * @test
+     */
+    public function shouldGetContent()
     {
         $body = ['foo' => 'bax'];
         $response = new Response(
@@ -36,7 +39,10 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals($body, ResponseMediator::getContent($response));
     }
 
-    public function testGetContentNotJSON()
+    /**
+     * @test
+     */
+    public function shouldGetContentNotJSON()
     {
         $body = 'foobar';
         $response = new Response(
@@ -48,7 +54,10 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals($body, ResponseMediator::getContent($response));
     }
 
-    public function testGetContentInvalidJSON()
+    /**
+     * @test
+     */
+    public function shouldGetContentInvalidJSON()
     {
         $body = 'foobar';
         $response = new Response(
@@ -60,7 +69,10 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals($body, ResponseMediator::getContent($response));
     }
 
-    public function testGetHeader()
+    /**
+     * @test
+     */
+    public function shouldGetHeader()
     {
         $header = 'application/json';
         $response = new Response(
@@ -71,7 +83,10 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals($header, ResponseMediator::getHeader($response, 'content-type'));
     }
 
-    public function testGetApiLimit()
+    /**
+     * @test
+     */
+    public function shouldGetApiLimit()
     {
         $header = 5000;
         $response = new Response(
@@ -82,7 +97,10 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals($header, ResponseMediator::getApiLimit($response));
     }
 
-    public function testExceptionIsThrownWhenApiLimitIsExceeded()
+    /**
+     * @test
+     */
+    public function shouldExceptionIsThrownWhenApiLimitIsExceeded()
     {
         $this->expectException(ApiLimitExceededException::class);
         $header = 0;
