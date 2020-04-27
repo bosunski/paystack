@@ -26,6 +26,7 @@ use Http\Message\StreamFactory;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use ReflectionException;
+use Throwable;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Config as PaystackConfig;
 use Xeviant\Paystack\Contract\ApiInterface;
@@ -193,7 +194,7 @@ class PaystackApplication extends Container implements ApplicationInterface
     {
         try {
             return $this->make($apiName);
-        } catch (BindingResolutionException $e) {
+        } catch (Throwable $e) {
             throw new InvalidArgumentException(sprintf('Undefined API called: "%s', $apiName));
         }
     }
