@@ -26,6 +26,7 @@ use Http\Message\StreamFactory;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use ReflectionException;
+use Throwable;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Config as PaystackConfig;
 use Xeviant\Paystack\Contract\ApiInterface;
@@ -194,6 +195,13 @@ class PaystackApplication extends Container implements ApplicationInterface
         try {
             return $this->make($apiName);
         } catch (BindingResolutionException $e) {
+            throw new InvalidArgumentException(sprintf('Undefined API called: "%s', $apiName));
+        } catch (Throwable $e) {
+            /**
+             * Catching the Throwable interface is not the best solution but it tends to solve the
+             * problem of tests builds failing for PHP 7.1 when \Illuminate\Contracts\Container\BindingResolutionException
+             * is not caught.
+             */
             throw new InvalidArgumentException(sprintf('Undefined API called: "%s', $apiName));
         }
     }
