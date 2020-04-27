@@ -126,7 +126,7 @@ class BulkChargesTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetBulkChargesApiObject()
+    public function shouldGetBulkChargesApiObject(): void
     {
         $api = $this->getApiMock();
 

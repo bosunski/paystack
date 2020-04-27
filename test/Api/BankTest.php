@@ -41,7 +41,7 @@ class BankTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetBankApiObject()
+    public function shouldGetBankApiObject(): void
     {
         $api = $this->getApiMock();
 

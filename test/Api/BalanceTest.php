@@ -41,7 +41,7 @@ class BalanceTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetBalanceApiObject()
+    public function shouldGetBalanceApiObject(): void
     {
         $api = $this->getApiMock();
 

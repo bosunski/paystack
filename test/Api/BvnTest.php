@@ -100,7 +100,7 @@ class BvnTest extends ApiTestCase
     /**
      * @test
      */
-    public function shouldGetBvnApiObject()
+    public function shouldGetBvnApiObject(): void
     {
         $api = $this->getApiMock();
 

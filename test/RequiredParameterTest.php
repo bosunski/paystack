@@ -17,6 +17,7 @@
 namespace Xeviant\Paystack\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Xeviant\Paystack\Exception\MissingArgumentException;
 use Xeviant\Paystack\Validator;
 
 class RequiredParameterTest extends TestCase
@@ -26,12 +27,12 @@ class RequiredParameterTest extends TestCase
      */
     private $required;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->required = new Validator();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->required = null;
     }
@@ -49,10 +50,11 @@ class RequiredParameterTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Xeviant\Paystack\Exception\MissingArgumentException
      */
-    public function shouldThrowExceptionWhenRequiredParameterIsMissing()
+    public function shouldThrowExceptionWhenRequiredParameterIsMissing(): void
     {
+        $this->expectException(MissingArgumentException::class);
+
         $values = ['name' => 'Bosun'];
         $this->required->setRequiredParameters(collect(['email']));
         $this->required->checkParameters($values);

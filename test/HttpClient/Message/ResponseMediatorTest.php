@@ -27,7 +27,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetContent()
+    public function shouldGetContent(): void
     {
         $body = ['foo' => 'bax'];
         $response = new Response(
@@ -42,7 +42,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetContentNotJSON()
+    public function shouldGetContentNotJSON(): void
     {
         $body = 'foobar';
         $response = new Response(
@@ -57,7 +57,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetContentInvalidJSON()
+    public function shouldGetContentInvalidJSON(): void
     {
         $body = 'foobar';
         $response = new Response(
@@ -72,7 +72,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetHeader()
+    public function shouldGetHeader(): void
     {
         $header = 'application/json';
         $response = new Response(
@@ -86,7 +86,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetApiLimit()
+    public function shouldGetApiLimit(): void
     {
         $header = 5000;
         $response = new Response(
@@ -100,7 +100,7 @@ class ResponseMediatorTest extends TestCase
     /**
      * @test
      */
-    public function shouldExceptionIsThrownWhenApiLimitIsExceeded()
+    public function shouldExceptionIsThrownWhenApiLimitIsExceeded(): void
     {
         $this->expectException(ApiLimitExceededException::class);
         $header = 0;

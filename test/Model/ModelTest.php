@@ -10,7 +10,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canCreateModelInstance()
+    public function canCreateModelInstance(): void
     {
         $model = $this->getModel();
 
@@ -20,7 +20,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canCreateModelInstanceWithAttributes()
+    public function canCreateModelInstanceWithAttributes(): void
     {
         $model = $this->getModel(['name' => 'bosun']);
 
@@ -30,7 +30,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canRetrieveAttributes()
+    public function canRetrieveAttributes(): void
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -41,7 +41,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canRetrieveAnAttribute()
+    public function canRetrieveAnAttribute(): void
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -52,7 +52,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canSetAttributesUsingFillMethod()
+    public function canSetAttributesUsingFillMethod(): void
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -64,7 +64,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function canDynamicallyRetrievesAModelAttribute()
+    public function canDynamicallyRetrievesAModelAttribute(): void
     {
         $attributes = ['name' => 'bosun'];
         $model = $this->getModel($attributes);
@@ -76,7 +76,7 @@ class ModelTest extends TestCase
     /**
      * @test
      */
-    public function modelWillReturnNullIfAttributeNotExists()
+    public function modelWillReturnNullIfAttributeNotExists(): void
     {
         $model = $this->getModel([]);
         $this->assertNull($model->name, 'Model did not return null when attribute is not set');
