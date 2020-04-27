@@ -36,7 +36,10 @@ class RequiredParameterTest extends TestCase
         $this->required = null;
     }
 
-    public function testShouldSetAndGetRequiredParameters(): void
+    /**
+     * @test
+     */
+    public function shouldSetAndGetRequiredParameters(): void
     {
         $requiredParameters = collect(['name', 'email']);
         $this->required->setRequiredParameters($requiredParameters);
@@ -48,7 +51,7 @@ class RequiredParameterTest extends TestCase
      * @test
      * @expectedException \Xeviant\Paystack\Exception\MissingArgumentException
      */
-    public function testShouldThrowExceptionWhenRequiredParameterIsMissing()
+    public function shouldThrowExceptionWhenRequiredParameterIsMissing()
     {
         $values = ['name' => 'Bosun'];
         $this->required->setRequiredParameters(collect(['email']));
@@ -56,9 +59,9 @@ class RequiredParameterTest extends TestCase
     }
 
     /**
-     * @return void
+     * @test
      */
-    public function testShouldNotThrowExceptionWhenRequiredParameterIsPresent(): void
+    public function shouldNotThrowExceptionWhenRequiredParameterIsPresent(): void
     {
         $values = ['name' => 'Bosun'];
         $this->required->setRequiredParameters(collect(['name']));

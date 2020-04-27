@@ -44,7 +44,7 @@ class PaystackTest extends TestCase
     /**
      * @test
      */
-    public function test_it_can_create_a_new_instance_using_make_method()
+    public function it_can_create_a_new_instance_using_make_method()
     {
         $paystack = Paystack::make('public-key', 'secret-key');
         $this->assertEquals('public-key', $paystack->getPublicKey());
@@ -52,14 +52,20 @@ class PaystackTest extends TestCase
         $this->assertEquals('1.0', $paystack->getApiVersion());
     }
 
-    public function test_it_can_create_a_new_instance_using_env_variables()
+    /**
+     * @test
+     */
+    public function it_can_create_a_new_instance_using_env_variables()
     {
         $paystack = new Paystack();
         $this->assertEquals(getenv('PAYSTACK_PUBLIC_KEY'), $paystack->getPublicKey());
         $this->assertEquals(getenv('PAYSTACK_SECRET_KEY'), $paystack->getSecretKey());
     }
 
-    public function test_it_can_set_and_get_public_and_secret_keys()
+    /**
+     * @test
+     */
+    public function it_can_set_and_get_public_and_secret_keys()
     {
         $this->paystack->setPublicKey('pk_test_1234');
         $this->paystack->setSecretKey('sk_test_1234');
@@ -68,7 +74,10 @@ class PaystackTest extends TestCase
         $this->assertEquals('pk_test_1234', $this->paystack->getPublicKey());
     }
 
-    public function test_it_throws_an_exception_when_the_public_or_secret_key_is_not_set()
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_the_public_or_secret_key_is_not_set()
     {
         $this->expectException(RuntimeException::class);
         putenv('PAYSTACK_PUBLIC_KEY');
@@ -77,24 +86,36 @@ class PaystackTest extends TestCase
         new Paystack();
     }
 
-    public function test_it_can_set_and_get_api_version()
+    /**
+     * @test
+     */
+    public function it_can_set_and_get_api_version()
     {
         $this->paystack->setApiVersion('1.0');
 
         $this->assertEquals('1.0', $this->paystack->getApiVersion());
     }
 
-    public function test_it_can_get_the_current_package_version()
+    /**
+     * @test
+     */
+    public function it_can_get_the_current_package_version()
     {
         $this->assertNotEmpty($this->paystack->getPackageVersion());
     }
 
-    public function test_it_can_create_request()
+    /**
+     * @test
+     */
+    public function it_can_create_request()
     {
         $this->assertNotNull($this->paystack->customers());
     }
 
-    public function test_if_exception_is_thrown_when_the_request_is_invalid()
+    /**
+     * @test
+     */
+    public function if_exception_is_thrown_when_the_request_is_invalid()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->paystack->thisApiDoesNotExist();

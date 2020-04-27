@@ -29,6 +29,8 @@ use Xeviant\Paystack\HttpClient\Plugin\PaystackExceptionThrower;
 final class PaystackExceptionThrowerTest extends TestCase
 {
     /**
+     * @test
+     *
      * @param ResponseInterface       $response
      * @param ExceptionInterface|null $exception
      *
@@ -36,7 +38,7 @@ final class PaystackExceptionThrowerTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
+    public function shouldHandleRequest(ResponseInterface $response, ExceptionInterface $exception = null)
     {
         $request = $this->getMockForAbstractClass(RequestInterface::class);
 
