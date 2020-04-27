@@ -11,6 +11,7 @@ env:
     - TEST_COMMAND="vendor/bin/phpunit --verbose --coverage-text"
 
 php:
+  - 7.1
   - 7.2
   - 7.3
   - 7.4
