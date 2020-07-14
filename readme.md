@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    [![Test on PHPSandbox](https://phpsandbox.io/img/brand/badge.png)](https://phpsandbox.io/n/ndzJVN5rPp7ZkY9O)
+    <a href="https://phpsandbox.io/n/ndzJVN5rPp7ZkY9O"><img src="https://phpsandbox.io/img/brand/badge.png" alt="PHPSandbox Notebook"></a>
     <a href="https://travis-ci.org/bosunski/paystack"><img src="https://travis-ci.com/bosunski/paystack.svg?branch=master" alt="Build Status"></a>
     <a href="https://github.com/bosunski/paystack/releases"><img src="https://img.shields.io/packagist/v/xeviant/paystack.svg" alt="Latest Release"></a>
     <a href="https://packagist.org/xeviant/paystack"><img src="https://img.shields.io/packagist/dt/xeviant/paystack.svg" alt="Downloads"></a>
