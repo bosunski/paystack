@@ -12,10 +12,28 @@
 </p>
 
 ------
+## Installation
+```php
+composer require xeviant/paystack
+```
+
+## Usage
+```php
+    use Xeviant\Paystack\Paystack;
+
+    $paystack = new Paystack('YOUR_PUBLIC_KEY', 'YOUR_SECRET_KEY');
+    
+    $customers = $paystack->customers()->list();
+```
 
 ## Documentation
 
 For full documentation, visit the Docs [Here](https://paystack-client.herokuapp.com).
+
+## Testing
+```
+composer test
+```
 
 ## Contributing
 
