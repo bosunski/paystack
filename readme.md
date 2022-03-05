@@ -1,4 +1,6 @@
-<p align="center">
+This project has been moved to https://github.com/xeviant/paystack.
+
+<!-- <p align="center">
     <a href="https://paystack.com/" target="_blank"><img width="200" src="https://s3-eu-west-1.amazonaws.com/pstk-blog-staging/images/articles/Paystack-mark.png"></a><br>
     A simple, fluent and stable PHP Client for Paystack API coming to you with ALL of Paystack at your disposal!
 </p>
@@ -19,4 +21,4 @@ For full documentation, visit the Docs [Here](https://paystack-client.herokuapp.
 
 ## Contributing
 
-If you're interested in contributing to this project, don't wait, fork it and make a PR!
+If you're interested in contributing to this project, don't wait, fork it and make a PR! -->
